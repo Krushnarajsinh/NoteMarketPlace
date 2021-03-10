@@ -1,0 +1,2251 @@
+/*===============================
+              Mobile Menu
+===================================*/
+.navbar-header {
+    position: relative;
+}
+
+#mobile-nav-open-btn {
+    visibility: visible;
+    font-size: 30px;
+    color: #6255a5;
+    cursor: pointer;
+    z-index: 2;
+    position: absolute;
+    display: none;
+    right: 0%;
+}
+
+.navbar-movable #mobile-nav-open-btn {
+    right: 6%;
+}
+
+#mobile-nav {
+    /* by defalut,  mobile nav will be hidden with height 0% */
+    width: 100%;
+    height: 0%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    background-color: rgba(255, 255, 255, 0.9);
+    -webkit-transition: all 300ms linear;
+    transition: all 300ms linear;
+    overflow-y: hidden;
+}
+
+
+#mobile-nav img {
+    width: 55px;
+    height: 55px;
+    position: absolute;
+    right: 0%;
+    left: -15px;
+}
+
+
+#mobile-nav-close-btn {
+    font-family: "Open Sans", sans-serif;
+    font-size: 70px;
+    color: #212226;
+    font-weight: 400;
+    cursor: pointer;
+    position: absolute;
+    top: -9px;
+    right: 13px;
+    -webkit-transition: .3s;
+    transition: .3s;
+}
+
+#mobile-nav-content {
+    text-align: center;
+    width: 100%;
+    margin-top: 30px;
+    position: relative;
+    top: 10%;
+
+}
+
+#mobile-nav ul li {
+    margin-bottom: 20px;
+}
+
+#mobile-nav ul li a:hover,
+#mobile-nav ul li a:focus {
+    color: #6255a5;
+    border: none !important;
+    border-bottom: 3px solid #6255a5;
+}
+
+#mobile-nav ul li #mybtn {
+    margin-bottom: 20px;
+    background-color: #6255a5;
+    color: #fff;
+}
+
+#mobile-nav a {
+    font-family: "Open Sans", sans-serif;
+    font-size: 20px;
+    color: #212226;
+    font-weight: 400;
+    display: inline;
+    -webkit-transition: .3s;
+    transition: .3s;
+}
+
+/*===============================
+ for table scroll in small size screen
+================================*/
+@media(max-width:1199.98px) {
+    .table-responsive-xl {
+        display: block !important;
+        width: 100% !important;
+        overflow-x: auto !important;
+    }
+}
+
+/*===============================
+    1200 and up(for large devices)
+================================*/
+@media (min-width: 1200px) and (max-width: 1440px) {
+
+    /*Sign Up*/
+    .brief p span i {
+        font-size: 15px !important;
+    }
+
+    /*User Profile*/
+    .user-form .wrapper {
+        position: relative
+    }
+
+    .user-form .wrapper img {
+        position: absolute;
+        top: 15px !important;
+        left: 87% !important;
+    }
+
+    /* Search Notes */
+    #search-background {
+        width: 1180px !important;
+        height: 181px;
+    }
+
+    #search-background .search-bar .form-control {
+        /*  width: 1235px !important;*/
+        width: 980px !important;
+    }
+
+
+    .selection {
+        /*  padding: 0px 60px 30px 10px; */
+        padding-left: 15px;
+        padding-right: 200px;
+        padding-bottom: 10px;
+    }
+
+    .selection .inputselect {
+        /*width: 190px !important;*/
+        width: 150px !important;
+    }
+
+    /*To Arrange backgroundes*/
+    .notes {
+        width: 340px;
+    }
+
+    .notes .notes-img img {
+        width: 340px;
+    }
+
+    /*For Notes Type */
+    .notes-type h3 {
+
+        font-size: 16px;
+        line-height: 20px;
+        margin: 30px 30px 0px 30px;
+    }
+
+    .notes-type h3.extra {
+        margin-bottom: 40px;
+    }
+
+    .notes-info {
+        margin-top: 20px;
+        margin-left: 30px;
+
+    }
+
+    .notes-info ul {
+        list-style-type: none;
+    }
+
+    .info-list li {
+        padding-bottom: 15px;
+    }
+
+    .info-list li span {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 18px;
+    }
+
+    /* DashBoard Page */
+    .btn-merge #mybt {
+        /*    margin-left: 250px;*/
+        margin-left: 68% !important;
+    }
+
+    /*Add Notes(General) */
+    .top-head {
+        font-size: 45px !important;
+        margin-left: -80px !important;
+    }
+
+    /* FAQs */
+    .top-faq {
+        font-size: 32px !important;
+        margin-left: -190px !important;
+    }
+
+    /*Buyer Request */
+    table th {
+        font-size: 14px;
+    }
+
+    table td {
+        font-size: 14px;
+    }
+}
+
+/*===============================
+ 991 To 1200(For Medium Devices)
+================================*/
+@media (min-width: 991px) and (max-width: 1200px) {
+
+    /*Login Page*/
+    .logo img {
+        margin-left: 25% !important;
+    }
+
+    #login_form {
+        width: 50% !important;
+    }
+
+    /*Sign Up*/
+    #signup .btn-primary,
+    #forgot-password .btn-primary {
+        width: 90% !important;
+    }
+
+    #change-password .btn-primary {
+        width: 97% !important;
+    }
+
+    /*Home Page */
+    #top-img .home-content .bold-text h1 {
+        font-size: 40px;
+        line-height: 50px;
+    }
+
+    #top-img .home-content .spare-text p {
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 25px;
+        margin-left: -10px;
+    }
+
+    #top-img .home-content .btn-primary {
+        width: 150px;
+        margin-top: 20px;
+        font-size: 16px;
+        font-style: 600;
+    }
+
+    /*To Change Header*/
+    .altbar {
+        padding-top: 25px !important;
+        padding-left: 8% !important;
+        padding-right: 9% !important;
+    }
+
+    ul.navbar-nav > li > a {
+        font-size: 14px !important;
+    }
+
+    .white-nav-top-1 ul.navbar-nav > li > a {
+        font-size: 14px !important;
+    }
+
+    #mynavbtn {
+        width: 70px !important;
+        font-size: 14px !important;
+    }
+
+    #about h2 {
+        font-size: 30px;
+    }
+
+    #about p {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+    }
+
+    #how-work .home-background .myimg img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+
+    }
+
+    #how-work h3 {
+        font-size: 22px;
+        line-height: 25px;
+    }
+
+    #how-work p {
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 22px;
+    }
+
+    #how-work .home-background .btn-home {
+        width: 175px;
+        font-size: 16px;
+    }
+
+    #how-work .home-background .my-btn {
+        margin-left: 175px;
+    }
+
+    #home-customer .cus-feedback h3 {
+        font-size: 20px;
+        line-height: 30px;
+    }
+
+    #home-customer .head-details h3 {
+        padding-left: 35px;
+    }
+
+    #home-customer .cus-feedback p {
+        font-size: 14px;
+        line-height: 25px;
+        padding-left: 35px;
+    }
+
+    #home-customer .cus-feedback .feedback-text p {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 25px;
+        color: #333333;
+        margin-top: 15px;
+        margin-left: 0;
+        margin-bottom: 0;
+    }
+
+    /* User Profile */
+    .navbar {
+        padding-top: 25px !important;
+        padding-left: 6% !important;
+        padding-right: % !important;
+    }
+
+    ul.navbar-nav > li > a {
+        font-size: 14px !important;
+        padding-right: 0px;
+        padding-left: 8px;
+    }
+
+    .white-nav-top ul.navbar-nav > li > a {
+        font-size: 14px !important;
+        padding-right: 0px;
+        padding-left: 8px;
+    }
+
+    #mynavbtn {
+        width: 60px !important;
+        font-size: 12px !important;
+    }
+
+    .userprofile-user-icon img {
+        width: 35px;
+        height: 35px;
+    }
+
+    .btn-primary {
+        margin-left: 75px;
+    }
+
+    .top-center h2 {
+        left: 450px;
+        font-size: 40px;
+    }
+
+    /*To Set calender*/
+    .user-form .wrapper {
+        position: relative;
+
+    }
+
+    /* This is still remaining*/
+    .user-form .wrapper img {
+        position: absolute;
+        top: 15px !important;
+        left: 360px !important;
+    }
+
+    /*Search Page*/
+    #search-background .search-bar .form-control {
+        width: 780px !important;
+    }
+
+    .selection .inputselect {
+
+        width: 110px !important;
+        margin-left: 24px;
+
+    }
+
+    .notes {
+        width: 280px;
+        height: 553px;
+    }
+
+    .notes .notes-img img {
+        width: 280px;
+        height: 253px;
+    }
+
+    .notes-type h3 {
+
+        font-size: 12px;
+        line-height: 20px;
+        margin: 30px 30px 0px 30px;
+    }
+
+    .notes-type h3.extra {
+        margin-bottom: 40px;
+    }
+
+    .notes-info {
+        margin-top: 20px;
+        margin-left: 30px;
+
+    }
+
+    .info-list li {
+        padding-bottom: 15px;
+    }
+
+    .info-list li span {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 18px;
+    }
+
+    /*To set stars and review */
+    .stars p {
+        font-size: 14px;
+
+    }
+
+    .stars {
+        margin-left: 10px;
+    }
+
+
+    /*For Notes Type */
+
+
+    /*Notes-Details */
+
+    #notes-details .myimg img {
+        height: 380px;
+        width: 260px;
+    }
+
+    #notes-details h2 {
+        font-size: 32px;
+        line-height: 35px;
+    }
+
+    #notes-details h5 {
+        font-size: 14px !important;
+        line-height: 20px;
+
+    }
+
+    #notes-details p {
+        font-size: 14px !important;
+        margin-bottom: 0px;
+    }
+
+    #notes-details .btn-primary {
+        width: 180px;
+        font-size: 16px;
+    }
+
+    #notes-details .left-side h5 {
+        font-size: 14px !important;
+        font-weight: 400;
+        line-height: 32px;
+        margin-bottom: 10px !important;
+    }
+
+    #notes-details .right-side h5,
+    #notes-details .right-side .reviews {
+        font-size: 14px !important;
+        font-weight: 600;
+        line-height: 32px;
+        color: #6255a5;
+        margin-bottom: 10px;
+    }
+
+    #notes-details .inappropriate p {
+        font-size: 14px;
+    }
+
+    #notes-details .margin-top {
+        padding-left: 40px;
+    }
+
+    /*For PopUp background*/
+    #exampleModal h3 {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    #exampleModal h2 {
+        font-size: 24px;
+    }
+
+    #exampleModal p {
+        margin-bottom: 30px;
+    }
+
+    /* upto this */
+    #notes-preview h5 {
+        font-size: 16px;
+        line-height: 24px;
+        margin-left: 25px;
+    }
+
+    #notes-preview p {
+        font-size: 14px;
+        line-height: 22px;
+        margin-left: 25px;
+    }
+
+    .stras-padding {
+        margin-left: 10px;
+    }
+
+    #notes-preview .customers {
+        margin-left: -15px;
+    }
+
+
+    /*My Downloads & Dashboard*/
+
+    .btn-merge #mybt {
+        margin-left: 60% !important;
+        font-size: 16px !important;
+        width: 110px !important;
+    }
+
+    .userprofile-user-icon {
+        margin-left: 5px !important;
+        margin-right: 5px;
+    }
+
+    .dropdown-item {
+        font-size: 14px;
+    }
+
+    /*FAQ*/
+    /*This may remains*/
+    .top-faq {
+        font-size: 30px !important;
+        margin-left: -190px !important;
+    }
+
+    /*Contact Us(General)*/
+    .top-head {
+        font-size: 40px !important;
+        margin-left: -80px !important;
+    }
+}
+
+/*===============================
+ 768 To 991(For Medium & small Devices)
+================================*/
+@media (min-width: 768px) and (max-width: 991px) {
+
+    /*Login Page*/
+    .logo img {
+        margin-left: 20% !important;
+    }
+
+    #login_form {
+        width: 50% !important;
+    }
+
+    /*Sign Up*/
+    #signup .brief p {
+        margin-left: -40px;
+        font-size: 14px !important;
+    }
+
+    #signup .brief p i {
+        font-size: 16px !important;
+    }
+
+    #signup .btn-primary,
+    #forgot-password .btn-primary {
+        width: 90% !important;
+    }
+
+    #change-password .btn-primary {
+        width: 97% !important;
+    }
+
+    /*For Header*/
+    .navbar-header img {
+        width: 90%;
+        margin-left: -15px;
+
+    }
+
+    .navbar {
+        padding-top: 25px;
+        padding-left: 4% !important;
+        padding-right: 8% !important;
+    }
+
+    .navbar-brand {
+        padding: 20px 0px !important;
+    }
+
+    ul.navbar-nav {
+        margin-right: -70px !important;
+
+    }
+
+    ul.navbar-nav > li > a {
+        font-size: 10px;
+
+        padding-right: 0px !0mportant;
+        padding-left: 0px;
+    }
+
+    .userprofile-user-icon {
+        height: 20px;
+        width: 20px;
+    }
+
+    .userprofile-user-icon img {
+        width: 20px;
+        height: 20px;
+    }
+
+    /*User-Profile icon for dashboard*/
+    .dashboard-user img {
+        transform: translateX(-5px);
+    }
+
+    /*For Button*/
+    #mynavbtn {
+        font-size: 12px !important;
+        width: 60px;
+    }
+
+    /*User Profile*/
+    .top-head {
+        font-size: 30px !important;
+        margin-left: -290px !important;
+    }
+
+    .userprofile-btn .btn-primary {
+        font-size: 16px;
+        width: 100%;
+        margin-left: 55%;
+    }
+
+    .form-control::placeholder {
+        font-size: 14px;
+    }
+
+    /*Home Page*/
+    #top-img .home-content .bold-text h1 {
+        font-size: 35px;
+        line-height: 48px;
+        margin-left: -10px;
+    }
+
+    #top-img .home-content .spare-text p {
+        font-size: 16px;
+        line-height: 23px;
+    }
+
+    /*To Change Header*/
+    .altbar {
+        padding-top: 25px !important;
+        padding-left: 8% !important;
+        padding-right: 9% !important;
+    }
+
+    .home-header ul.navbar-nav > li > a {
+        font-size: 13px !important;
+    }
+
+    .home-header .white-nav-top-1 ul.navbar-nav > li > a {
+        font-size: 13px !important;
+    }
+
+    #mynavbtn {
+        width: 70px !important;
+        font-size: 14px !important;
+    }
+
+    #about h2 {
+        font-size: 28px;
+    }
+
+    #about p {
+        font-size: 13px;
+        line-height: 19px;
+    }
+
+    #how-work h3 {
+        font-size: 20px;
+        line-height: 23px;
+    }
+
+    #how-work .home-background .btn-home {
+        width: 170px;
+        font-size: 16px;
+    }
+
+    #how-work .home-background .my-btn {
+        margin-left: 300%;
+    }
+
+    #home-customer .cus-feedback h3 {
+        font-size: 16px;
+        line-height: 28px;
+    }
+
+    #home-customer .head-details h3 {
+        padding-left: 75px;
+    }
+
+    #home-customer .cus-feedback .sub-deatials p {
+        font-size: 16px;
+        line-height: 25px;
+        padding-left: 65px;
+    }
+
+    #home-customer .cus-feedback .feedback-text p {
+        font-size: 16px;
+        line-height: 24px;
+        margin-top: 10px;
+        margin-left: -40px;
+
+    }
+
+    .cus-feedback img {
+        width: 80px;
+        height: 80px;
+        margin-left: -20px;
+    }
+
+    /*Add Notes*/
+
+    .add-notes-form .btn-primary {
+        width: 100% !important;
+    }
+
+    .btn-merge #mybt {
+        margin-left: 54% !important;
+        font-size: 14px !important;
+        width: 105px !important;
+    }
+
+    /*To set search button bottom padding*/
+    .dashboard-pa {
+        margin-bottom: -20px !important;
+    }
+
+    .left-earning h4 {
+        font-size: 20px;
+        line-height: 30px;
+    }
+
+    .left-earning h5 {
+        font-size: 16px;
+        line-height: 23px;
+    }
+
+    .left-earning p {
+        font-size: 14px;
+        line-height: 20px;
+
+    }
+
+    .note-info p {
+        font-size: 14px;
+        line-height: 20px;
+        margin-left: -20px;
+    }
+
+    .note-info h4 {
+        font-size: 20px !important;
+        line-height: 30px !important;
+        margin-left: -9px;
+    }
+
+    /*Search Page*/
+    #search-background .search-bar .form-control {
+        /* width: 600px!important;*/
+        width: 94% !important;
+        margin-left: -10px !important;
+    }
+
+    .selection .inputselect {
+
+        /*width: 90px */
+        width: 100% !important;
+        margin-left: 14px;
+
+    }
+
+    #search-background i {
+        margin-left: -10px;
+    }
+
+    .notes {
+        width: 280px;
+    }
+
+    .notes .notes-img img {
+        width: 280px;
+    }
+
+    .notes-type h3 {
+
+        font-size: 12px;
+        line-height: 20px;
+        margin: 30px 30px 0px 30px;
+    }
+
+    .notes-type h3.extra {
+        margin-bottom: 40px;
+    }
+
+    .notes-info {
+        margin-top: 20px;
+        margin-left: 30px;
+
+    }
+
+    .info-list li {
+        padding-bottom: 15px;
+    }
+
+    .info-list li span {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 18px;
+    }
+
+    /*To set stars and review */
+    .stars p {
+        font-size: 14px;
+
+    }
+
+    .stars {
+        margin-left: 10px;
+    }
+
+    /*FAQ*/
+    /*This may remains*/
+    .top-faq {
+        font-size: 25px !important;
+        margin-left: -395px !important;
+    }
+
+    .show-body h4 {
+        font-size: 15px !important;
+    }
+
+    .show-body p {
+        font-size: 12px !important;
+        line-height: 18px;
+    }
+
+    .show-header h4 {
+        font-size: 15px !important;
+    }
+
+    /*Notes Details*/
+
+    #notes-details h2 {
+        font-size: 32px;
+        line-height: 35px;
+    }
+
+
+
+    #notes-details .left-side h5 {
+        font-size: 16px !important;
+        line-height: 32px;
+        margin-bottom: 10px !important;
+    }
+
+    #notes-details .right-side h5,
+    #notes-details .right-side .reviews {
+        font-size: 16px !important;
+        line-height: 32px;
+        margin-bottom: 10px;
+    }
+
+    #notes-details .inappropriate p {
+        font-size: 16px;
+        margin-left: 35%;
+    }
+
+    #notes-details .margin-top {
+        padding-left: 40px;
+    }
+
+    /*For PopUp background*/
+    #exampleModal h3 {
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    #exampleModal h2 {
+        font-size: 24px;
+    }
+
+    #exampleModal p {
+        margin-bottom: 30px;
+    }
+
+    /* upto this */
+    #notes-preview h5 {
+        font-size: 16px;
+        line-height: 24px;
+        margin-left: 25px;
+    }
+
+    #notes-preview p {
+        font-size: 14px;
+        line-height: 22px;
+        margin-left: 25px;
+    }
+
+    .stras-padding {
+        margin-left: 10px;
+    }
+
+    #notes-preview .customers {
+        margin-left: -15px;
+    }
+
+    #Iframe-Cicis-Menu-To-Go {
+        max-width: 700px;
+    }
+
+}
+
+
+
+/*===============================
+ 768 (For extra-small devices)
+================================*/
+@media(max-width: 767.5px) {
+
+    /*Login Page*/
+    .logo img {
+        margin-left: 20% !important;
+    }
+
+    #login_form {
+        width: 70% !important;
+    }
+
+    /*Sign Up*/
+
+    #signup .btn-primary,
+    #forgot-password .btn-primary {
+        width: 90% !important;
+    }
+
+    #change-password .btn-primary {
+        width: 97% !important;
+    }
+
+    /*Mobile Menu*/
+
+    #mobile-nav-open-btn {
+        display: block;
+    }
+
+    .navbar-header {
+        width: 100%;
+    }
+
+    /*User Profile*/
+    .top-head {
+        font-size: 36px !important;
+        margin-left: -290px;
+    }
+
+    .user-form .ex-phone {
+        margin-left: -4% !important;
+    }
+
+    .userprofile-btn .btn-primary {
+        margin-left: 2%;
+    }
+
+    /*Search Page*/
+    #search-background .search-bar .form-control {
+        /* width: 600px!important;*/
+        width: 94% !important;
+        margin-left: -10px !important;
+    }
+
+    .selection .inputselect {
+        /*width: 90px */
+        width: 100% !important;
+        margin-left: 14px;
+
+    }
+
+    #search-background i {
+        margin-left: -10px;
+    }
+
+    .notes {
+        width: 100%;
+        height: 100%;
+    }
+
+    .notes .notes-img img {
+        width: 100%;
+        height: 100%
+    }
+
+    /*Add Notes*/
+    .add-notes-form .btn-primary {
+        width: 100% !important;
+    }
+
+    /*Notes Details*/
+    #notes-details .left-side h5 {
+        line-height: 32px;
+        margin-bottom: 10px !important;
+    }
+
+    #notes-details .right-side h5,
+    #notes-details .right-side .reviews {
+        line-height: 32px;
+        margin-bottom: 10px;
+    }
+
+    #notes-details .inappropriate p {
+        font-size: 16px;
+        margin-left: 35%;
+
+    }
+
+    #notes-details .margin-top {
+        padding-left: 40px;
+    }
+
+    /*For PopUp background*/
+    #exampleModal .model-data h2 {
+        font-size: 18px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    #exampleModal .model-data h3 {
+        font-size: 16px;
+        text-align: left;
+    }
+
+    #exampleModal .model-data img {
+        height: 30px;
+        width: 30px;
+    }
+
+    #exampleModal {
+        margin-top: 100px;
+    }
+
+    /* upto this */
+    #notes-preview .customers {
+        margin-left: -15px;
+    }
+
+    #Iframe-Cicis-Menu-To-Go {
+        max-width: 700px;
+    }
+
+    /*FAQ*/
+    .top-faq {
+        font-size: 28px !important;
+        margin-left: -425px !important;
+    }
+
+    .FAQ p {
+        font-size: 12px;
+    }
+
+    .FAQ h4 {
+        margin-bottom: 10px;
+    }
+
+    /*Home Page*/
+    .bold-text h1 {
+        font-size: 38px !important;
+        line-height: 45px !important;
+        margin-left: -10px;
+    }
+
+    #about h2 {
+        margin-bottom: 10px;
+    }
+
+    #about p {
+        margin-left: 10%;
+        margin-bottom: 30px !important;
+    }
+
+    /*Dashboard*/
+    .dashboard-content .rmvpadding {
+        margin-bottom: 20px;
+    }
+
+    .pagination {
+        margin-left: 30% !important;
+    }
+
+    .btn-merge #mybt {
+        margin-left: 70% !important;
+        font-size: 16px !important;
+
+    }
+
+    .top-table h3 {
+        font-size: 30px !important;
+    }
+
+    #dashboard-progress .justify-content-end,
+    #dashboard-publish .justify-content-end {
+        -webkit-box-pack: center !important;
+        -ms-flex-pack: center !important;
+        justify-content: center !important;
+    }
+
+    .top-table h3 {
+        text-align: center !important;
+    }
+
+    /*Footer*/
+    footer p {
+        margin: 0% !important;
+    }
+
+    footer ul.social-list {
+        margin-right: 0% !important;
+    }
+
+    /*This is turning point*/
+    .space-remove {
+        padding: 0px;
+    }
+
+    /*Add Notes*/
+    .add-notes-form .btn-primary {
+
+        width: 90% !important;
+    }
+
+    .add-notes-form .right-btn {
+        margin-left: 20px !important
+    }
+
+    .add-notes-form .left-btn {
+        margin-bottom: 15px !important;
+    }
+
+    .textarea-input .form-control {
+        width: 90% !important;
+        margin-left: 3%
+    }
+
+    .textarea-input .control-label {
+        margin-left: 0% !important;
+    }
+
+}
+
+/*===============================
+            Upto 577
+================================*/
+@media (max-width: 577.6px) {
+
+    /*Login & sign Up*/
+    .logo img {
+        margin-left: 10% !important;
+    }
+
+    #signup .brief p {
+        margin-left: -40px;
+        font-size: 14px !important;
+    }
+
+    #signup .brief p i {
+        font-size: 16px !important;
+    }
+
+    /*Footer*/
+    footer p {
+
+        font-size: 10px !important;
+    }
+
+    footer ul.social-list {
+        margin-right: 10%;
+    }
+
+    /*Home Page*/
+    .btn-home {
+        margin-left: -90px !important;
+    }
+
+    .head-details h3 {
+        margin-left: 10%;
+    }
+
+    .sub-deatials p {
+        margin-left: 10%;
+    }
+
+    #home-customer h2 {
+        font-size: 30px;
+    }
+
+    /*User Profile */
+    .top-head {
+        font-size: 30px !important;
+        margin-left: -70%;
+    }
+
+    .user-form h2 {
+        font-size: 25px;
+    }
+
+    .userprofile-btn .btn-primary {
+        margin-left: 4%;
+    }
+
+    /*Search Page*/
+    .search-txt h2 {
+        margin-bottom: 0px !important;
+    }
+
+    .pagination {
+        margin-left: 26% !important;
+    }
+
+    .search-bar {
+        width: 98% !important;
+    }
+
+    /*Dashboard*/
+    .btn-merge #mybt {
+        margin-left: 71% !important;
+        font-size: 14px !important;
+        width: 90px !important;
+    }
+
+    #dashboard-progress .justify-content-end,
+    #dashboard-publish .justify-content-end {
+        -webkit-box-pack: center !important;
+        -ms-flex-pack: center !important;
+        justify-content: center !important;
+
+    }
+
+    .top-table h3 {
+        text-align: center !important;
+    }
+
+    /*Notes Details*/
+    .inappropriate p {
+        margin-left: 20% !important;
+    }
+
+    /*Add Notes*/
+    .add-notes-form .btn-primary {
+
+        width: 90% !important;
+    }
+
+    .add-notes-form .right-btn {
+        margin-left: 20px !important
+    }
+
+    .add-notes-form .left-btn {
+        margin-bottom: 15px !important;
+    }
+
+    .textarea-input .form-control {
+        width: 90% !important;
+        margin-left: 5%
+    }
+
+    .textarea-input .control-label {
+        margin-left: 0% !important;
+    }
+
+    /*FAQ*/
+    .top-faq {
+        font-size: 28px !important;
+        margin-left: -500px !important;
+    }
+
+    .show-body h4 {
+        font-size: 15px !important;
+    }
+
+    .show-body p {
+        font-size: 11px !important;
+        line-height: 16px;
+    }
+
+    .show-header h4 {
+        font-size: 15px;
+    }
+
+}
+
+/*===============================
+            Upto 450
+================================*/
+@media(max-width:450.5px) {
+
+    /*Login & Sign UP*/
+    .logo img {
+        margin-left: 2% !important;
+
+    }
+
+    #signup .brief p {
+        margin-left: -60px;
+        font-size: 11px !important;
+    }
+
+    #signup .brief p i {
+        font-size: 12px !important;
+    }
+
+    #signup h2 {
+        font-size: 25px !important;
+    }
+
+    p {
+        font-size: 14px !important;
+
+    }
+
+    .control-label {
+        font-size: 14px;
+        margin-bottom: 4px;
+    }
+
+    .form-control {
+        font-size: 10px !important;
+    }
+
+    .field-icon {
+        margin-right: -10% !important;
+    }
+
+    .btn-primary {
+        font-size: 18px !important;
+    }
+
+    #Check {
+        width: 20px !important;
+    }
+
+    #form-type p {
+        font-size: 12px !important;
+    }
+
+    .forgot-password {
+        font-size: 13px;
+        margin-right: -10% !important;
+    }
+
+    #error-password p {
+        font-size: 10px !imporetant;
+        margin-left: -10px;
+    }
+
+    /*Notes Details*/
+    #notes-details h2 {
+        font-size: 22px;
+    }
+
+    #notes-details h5 {
+        font-size: 16 !important;
+
+    }
+
+    #notes-details .left-side h5 {
+        font-size: 16px !important;
+        line-height: 36px;
+    }
+
+    .inappropriate p {
+        margin-left: 0% !important;
+    }
+
+    #notes-details .btn-primary {
+        width: 180px;
+        font-size: 16px !important;
+        margin-top: -10px;
+    }
+
+    /*Add Notes*/
+    .top-head {
+        margin-left: -450px;
+        font-size: 28px !important;
+    }
+
+    .add-notes-form .btn-primary {
+        font-size: 16px !important;
+        width: 90% !important;
+    }
+
+    /*User Profile*/
+    .userprofile-btn .btn-primary {
+        margin-left: 5%;
+    }
+
+    .user-form h2 {
+        font-size: 22px;
+    }
+
+    .add-notes-form .right-btn {
+        margin-left: 20px !important;
+
+    }
+
+    .add-notes-form .left-btn {
+        margin-bottom: 15px !important;
+    }
+
+    .textarea-input .form-control {
+        width: 90% !important;
+        margin-left: 5%
+    }
+
+    .textarea-input .control-label {
+        margin-left: 0% !important;
+    }
+
+    /*FAQ*/
+    .top-faq {
+        font-size: 20px !important;
+        margin-left: -500px !important;
+    }
+
+    .show-body h4 {
+        font-size: 14px !important;
+    }
+
+    .show-body p {
+        font-size: 10px !important;
+        line-height: 15px;
+    }
+
+    .show-header h4 {
+        font-size: 14px;
+    }
+
+    /*Search Page*/
+    .pagination {
+        margin-left: 20% !important;
+    }
+
+    .search-bar {
+        width: 95% !important;
+    }
+
+    /*Home Page*/
+    .btn-home {
+        margin-left: -155px !important;
+    }
+
+    .head-details h3 {
+        margin-left: 22%;
+        font-size: 22px !important;
+        line-height: 25px !important;
+    }
+
+    .sub-deatials p {
+        margin-left: 22%;
+        font-size: 12px !important;
+        line-height: 22px !important;
+    }
+
+    #home-customer h2 {
+        font-size: 22px;
+    }
+
+    .feedback-text p {
+        margin-left: 22%;
+        font-size: 14px !important;
+        line-height: 22px !important;
+    }
+
+    /*Dashboard*/
+    .btn-merge #mybt {
+        margin-left: 65% !important;
+        font-size: 14px !important;
+        width: 90px !important;
+
+    }
+
+    #dashboard-upper {
+        /*margin: 150px 60px ;*/
+        margin-bottom: 150px;
+        margin-left: 0% !important;
+        margin-right: 0% !important;
+    }
+
+    #dashboard-progress,
+    #dashboard-publish {
+        margin-left: 0% !important;
+        margin-right: 0% !important;
+    }
+
+    #dashboard-upper h2 {
+        font-size: 32px;
+    }
+
+    #dashboard-upper #mybt {
+        width: 150px !important;
+        font-size: 16px;
+    }
+
+    #dashboard-progress .justify-content-end,
+    #dashboard-publish .justify-content-end {
+        -webkit-box-pack: center !important;
+        -ms-flex-pack: center !important;
+        justify-content: center !important;
+    }
+
+    .top-table h3 {
+        text-align: center !important;
+    }
+
+    #dashboard-progress .justify-content-end,
+    #dashboard-publish .justify-content-end {
+        margin-left: 30% !important;
+    }
+}
+
+/*===============================
+            Upto 391
+================================*/
+@media (max-width: 391.5px) {
+
+    /*Login & Sign UP*/
+    .logo img {
+        margin-left: 0px !important;
+        width: 200px !important;
+    }
+
+    #home h2 {
+        font-size: 40px;
+    }
+
+    #home p {
+        font-size: 12px !important;
+    }
+
+    #home .form-control {
+        margin-left: 1%;
+    }
+
+    #home .control-label {
+        margin-left: -6%;
+    }
+
+    .field-icon {
+        font-size: 22px;
+        margin-right: -5% !important;
+    }
+
+    .forgot-password {
+        font-size: 10px;
+        margin-right: -5% !important;
+    }
+
+    #error-password p {
+        font-size: 10px !important;
+        margin-top: -10px;
+    }
+
+    #login_form {
+        width: 80% !important;
+    }
+
+    #signup .brief p {
+        margin-left: -60px;
+        font-size: 11px !important;
+    }
+
+    #signup .brief p i {
+        font-size: 12px !important;
+    }
+
+    #signup h2 {
+        font-size: 25px !important;
+    }
+
+    #signup #login_form {
+        width: 80% !important;
+    }
+
+    #signup .form-control,
+    #change-password .form-control,
+    #forgot-password .form-control {
+        margin-left: 1% !important;
+    }
+
+    #signup .control-label,
+    #change-password .control-label,
+    #forgot-password .control-label {
+
+        margin-left: -5% !important;
+    }
+
+    #signup .btn-primary,
+    #change-password .btn-primary,
+    #forgot-password .btn-primary {
+        margin-left: 0% !important;
+
+    }
+
+    .btn-primary {
+        font-size: 18px !important;
+    }
+
+    #Check {
+        width: 20px !important;
+        margin-top: -20px;
+        margin-left: 5%;
+    }
+
+    /*General*/
+    .form-control::placeholder {
+        font-size: 13px;
+    }
+
+    .control-label {
+        font-size: 12px;
+    }
+
+    /*User Profile*/
+    .navbar-header img {
+        width: 80%;
+        margin-left: -20px;
+    }
+
+    .btn-primary {
+        width: 90%;
+    }
+
+    /*Footer*/
+    footer .end {
+        margin-top: 41px;
+    }
+
+    ul.social-list li {
+        display: inline-block;
+        padding: 0;
+    }
+
+    footer p {
+        margin: 0;
+        font-size: 9px !important;
+    }
+
+    ul.social-list li a {
+        border: none;
+        text-align: center;
+        width: 25px;
+        height: 25px;
+        background-color: #6255a5;
+        display: inline-block;
+        line-height: 35px;
+        color: #fff;
+        -webkit-transform: translateY(-10px);
+        transform: translateY(-10px);
+        border-radius: 50%;
+    }
+
+    /*Search Page*/
+    .stars {
+        margin-left: 5%;
+    }
+
+    .pagination {
+        margin-left: 16% !important;
+    }
+
+    /*Notes Details*/
+    #notes-details .left-side h5 {
+        font-size: 14px !important;
+        line-height: 30px;
+        margin-bottom: 10px !important;
+    }
+
+    #notes-details .right-side h5,
+    #notes-details .right-side .reviews {
+        font-size: 14px !important;
+        line-height: 29px;
+        margin-bottom: 10px;
+        margin-left: -17%;
+    }
+
+    #notes-details .inappropriate p {
+        font-size: 13px !important;
+        margin-left: 35%;
+    }
+
+    #notes-details .margin-top {
+        padding-left: 10px;
+    }
+
+    #notes-details {
+        margin-left: 0%;
+        margin-right: 0%;
+    }
+
+    #notes-preview {
+        margin-left: 0%;
+        margin-right: 0%;
+    }
+
+    .horizontal hr {
+        margin-left: 0%;
+        margin-right: 0%
+    }
+
+    p {
+        font-size: 12px !important;
+    }
+
+    .text-left {
+        line-height: 20px !important;
+    }
+
+    .heading h3 {
+        font-size: 20px;
+    }
+
+    /* upto this */
+    #notes-preview h5 {
+        font-size: 16px;
+        line-height: 22px;
+    }
+
+    #notes-preview p {
+        line-height: 20px;
+    }
+
+    #notes-preview .customers {
+        margin-left: 0px;
+    }
+
+    #notes-preview .cus-details {
+        padding-left: 50px;
+    }
+
+    /*Home Page*/
+    footer ul.social-list {
+        margin-right: -10% !important;
+    }
+
+    .about-right {
+        padding-right: 0%;
+        margin-right: 0% !important;
+    }
+
+    #about h2 {
+        font-size: 22px;
+    }
+
+    #top-img .home-content .bold-text h1 {
+        font-size: 30px !important;
+        line-height: 35px !important;
+
+    }
+
+    #top-img .home-content .spare-text p {
+        line-height: 20px;
+    }
+
+    #top-img .home-content .btn-primary {
+
+        width: 150px;
+        font-size: 15px !important;
+    }
+
+    h2 {
+        font-size: 20px !important;
+    }
+
+    h1 {
+        font-size: 22px !important;
+    }
+
+    h3 {
+        font-size: 18px !important;
+    }
+
+    #how-work h2 {
+        margin-bottom: -30px !important;
+
+    }
+
+    #how-work .home-background .myimg {
+        width: 100px;
+        height: 100px;
+    }
+
+    .cus-feedback img {
+        width: 80px;
+        margin-left: -10px
+    }
+
+    #how-work .home-background .btn-home {
+        width: 150px;
+        font-size: 14px;
+        margin-left: -190px !important;
+    }
+
+    #home-customer .cus-feedback h3 {
+        font-size: 16px !important;
+        line-height: 20px !important;
+        margin-left: 30%;
+    }
+
+    #home-customer .cus-feedback p {
+        line-height: 20px !important;
+        margin-left: 30%;
+    }
+
+    #home-customer .cus-feedback .feedback-text p {
+        font-size: 14px !important;
+        margin-top: 10px;
+        margin-left: -30px;
+    }
+
+    /*Email Varification*/
+    .inner-background img {
+        width: 200px !important;
+        margin-bottom: -20px;
+    }
+
+    #email-verification .btn-primary {
+        margin-top: -10px;
+        font-size: 12px !important;
+    }
+
+    /*FAQ*/
+    .top-faq {
+        font-size: 18px !important;
+        margin-left: -510px !important;
+    }
+
+    .show-body h4 {
+        font-size: 12px !important;
+    }
+
+    .show-body p {
+        font-size: 10px !important;
+        line-height: 15px;
+    }
+
+    .show-header h4 {
+        font-size: 12px;
+    }
+
+    /*DashBoard*/
+    #dashboard-progress h3,
+    #dashboard-publish h3 {
+        font-size: 20px !important;
+        line-height: 10px;
+    }
+
+    .btn-merge #mybt {
+        margin-left: 60% !important;
+    }
+
+    #dashboard-upper #mybt {
+        font-size: 15px;
+        width: 120px !important;
+    }
+
+    .left-earning h4 {
+        font-size: 18px;
+    }
+
+    .note-info h4 {
+        font-size: 18px !important;
+    }
+
+    .left-earning h5 {
+        font-family: "Open Sans", sans-serif;
+        font-size: 15px;
+        line-height: 20px;
+    }
+
+    .note-info p,
+    .left-earning p {
+        line-height: 16px;
+    }
+}
+
+/*===============================
+            Upto 280
+================================*/
+@media (max-width: 280.5px) {
+
+    /*Footer*/
+    footer .end {
+        margin-top: 41px;
+    }
+
+    ul.social-list li {
+        display: inline-block;
+        padding: 0;
+    }
+
+    footer p {
+        margin: 0;
+        font-size: 8px !important;
+    }
+
+    ul.social-list li a {
+        border: none;
+        text-align: center;
+        width: 20px !important;
+        height: 20px !important;
+
+        display: inline-block;
+        line-height: 25px;
+        -webkit-transform: translateY(-10px);
+        transform: translateY(-10px);
+        border-radius: 50%;
+    }
+
+    .top-head {
+        font-size: 20px !important;
+        margin-left: -500px;
+    }
+
+    /*Dashboard*/
+    .pagination {
+        margin-left: -10px !important;
+    }
+
+    .btn-merge #mybt {
+        margin-left: 45% !important;
+    }
+
+    .top-table .wrapper {
+        margin-left: 18%;
+    }
+
+    .note-info h4 {
+        font-size: 18px !important;
+        margin-left: -10px !important;
+    }
+
+    .left-earning h5 {
+        font-family: "Open Sans", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        margin-left: -10px !important;
+    }
+
+    .note-info p,
+    .left-earning p {
+        line-height: 16px;
+
+    }
+
+    .note-info p {
+        margin-left: -28px !important;
+    }
+
+    .left-earning img {
+        width: 50px;
+        margin-left: -15px;
+    }
+
+    /*Search Page*/
+    .stars p {
+        font-size: 9px !important;
+
+    }
+
+    .rate {
+        padding-right: 0px !important;
+    }
+
+    .stars {
+        margin-left: -5px;
+    }
+
+    /*FAQ*/
+    .top-faq {
+        font-size: 15px !important;
+        margin-left: -500px !important;
+    }
+
+    .show-body h4 {
+        font-size: 10px !important;
+        line-height: 12px;
+    }
+
+    .show-body p {
+        font-size: 8px !important;
+        line-height: 12px;
+    }
+
+    .show-header h4 {
+        font-size: 10px;
+        line-height: 12px;
+    }
+
+    /*Home Page*/
+    .home-footer ul {
+        margin-left: -20px;
+    }
+
+    .cus-feedback img {
+        width: 70px;
+        margin-left: -20px
+    }
+
+    #how-work .home-background .btn-home {
+        width: 120px;
+        font-size: 14px;
+        margin-left: -300px !important;
+    }
+
+    /*General Process*/
+    .form-control::placeholder {
+        font-size: 10px;
+    }
+
+    .field-icon {
+        font-size: 22px;
+        margin-right: -15% !important;
+    }
+
+    /*Notes Details*/
+    #notes-details .left-side h5 {
+        font-size: 12px !important;
+        margin-bottom: 5px !important;
+    }
+
+    #notes-details .right-side h5,
+    #notes-details .right-side .reviews {
+        font-size: 12px !important;
+        line-height: 29px;
+
+    }
+
+    #notes-details .inappropriate p {
+        font-size: 12px !important;
+
+    }
+
+    #notes-details .margin-top {
+        padding-left: 10px;
+        padding-right: 0px !important;
+    }
+
+    #notes-details .btn-primary {
+        width: 130px;
+        font-size: 14px !important;
+        margin-left: -10px;
+    }
+
+
+    /* upto this */
+    #notes-preview h5 {
+        font-size: 14px;
+        line-height: 20px;
+
+    }
+
+    #notes-preview p {
+        margin-left: -90px;
+    }
+
+    #notes-preview .cus-details {
+        padding-left: 50px;
+    }
+
+    .cus-details h5 {
+        margin-left: -5px !important;
+    }
+
+    .cus-details .stras-padding {
+        padding-right: 0px;
+        padding-left: 0px;
+        margin-left: -20px;
+    }
+
+    .customers img {
+        width: 80px;
+        height: 80px;
+        margin-left: -20px;
+    }
+
+    .cus-details p {
+        margin-top: 40px !important;
+    }
+
+    /*My Download*/
+    .set-label {
+        padding-left: 5% !important;
+    }
+
+}
+
+@media (max-width: 415px) {
+
+    /*Footer*/
+    footer .end {
+        margin-top: 41px;
+    }
+
+    ul.social-list li {
+        display: inline-block;
+        padding: 0;
+    }
+
+    ul.social-list li a {
+        width: 25px;
+        height: 25px;
+        color: #fff;
+        -webkit-transform: translateY(-10px);
+        transform: translateY(-10px);
+    }
+}
+
+@media(max-width:360.5px) {
+
+    /*FAQ*/
+    .top-faq {
+        font-size: 18px !important;
+        margin-left: -530px !important;
+    }
+
+    .show-body h4 {
+        font-size: 14px !important;
+        line-height: 14px;
+    }
+
+    .show-body p {
+        font-size: 9px !important;
+        line-height: 14px;
+    }
+
+    .show-header h4 {
+        font-size: 14px !important;
+        line-height: 14px !important;
+    }
+
+    /*Search Page*/
+    .pagination {
+        margin-left: 7% !important;
+    }
+
+    .stars p {
+        font-size: 12px !important;
+
+    }
+
+    .stars {
+        margin-left: -5px;
+    }
+
+    #search-background .search-bar {
+        width: 90% !important;
+    }
+
+    /*FOOTER*/
+
+    .home-footer ul.social-list li a {
+        width: 23px;
+        height: 23px;
+        color: #fff;
+        -webkit-transform: translateY(-10px);
+        transform: translateY(-10px);
+    }
+
+    #how-work .home-background .btn-home {
+        width: 120px;
+        font-size: 14px;
+        margin-left: -250px !important;
+    }
+
+    /*Notes Details*/
+    #notes-details .left-side h5 {
+        font-size: 15px !important;
+        margin-bottom: 5px !important;
+    }
+
+    #notes-details .right-side h5,
+    #notes-details .right-side .reviews {
+        font-size: 15px !important;
+    }
+
+    #notes-details .margin-top {
+        padding-left: 10px;
+        padding-right: 0px !important;
+    }
+
+    #notes-details .btn-primary {
+        width: 150px;
+        font-size: 14px !important;
+        margin-left: -5px;
+    }
+
+    .top-head {
+        margin-left: -500px;
+    }
+
+}

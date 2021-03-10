@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0 ,user-scalable=no">
+    <!-- Title -->
+    <title>Notes Marketplace</title>
+    <!-- Google Link For Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans
+             :wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Fontawesome(For icons)-->
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+    <!--bootstrap.css file-->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <!-- Custom Css file-->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        .altbar {
+            height: 100px !important;
+            padding-top: 25px;
+            padding-left: 9%;
+            padding-right: 10%;
+
+            /*for smoothing nav-bar while scrolling*/
+            -webkit-transition: all 300ms linear;
+            transition: all 300ms linear;
+        }
+
+        ul.navbar-nav>li>a {
+            font-family: "Open Sans", sans-serif;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+
+        .white-nav-top-1 {
+            background: #fff;
+            -webkit-box-shadow: 0 8px 6px -9px #999;
+            box-shadow: 0 8px 6px -9px #999;
+            z-index: 2;
+            /* background: #fff;
+    padding: 10px 0;
+    -webkit-background-shadow: 0 8px 6px -9px #999;
+    background-shadow: 0 8px 6px -9px #999;
+    z-index: 2;*/
+        }
+
+        .white-nav-top-1 ul.navbar-nav>li>a {
+            font-family: "Open Sans", sans-serif;
+            color: #333333;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .white-nav-top-1 ul.navbar-nav>li>a.brdr:hover,
+        .white-nav-top-1 ul.navbar-nav>li>a.brdr:focus {
+            border-bottom: 3px solid #6255a5;
+            color: #6255a5;
+        }
+
+        .white-nav-top-1 ul.navbar-nav>li>a:hover,
+        .white-nav-top-1 ul.navbar-nav>li>a:focus {
+            background: none;
+        }
+
+        /* Active list element get highlighted with yellow color  */
+        .white-nav-top-1 ul.navbar-nav>li.active>a {
+            /* color: #f4c613;
+    font-weight: 500; */
+            color: #000;
+        }
+
+        .white-nav-top-1 #mynavbtn {
+            background-color: #6255a5;
+            color: #fff;
+        }
+
+        #mynavbtn {
+            background-color: #fff;
+            color: #6255a5;
+            width: 80px;
+        }
+
+        .white-nav-top-1 #mynavbtn {
+            background-color: #6255a5;
+            color: #fff;
+        }
+
+        /*For Footer*/
+        footer ul.social-list {
+            padding-right: 8% !important;
+        }
+    </style>
+</head>
+
+<body data-target=".navbar">
+    <!-- Header -->
+    <header class="home-header">
+        <nav class="navbar-fixed-top altbar">
+            <div class="container-fluid">
+                <div class="site-nav-wrapper">
+                    <!--For LOGO -->
+                    <div class="navbar-header">
+                        <!--Mobile Menu Open Button -->
+                        <span id="mobile-nav-open-btn" class="open-btn">&#9776;</span>
+                        <a href="#home" class="navbar-brand-1 smooth-scroll"><img src="../img/pre-login/top-logo.png" alt="logo"></a>
+                    </div>
+                    <!--Main Menu -->
+                    <div class="cointer">
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav  pull-right">
+
+                                <li><a class="smooth-scroll brdr" href="#">Search Notes</a></li>
+                                <li><a class="smooth-scroll brdr" href="#">Sell Your Notes</a></li>
+                                <li><a class="smooth-scroll brdr" href="#">FAQ</a></li>
+                                <li><a class="smooth-scroll brdr" href="#">Contact Us</a></li>
+                                <li><a class="smooth-scroll" href="#">
+                                        <button type="submit" class="btn text-center" id="mynavbtn">Login</button>
+                                    </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--Mobile Menu-->
+                    <div id="mobile-nav">
+                        <!--Mobile Menu Close Button -->
+                        <span id="mobile-nav-close-btn">&times;</span>
+                        <div id="mobile-nav-content">
+                            <ul class="nav">
+
+                                <li><a class="smooth-scroll brdr" href="#">Search Notes</a></li>
+                                <li><a class="smooth-scroll brdr" href="#">Sell Your Notes</a></li>
+                                <li><a class="smooth-scroll brdr" href="#">Buyer Requests</a></li>
+                                <li><a class="smooth-scroll brdr" href="#">FAQ</a></li>
+                                <li><a class="smooth-scroll brdr" href="#">Contact Us</a></li>
+                                <li><a class="smooth-scroll" href="#">
+                                        <button type="submit" class="btn text-center" id="mynavbtn" style="background-color: #6255a5; color: #fff;">Login</button>
+                                    </a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- Header Ends -->
+    <!-- Home Page -->
+    <!-- Top Image -->
+    <section id="top-img">
+        <div class="container">
+            <div class="home-content">
+                <div class="row">
+                    <div class="col-md-8 col-sm-10 col-sm-8">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-xs-12">
+                                <div class="bold-text">
+                                    <h1>Download Free/Paid Notes<br>or Sale your Book</h1>
+                                </div>
+                            </div>
+                            <div class="col-md-10 col-sm-10 col-xs-12">
+                                <div class="spare-text">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus tempora est, dolor quaerat atque repellat, dolorum obcae.</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4 col-6 col-xs-4">
+                                <button type="submit" class="btn text-uppercase text-center btn-primary"><b>Learn More</b></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Top Image Ends -->
+
+    <!-- About Us -->
+    <section id="about" class="content-background-md">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 col-sm-5  left">
+                    <h2>About<br>NotesMarketPlace</h2>
+                </div>
+                <div class="col-md-7  col-sm-7 ">
+                    <div class="row about-right">
+                        <div class="col-md-12 right">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quisquam illum a, doloremque voluptatem quas et amet, explicabo consectetur sint odit, veniam minus alias omnis, nobis hic ea soluta earum voluptates. ut distinctiolorem Lorem ipsum dolor sit amet, consectetur adipisicing elit.Minus tempora est, dolor quaerat atque repellat, dolorum obcae.</p>
+                        </div>
+                        <div class="col-md-12 ">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus possimus natus unde, explicabo quod,ut distinctiolorem Lorem ipsum dolor sit amet, consectetur adipisicing elit. esse dicta laborum consequatur fuga nam incidunt quidem tenetur eum susci!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Us Ends -->
+
+    <!-- How It work -->
+    <section id="how-work">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-12 col-sm-12 col-xl-12 col-lg-12">
+                    <h2>How it Works</h2>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-6 col-sm-6">
+                    <div class="home-background">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xl-12 col-lg-12">
+                                <div class="myimg">
+                                    <img src="img/home/download.png" alt="Download" class="img-fluid">
+                                </div>
+                                <h3>Download Free/Paid Notes</h3>
+                                <p>Get Material for your<br>Cource etc.</p>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center hhh">
+                            <div class="col-md-2 col-sm-12 col-sm-2  col-xs-2">
+                                <div class="my-btn">
+                                    <button type="submit" class="btn btn-home text-uppercase text-center">download</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <div class="home-background">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xl-12 col-lg-12">
+                                <div class="myimg">
+                                    <img src="img/home/seller.png" alt="Download" class="img-fluid">
+                                </div>
+                                <h3>Seller</h3>
+                                <p>Upload and Download Cource<br>and Materials etc.</p>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center hhh">
+                            <div class="col-md-2 col-sm-12 col-sm-2 col-xs-2">
+                                <div class="my-btn">
+                                    <button type="submit" class="btn btn-home text-uppercase text-center">sell book</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--How It Work ENds -->
+
+    <!-- Customer -->
+    <section id="home-customer">
+
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xl-12 col-xs-12">
+                    <h2>What Our Customers are Saying</h2>
+                </div>
+            </div>
+            <div class="feedback">
+                <div class="row first-row">
+                    <div class="col-md-6 col-12 col-sm-6 ">
+                        <div class="cus-feedback domargin">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <img src="img/home/customer-1.png" alt="user" class="rounded-circle img-fluid">
+                                </div>
+                                <div class="col-md-9 col-xs-9">
+                                    <div class="row">
+                                        <div class="col-md-12 col-xs-12">
+                                            <div class="head-details">
+                                                <h3>Walter Meller</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-xs-12">
+                                            <div class="sub-deatials">
+                                                <p>Founder &amp; CEO, Matrix Group</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row text-left">
+                                <div class="col-md-12 col-xs-12">
+                                    <div class="feedback-text text-left">
+                                        <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magnam facere, laborum accusamus iusto quaerat quisquam eos tot."</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12 col-sm-6">
+                        <div class="cus-feedback domargin">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 col-xs-3 ">
+                                    <img src="img/home/customer-2.png" alt="user" class="rounded-circle img-fluid">
+                                </div>
+                                <div class="col-md-9 col-xs-9 ">
+                                    <div class="row">
+                                        <div class="col-md-12 col-xs-12">
+                                            <div class="head-details ">
+                                                <h3>Jonnie Riley</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-xs-12">
+                                            <div class="sub-deatials ">
+                                                <p>Employee, Curious Snakcs</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row text-left">
+                                <div class="col-md-12 col-xs-12 ">
+                                    <div class="feedback-text text-left">
+                                        <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magnam facere, laborum accusamus iusto quaerat quisquam eos tot."</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-12 col-sm-6 ">
+                        <div class="cus-feedback domargin">
+                            <div class="row">
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <img src="img/home/customer-3.png" alt="user" class="rounded-circle img-fluid">
+                                </div>
+                                <div class="col-md-9 col-xs-9 ">
+                                    <div class="row">
+                                        <div class="col-md-12 col-xs-12">
+                                            <div class="head-details">
+                                                <h3>Amilia Luna</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-xs-12 ">
+                                            <div class="sub-deatials ">
+                                                <p>Teacher, Saint joseph Hign School</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row  docenter">
+                                <div class="col-md-12 col-xs-12 text-left">
+                                    <div class="feedback-text">
+                                        <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magnam facere, laborum accusamus iusto quaerat quisquam eos tot."</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12 col-sm-6 ">
+                        <div class="cus-feedback domargin">
+                            <div class="row ">
+                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                    <img src="img/home/customer-4.png" alt="user" class="rounded-circle img-fluid">
+                                </div>
+                                <div class="col-md-9 col-xs-9">
+                                    <div class="row">
+                                        <div class="col-md-12 col-xs-12">
+                                            <div class="head-details ">
+                                                <h3>Daniel Cardos</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 col-xs-12">
+                                            <div class="sub-deatials ">
+                                                <p>Software Engineer, Infinitum Company</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row text-left ">
+                                <div class="col-md-12 col-xs-12">
+                                    <div class="feedback-text text-lef">
+                                        <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo magnam facere, laborum accusamus iusto."</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+    <!-- Customer Ends -->
+    <!-- Footer -->
+    <footer>
+        <div class="end home-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-12 col-sm-6 col-xs-8">
+                        <p style="margin-left: 15%;">
+                            Copyright &copy;Tatvasoft All Rights Reserved.
+                        </p>
+                    </div>
+                    <div class="col-md-6 col-12 col-sm-6 col-xs-4 text-right">
+                        <ul class="social-list" style="padding-right: 15%;">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Ends -->
+
+    <!--jquery-->
+    <script src="js/jquery.min.js"></script>
+    <!--bootstrap.js file-->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!-- custom js file-->
+    <script src="js/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0 ,user-scalable=no">
+    <!-- Title -->
+    <title>Notes Marketplace</title>
+    <!-- Google Link For Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans
+             :wght@300;400;600;700&display=swap" rel="stylesheet">
+     <!-- Fontawesome(For icons)-->
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">         
+    <!--bootstrap.css file-->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <!-- Custom Css file-->
+    <link rel="stylesheet" href="css/style.css">
+     <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>        
+    </style>
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="65">
+<!-- Header -->
+  <header>
+        <nav class="navbar navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="site-nav-wrapper">
+                    <!--For LOGO -->
+                    <div class="navbar-header">
+                        <!--Mobile Menu Open Button -->
+                      <span id="mobile-nav-open-btn">&#9776;</span>
+                        <a href="#home" class="navbar-brand smooth-scroll"><img src="img/pre-login/logo.png" alt="logo"></a>
+                    </div>
+                    <!--Main Menu -->
+                    <div class="cointer">
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav  pull-right">
+                                
+                                <li><a class="smooth-scroll brdr" href="#">Search Notes</a></li>
+                                 <li><a class="smooth-scroll brdr" href="#">Sell Your Notes</a></li>
+                                <li><a class="smooth-scroll brdr" href="#">Buyer Requests</a></li>
+                                <li><a class="smooth-scroll brdr" href="#">FAQ</a></li>
+                                <li><a class="smooth-scroll brdr" href="#">Contact Us</a></li>
+                                <li><a class="smooth-scroll" href="#">
+                                    <div class="userprofile-user-icon">
+                                <img src="img/user-profile/user.jpg" class="img-fluid img-circle" alt="User">
+                            </div>
+                                </a></li>
+                                <li><a class="smooth-scroll" href="#">
+                                     <button type="submit" class="btn text-center" id="mynavbtn">Logout</button> 
+                                </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                  <!--Mobile Menu-->
+                    <div id="mobile-nav"> 
+                        <!--Mobile Menu Close Button -->
+                         <span id="mobile-nav-close-btn">&times;</span>
+                        <div id="mobile-nav-content">
+                            <ul class="nav">
+                                
+                                <li><a class="smooth-scroll" href="#">Search Notes</a></li>
+                                 <li><a class="smooth-scroll" href="#">Sell Your Notes</a></li>
+                                <li><a class="smooth-scroll" href="#">Buyer Requests</a></li>
+                                <li><a class="smooth-scroll" href="#">FAQ</a></li>
+                                <li><a class="smooth-scroll" href="#">Contact Us</a></li>
+                                <li><a class="smooth-scroll" href="#">
+                                     <div class="userprofile-user-icon">
+                                <img src="img/user-profile/user.jpg" class="img-fluid img-circle" alt="User">
+                            </div>
+                                </a></li>
+                                <li><a class="smooth-scroll" href="#">
+                                    <button type="submit" class="btn text-center" id="mynavbtn">Logout</button> 
+                                </a></li>
+                            </ul>
+                        </div>
+                    </div> 
+                    
+                </div>
+            </div>
+        </nav>
+    </header>
+<!-- Header Ends -->
+
+  <!-- Notes Details -->
+  <section id="notes-details">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-12 col-sm-12 col-12"> 
+                <h3>Notes Details</h3>
+              </div>
+          </div>
+        <div class="row">
+            <div class="col-md-6 col-6 ">
+                <div class="row">
+                    <div class="col-md-5 col-sm-5 col-5 col-xs-5">
+                        <div class="myimg">
+                            <img src="img/Notes Details/1.jpg" alt="detail-1" class="img-responsive img-fluid">
+                        </div>
+                    </div>
+                     <div class="col-md-7 col-sm-7 col-7 col-xs-7">
+                         <h2>Computer Science</h2>
+                         <h5>Science</h5>
+                         <p class="text-left">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis enim ipsa, doloremque molestias eos eveniet exercitationem, sint consectetur assumenda nemo accusantium aut beatae necessitatibus libero nihil nostrum, architecto totam laudantium.</p>
+                 <div class="row">
+                  <div class="col-md-12 col-sm-12 col-12">
+                   <button type="submit" class="btn btn-primary text-uppercase text-center"  data-toggle="modal" data-target="#exampleModal"><b>download/$15</b></button>
+                    </div>
+          <!-- Thanks PopUp -->
+        <div  class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="row">
+             <div class="col-xl-12 col-sm-12 col-12 col-md-12 ">
+                   <div class="modal-content">
+                    <div class="modal-header">
+                   <a type="button" class="close"  data-dismiss="modal" aria-label="Close">
+                         <img src="img/Notes Details/close.png">
+                        </a>
+                 </div>
+                    <div class="model-data">
+
+                      <div class="model-head text-center">
+                    <img class="img-fluid" src="img/Notes Details/SUCCESS.png">
+                     <h2>Thank your for purchasing!</h2>
+                     </div>
+                      <div class="middel-content text-left">
+                    <h3>Dear Smith,</h3>
+                    <p class="para-1">As this is paid notes-you need to pay to seller Rahil Shah offline.We will send him an email that you want to download this note.He may contact you further for payment process completion.</p>
+                 <p class="para-2">In Case, you have urgency,<br>Please contact us on +9195538863848.</p>
+               <p class="para-3">Once he recevies the payment and acknowledge us-Seleted notes you can see over my downloads tab for download.</p>
+                <p class="para-4">Have a good day.</p>
+                  </div>
+                       </div>
+                          </div>
+                         </div>
+                         </div>
+                              </div>
+                               </div>
+                               <!-- Thanks PopUp Ends -->
+                         </div>
+                     </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 col-6  margin-top">
+                <div class="row">
+                    <div class="col-md-5 col-sm-5 col-5  col-xs-5 left-side">
+                        <h5>Institution:</h5>
+                         <h5>Country:</h5>
+                         <h5>Course Name:</h5>
+                        <h5>Course Code:</h5>
+                         <h5>Professor:</h5>
+                        <h5>Number of Pages:</h5>
+                        <h5>Approved Date:</h5>
+                        <h5>Rating:</h5>
+                    </div> 
+                    <div class="col-md-7 col-sm-7 col-7 col-xs-7 right-side text-right">
+                        <h5>University of California</h5>
+                         <h5>United State</h5>
+                         <h5>Computer Engineering</h5>
+                         <h5>248705</h5>
+                         <h5>Mr. Richard Brown</h5>
+                         <h5>277</h5>
+                         <h5>November 25 2020</h5>
+                         <div class="rate-fa " style="margin-right: 20px !important;">
+                         <i class="fa fa-star giverate"></i>
+                         <i class="fa fa-star giverate"></i>
+                         <i class="fa fa-star giverate"></i>
+                         <i class="fa fa-star giverate"></i>
+                         <i class="fa fa-star-o"></i>
+                        <i class="numofreview" style="font-size: 16px !important;">100 Reviews</i>
+                         </div>
+                    </div>
+                </div>
+                 <div class="inappropriate">
+                <p>5 User marked this note as inappropriate</p>
+                  </div>
+            </div>
+        </div>
+      </div>
+  </section>
+  <!-- Notes Details Ends -->
+  <!-- For Horizontal line -->
+  <div class="container">
+      <div class="row">
+          <div class="col-md-12 col-sm-12 col-12 col-xs-12 horizontal">
+              <hr>
+          </div>
+      </div>
+  </div>
+  <!-- Notes Perview -->
+  <section id="notes-preview">
+      <div class="container">
+          <div class="row">
+              <div class="col-md-6   col-6">
+                  <div class="heading">
+                      <h3>Notes Preview</h3>
+                  </div>
+                  <!-- responsive iframe --> 
+                  <!-- ============== -->
+<div id="Iframe-Cicis-Menu-To-Go" class="set-margin-cicis-menu-to-go set-padding-cicis-menu-to-go set-border-cicis-menu-to-go set-background-shadow-cicis-menu-to-go center-block-horiz">
+                        <div class="responsive-wrapper 
+     responsive-wrapper-padding-bottom-90pct" style="-webkit-overflow-scrolling: touch; overflow: auto;">
+                            <iframe src="http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf">
+                                <p style="font-size: 110%;"><em><strong>ERROR: </strong>
+                              An &#105;frame should be displayed here but your browser version does not support &#105;frames.</em> Please update your browser to its most recent version and try again, or access the file <a href="http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf">with this link.</a></p>
+                            </iframe>
+                        </div>
+                    </div>
+              </div>
+              
+              <!-- Customers-->
+               <div class="col-md-6   col-6 customers">
+                     <div class="heading">
+                        <h3>Customer Reviews</h3>
+                    </div>
+                       <div class="customer-reviews">
+                        <div class="row ">
+                            <div class="col-3 col-sm-3 col-md-2 col-sm-2 col-xs-3 cus-img">
+                                <img src="img/home/customer-1.png" alt="user" class="img-fluid img-circle">
+                            </div>
+                            <div class="col-9 col-sm-9 col-md-10 col-sm-10 col-xs-9 cus-details">
+                                <h5>Richard Brown</h5>
+                                <div class="row stras-padding">
+                                    <div class="col-md-12 col-sm-12 col-12 col-xs-12">
+                                        <div class="rate-fa">
+
+                                            <i class="fa fa-star giverate"></i>
+                                            <i class="fa fa-star giverate"></i>
+                                            <i class="fa fa-star giverate"></i>
+                                            <i class="fa fa-star giverate"></i>
+                                            <i class="fa fa-star-o"></i>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-12 col-xs-12">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque, tenetur. Voluptatem impedit ipsum dignissimos enim reiciendis quam id pariatur </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-12 col-xs-12">
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-3 col-sm-3 col-md-2 col-sm-2 col-xs-3 cus-img">
+                                <img src="img/home/customer-2.png" alt="user" class="img-fluid rounded-circle">
+                            </div>
+                            <div class=" col-9 col-sm-9 col-md-10 col-sm-10 col-xs-9 cus-details">
+                                <h5>Alice Ortiaz</h5>
+                                <div class="row stras-padding">
+                                    <div class="col-md-12 col-sm-12 col-12 col-xs-12">
+                                        <div class="rate-fa">
+
+                                            <i class="fa fa-star giverate"></i>
+                                            <i class="fa fa-star giverate"></i>
+                                            <i class="fa fa-star giverate"></i>
+                                            <i class="fa fa-star giverate"></i>
+                                            <i class="fa fa-star-o"></i>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-12 col-xs-12">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque, tenetur. Voluptatem impedit ipsum dignissimos enim reiciendis quam id pariatur </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-12 col-xs-12">
+                                    <hr>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="row  ">
+                            <div class="col-3 col-sm-3 col-md-2 col-sm-2 col-xs-3 cus-img">
+                                <img src="img/home/customer-4.png" alt="user" class="img-fluid rounded-circle">
+                            </div>
+                            <div class="col-9 col-sm-9 col-md-10 col-sm-10 col-xs-9 cus-details">
+                                <h5>Sera Passmore</h5>
+                                <div class="row stras-padding">
+                                    <div class="col-md-12 col-sm-12 col-12 col-xs-12">
+                                        <div class="rate-fa">
+
+                                            <i class="fa fa-star giverate"></i>
+                                            <i class="fa fa-star giverate"></i>
+                                            <i class="fa fa-star giverate"></i>
+                                            <i class="fa fa-star giverate"></i>
+                                            <i class="fa fa-star-o"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-12 col-xs-12">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque, tenetur. Voluptatem impedit ipsum dignissimos enim reiciendis quam id pariatur </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+               </div>
+          </div>
+      </div>
+  </section>
+   <!-- Notes Perview Ends -->
+<!-- footer -->
+    <footer>
+        <div class="end">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-12 col-sm-6 col-xs-8">
+                        <p>
+                            Copyright &copy;Tatvasoft All Rights Reserved.
+                        </p>
+                    </div>
+                    <div class="col-md-6 col-12 col-sm-6 col-xs-4 text-right">
+                        <ul class="social-list notes-footer">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer ends -->
+
+<!--jquery-->
+    <script src="js/jquery.min.js"></script>
+    <!--bootstrap.js file-->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!-- custom js file-->
+    <script src="js/script.js"></script>
+</body>
+</html>

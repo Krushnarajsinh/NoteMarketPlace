@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0 ,user-scalable=no">
+    <!-- Title -->
+    <title>Notes Marketplace</title>
+    <!-- Google Link For Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans
+             :wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Fontawesome(For icons)-->
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+    <!--bootstrap.css file-->
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <!-- Custom Css file-->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+
+    </style>
+</head>
+
+<body data-spy="scroll" data-target=".navbar" data-offset="65">
+    <!-- Header -->
+    <header>
+        <nav class="navbar navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="site-nav-wrapper">
+                    <!--For LOGO -->
+                    <div class="navbar-header">
+                        <!--Mobile Menu Open Button -->
+                        <span id="mobile-nav-open-btn">&#9776;</span>
+                        <a href="#home" class="navbar-brand smooth-scroll"><img src="img/pre-login/logo.png" alt="logo"></a>
+                    </div>
+                    <!--Main Menu -->
+                    <div class="cointer">
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav  pull-right">
+
+                                <li><a class="smooth-scroll brdr" href="#">Search Notes</a></li>
+                                <li><a class="smooth-scroll brdr" href="#">Sell Your Notes</a></li>
+                                <li><a class="smooth-scroll brdr" href="#">Buyer Requests</a></li>
+                                <li><a class="smooth-scroll brdr" href="#">FAQ</a></li>
+                                <li><a class="smooth-scroll brdr" href="#">Contact Us</a></li>
+                                <li><a class="smooth-scroll" href="#">
+                                        <div class="userprofile-user-icon">
+                                            <img src="img/user-profile/user.jpg" class="img-fluid img-circle" alt="User">
+                                        </div>
+                                    </a></li>
+                                <li><a class="smooth-scroll" href="#">
+                                        <button type="submit" class="btn text-center" id="mynavbtn">Logout</button>
+                                    </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--Mobile Menu-->
+                    <div id="mobile-nav">
+                        <!--Mobile Menu Close Button -->
+                        <span id="mobile-nav-close-btn">&times;</span>
+                        <div id="mobile-nav-content">
+                            <ul class="nav">
+
+                                <li><a class="smooth-scroll" href="#">Search Notes</a></li>
+                                <li><a class="smooth-scroll" href="#">Sell Your Notes</a></li>
+                                <li><a class="smooth-scroll" href="#">Buyer Requests</a></li>
+                                <li><a class="smooth-scroll" href="#">FAQ</a></li>
+                                <li><a class="smooth-scroll" href="#">Contact Us</a></li>
+                                <li><a class="smooth-scroll" href="#">
+                                        <div class="userprofile-user-icon">
+                                            <img src="img/user-profile/user.jpg" class="img-fluid img-circle" alt="User">
+                                        </div>
+                                    </a></li>
+                                <li><a class="smooth-scroll" href="#">
+                                        <button type="submit" class="btn text-center" id="mynavbtn">Logout</button>
+                                    </a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Header Ends -->
+    <!-- User Profile -->
+    <section id="user-profile">
+
+
+
+        <div class="top-img">
+
+            <img src="img/User-Profile/banner-with-overlay.jpg" alt="user-profile" class="img-responsive">
+            <span class="top-center">
+                <h2 class="top-head">User Profile</h2>
+            </span>
+
+
+        </div>
+    </section>
+    <!--User Details -->
+    <section class="user-form  ">
+        <form action="" class="space-remove">
+            <h2>Basic Profile Details</h2>
+            <div class="container">
+                <div class="row">
+                    <!-- First Name -->
+                    <div class="col-md-6  col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">First Name<span class="required"> *</span></label>
+                            <input type="text" class="form-control" id="fname" placeholder="Enter your first name">
+                        </div>
+                    </div>
+                    <!-- Last Name -->
+                    <div class="col-md-6  col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label class=" control-label">Last Name<span class="required"> *</span></label>
+                            <input type="text" class="form-control" id="fname" placeholder="Enter your last name">
+                        </div>
+                    </div>
+                    <!-- Email -->
+                    <div class="col-md-6  col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Email<span class="required"> *</span></label>
+                            <input type="text" class="form-control" id="fname" placeholder="Enter your email address">
+                        </div>
+                    </div>
+                    <!-- Date Of Birth-->
+                    <div class="col-md-6  col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label class=" control-label">Date Of Birth</label>
+                            <div class="wrapper">
+
+                                <input type="text" class="form-control InputEmail1 " placeholder="Enter your date of birth" onfocus="(this.type='date')" onblur="(this.type='text')">
+                                <img src="img/user-profile/calendar.png" alt="calender">
+                                <!--     <i class="fa fa-calendar" aria-hidden="true"></i>  -->
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Gender -->
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label class=" control-label" for="gender">Gender</label>
+                            <select class="form-control inputselect">
+                                <option>Select your gender</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Phone Number -->
+                    <div class="col-md-6  col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Phone Number</label>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-5 col-sm-5 col-3 col-xl-3 col-lg-4 col-xs-5  phone">
+                                        <div class="marginright">
+                                            <select class="form-control inputselect">
+                                                <option>+91</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-7 col-sm-7 col-9 col-xl-9 col-lg-8 col-xs-7 phone ex-phone">
+                                        <input type="text" class="form-control InputEmail1" placeholder="Enter your phone number">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Upload Image -->
+                    <div class="col-md-6  col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <div class="upload-pic">
+                                <label class="control-label" for="InputEmail1">Profile Picture</label>
+                                <input type="file" class="form-control InputEmail1" aria-describedby="emailHelp">
+                                <div class="mypic text-center">
+                                    <img class="img-fluid" src="img/user-profile/upload.png">
+                                    <h6>Upload a picture</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+    <!-- User Details Ends -->
+    <!-- User Address Details  -->
+    <section class="user-form">
+        <form action="" class="space-remove">
+            <h2>Address Details</h2>
+            <div class="container">
+                <div class="row">
+                    <!-- Address Line 1 -->
+                    <div class="col-md-6  col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Address Line 1<span class="required"> *</span></label>
+                            <input type="text" class="form-control" id="address" placeholder="Enter your address">
+                        </div>
+                    </div>
+                    <!-- Address Line 2 -->
+                    <div class="col-md-6  col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label class=" control-label">Address Line 2</label>
+                            <input type="text" class="form-control" id="address" placeholder="Enter your address">
+                        </div>
+                    </div>
+                    <!-- City -->
+                    <div class="col-md-6  col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">City<span class="required"> *</span></label>
+                            <input type="text" class="form-control" id="city" placeholder="Enter your city">
+                        </div>
+                    </div>
+                    <!-- State -->
+                    <div class="col-md-6  col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">State<span class="required"> *</span></label>
+                            <input type="text" class="form-control" id="state" placeholder="Enter your state">
+                        </div>
+                    </div>
+                    <!-- ZipCode -->
+                    <div class="col-md-6  col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">ZipCode<span class="required"> *</span></label>
+                            <input type="text" class="form-control" id="zipcode" placeholder="Enter your zipcode">
+                        </div>
+                    </div>
+                    <!-- Country -->
+                    <div class="col-md-6  col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">Country<span class="required"> *</span></label>
+                            <select class="form-control inputselect">
+                                <option>Select your country</option>
+                                <option>India</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </section>
+    <!-- User Address Details Ends -->
+
+    <!-- University & College Information -->
+    <section class="user-form">
+        <form action="" class="space-remove">
+            <h2>University and College Information</h2>
+            <div class="container">
+                <div class="row">
+                    <!-- University -->
+                    <div class="col-md-6  col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">University</label>
+                            <input type="text" class="form-control" id="university" placeholder="Enter your University">
+                        </div>
+                    </div>
+                    <!-- College -->
+                    <div class="col-md-6  col-sm-6 col-xs-12">
+                        <div class="form-group">
+                            <label class="control-label">College</label>
+                            <input type="text" class="form-control" id="college" placeholder="Enter your College">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </section>
+    <!-- Univercity & College Information Ends -->
+    <!-- Button -->
+    <div class="container">
+        <div class="row userprofile-btn">
+            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                <button type="submit" class="btn btn-primary text-uppercase text-center">submit</button>
+            </div>
+        </div>
+    </div>
+    <!-- Button Ends -->
+    <!-- footer -->
+    <footer>
+        <div class="end">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-12 col-sm-6 col-xs-8">
+                        <p>
+                            Copyright &copy;Tatvasoft All Rights Reserved.
+                        </p>
+                    </div>
+                    <div class="col-md-6 col-12 col-sm-6 col-xs-4 text-right">
+                        <ul class="social-list">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer ends -->
+
+    <!--jquery-->
+    <script src="js/jquery.min.js"></script>
+    <!--bootstrap.js file-->
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!-- custom js file-->
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

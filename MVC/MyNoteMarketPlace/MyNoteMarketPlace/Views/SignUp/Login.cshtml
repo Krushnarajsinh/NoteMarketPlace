@@ -1,0 +1,132 @@
+﻿
+@model MyNoteMarketPlace.Models.UserLogin
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0 ,user-scalable=no">
+        <!-- Title -->
+        <title>Notes Marketplace</title>
+        <!-- Google Link For Fonts -->
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans
+             :wght@300;400;600;700&display=swap" rel="stylesheet">
+        <!-- Fontawesome(For icons)-->
+        <link rel="stylesheet" href="~/Content/Front/css/font-awesome/css/font-awesome.min.css">
+        <!--bootstrap.css file-->
+        <link rel="stylesheet" href="~/Content/Front/css/bootstrap/bootstrap.min.css">
+        <!-- Custom Css file-->
+        <link rel="stylesheet" href="~/Content/Front/css/style.css">
+        <!-- Responsive CSS -->
+        <link rel="stylesheet" href="~/Content/Front/css/responsive.css">
+        <style>
+            #home {
+    background: url("/Img/Front/pre-login/banner-with-overlay.jpg")  no-repeat fixed center !important;
+    /*width:100%*/
+    min-width: 100%;
+    min-height: 100%;
+    background-size: cover;
+          }
+            .form-error {
+                color: red;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- Home Page -->
+        <section id="home">
+            <div class="content-box-lg">
+
+                <div class="logo">
+                    <div class="row justify-content-center">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <img src="~/Img/Front/pre-login/top-logo.png" class="img-fluid" alt="Login">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-xs-12">
+                        <div id="login_form">
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class=" col-md-12 col-sm-12 col-lg-12 col-xl-12">
+                                        <div id="form-type" class="text-center">
+                                            <h2><span>Login</span></h2>
+                                            <p>Enter your email address and password to login</p>
+                                        </div>
+
+
+                                        <!--   <form class="form-horizontal" method="" action=""> -->
+                                        @using (Html.BeginForm("Login", "SignUp", FormMethod.Post, new { @class = "form-horizontal" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <div class="form-group">
+                                                <label class=" control-label">Email</label>
+                                                <div class=" col-md-12 col-sm-12 col-lg-12 col-xl-12 ">
+                                                    <!--   <input type="email" class="form-control" name="email" value="" placeholder="Enter your email"> -->
+                                                    @Html.ValidationMessageFor(x => x.EmailID, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
+                                                    @Html.TextBoxFor(x => x.EmailID, new { @class = "form-control", @placeholder = "Enter your email" })
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+
+                                                <label class="control-label">Password</label>
+
+
+                                                <span class="forgot-password">
+                                                    <a href="@Url.Action("ForgotPassword","SignUp")" title="Forgot Password" id="link-reset">Forgot Password?</a>
+                                                </span>
+
+                                                <div class="col-md-12 col-sm-12 col-xl-12 col-lg-12">
+                                                    <!-- <input id="password-field" type="password" class="form-control" name="password" value="" placeholder="Enter your password"> -->
+                                                    @Html.ValidationMessageFor(x => x.Password, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
+                                                    @Html.PasswordFor(x => x.Password, new { @class = "form-control", @id = "password-field", @placeholder = "Enter your password" })
+                                                    <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                                </div><br>
+                                                <!--     <div class=" col-md-12 col-sm-12">
+                                               <small id="error-password" class="form-text text-muted">
+                                                 <P>The password that you've enter is incorrect.</P>
+                                                 </small>
+                                                 </div> -->
+
+                                            </div>
+                                            <div class="form-group form-check">
+                                                <!-- <input type="checkbackground" class="form-check-input " id="Check"> -->
+                                                @Html.ValidationMessageFor(x => x.RememberMe, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
+                                                @Html.CheckBoxFor(x => x.RememberMe, new { @class = "form-check-input", @id = "Check" })
+                                                <label class="form-check-label control-label" for="Check">Remember Me</label>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-xl-12 col-lg-12 col-xs-12">
+                                                <button type="submit" class="btn btn-primary btn-lg btn-block">LOGIN</button>
+                                            </div>
+                                         
+                                            <div class=" col-md-12 col-sm-12 col-lg-12 col-xl-12 ">
+                                                <span class="bottom">
+                                                    <p> Don't have an account?<a href="">@Html.ActionLink("SignUp", "SignUp")</a></p>
+                                                </span>
+                                            </div>
+                                        }
+                                        <!--  </form> -->
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!--jquery-->
+        <script src="~/Script/Front/js/jquery.min.js"></script>
+        <!--bootstrap.js file-->
+        <script src="~/Script/Front/js/bootstrap/bootstrap.min.js"></script>
+        <!-- custom js file-->
+        <script src="~/Script/Front/js/script.js"></script>
+    </body>
+
+</html>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="539e493dc5f64fe3b7fc54f4d6fe4a30" Name="Diagram1" ZoomLevel="92">
+        <EntityTypeShape EntityType="Datebase1Model.UserRoles" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Datebase1Model.Users" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
+        <AssociationConnector Association="Datebase1Model.C_Users_Users" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Datebase1Model.Admin" Width="1.5" PointX="13.375" PointY="7.75" />
+        <EntityTypeShape EntityType="Datebase1Model.Countries" Width="1.5" PointX="3.75" PointY="19.75" />
+        <EntityTypeShape EntityType="Datebase1Model.Downloads" Width="1.5" PointX="11.25" PointY="2.375" />
+        <EntityTypeShape EntityType="Datebase1Model.NoteCategories" Width="1.5" PointX="3.75" PointY="12.75" />
+        <EntityTypeShape EntityType="Datebase1Model.NoteTypes" Width="1.5" PointX="3.75" PointY="16.25" />
+        <EntityTypeShape EntityType="Datebase1Model.ReferenceData" Width="1.5" PointX="0.75" PointY="3.375" />
+        <EntityTypeShape EntityType="Datebase1Model.SellerNotesAttachements" Width="1.5" PointX="8.25" PointY="9.5" />
+        <EntityTypeShape EntityType="Datebase1Model.SellerNotesReportedIssues" Width="1.5" PointX="16.5" PointY="3.375" />
+        <EntityTypeShape EntityType="Datebase1Model.SellerNotesReviews" Width="1.5" PointX="13.5" PointY="3.125" />
+        <EntityTypeShape EntityType="Datebase1Model.SystemConfigurations" Width="1.5" PointX="15.375" PointY="7.75" />
+        <EntityTypeShape EntityType="Datebase1Model.UserProfile" Width="1.5" PointX="11" PointY="8.375" />
+        <EntityTypeShape EntityType="Datebase1Model.UserStates" Width="1.5" PointX="6" PointY="10.375" />
+        <AssociationConnector Association="Datebase1Model.FK_Downloads_Users" />
+        <AssociationConnector Association="Datebase1Model.FK_Downloads_Users1" />
+        <AssociationConnector Association="Datebase1Model.FK_SellerNotesReportedIssues_Downloads" />
+        <AssociationConnector Association="Datebase1Model.SellerNotesReviews_AgainstDownloadsID_FK" />
+        <AssociationConnector Association="Datebase1Model.FK_UserProfile_ReferenceData" />
+        <AssociationConnector Association="Datebase1Model.FK_SellerNotesReportedIssues_Users" />
+        <AssociationConnector Association="Datebase1Model.SellerNotesReviews_ReviewedByID_FK" />
+        <AssociationConnector Association="Datebase1Model.FK_UserProfile_Users" />
+        <AssociationConnector Association="Datebase1Model.FK_UserStates_Users" />
+        <EntityTypeShape EntityType="Datebase1Model.ContactUs" Width="1.5" PointX="5.375" PointY="4.75" />
+        <EntityTypeShape EntityType="Datebase1Model.SellerNotes" Width="1.5" PointX="6" PointY="14.5" />
+        <AssociationConnector Association="Datebase1Model.FK_SellerNotes_Countries" />
+        <AssociationConnector Association="Datebase1Model.FK_Downloads_SellerNotes" />
+        <AssociationConnector Association="Datebase1Model.SellerNotes_Category_FK" />
+        <AssociationConnector Association="Datebase1Model.SellerNotes_NoteType_FK" />
+        <AssociationConnector Association="Datebase1Model.SellerNotes_Status_FK" />
+        <AssociationConnector Association="Datebase1Model.FK_SellerNotesAttachements_SellerNotes" />
+        <AssociationConnector Association="Datebase1Model.FK_SellerNotesReportedIssues_SellerNotes" />
+        <AssociationConnector Association="Datebase1Model.SellerNotes_ActionedBy_FK" />
+        <AssociationConnector Association="Datebase1Model.SellerNotes_SellerID_FK" />
+        <AssociationConnector Association="Datebase1Model.SellerNotesReviews_NoteID_FK" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

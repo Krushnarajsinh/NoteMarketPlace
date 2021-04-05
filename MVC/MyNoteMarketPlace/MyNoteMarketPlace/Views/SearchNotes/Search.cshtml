@@ -1,0 +1,335 @@
+﻿@model IEnumerable<MyNoteMarketPlace.Models.SearchNotesViewModel>
+@{
+
+    ViewBag.Title = "Search Notes";
+    Layout = "~/Views/Shared/_UserNav.cshtml";
+
+}
+@{
+    <style>
+        .upload-pic .mypic {
+            position: absolute;
+            top: 50% !important;
+            left: 50%;
+            -webkit-transform: translate(-50%, -60%);
+            transform: translate(-50%, -60%) !important;
+        }
+
+        .inputselect {
+            background: url("/Img/Front/User-Profile/down-arrow.png") no-repeat;
+            appearance: none;
+            background-position: 99% 50%;
+        }
+    </style>
+
+}
+
+<!-- Search Page -->
+<!-- Top Image --->
+<section id="add-notes-top">
+
+    <div class="top-img">
+
+        <img src="/Img/Front/User-Profile/banner-with-overlay.jpg" alt="user-profile" class="img-responsive" style="height: 250px;">
+        <span class="top-center">
+            <h2 class="top-head">Search Notes</h2>
+        </span>
+
+    </div>
+</section>
+<!-- Top Image Ends --->
+<!-- Search & Filter Notes -->
+<section id="filter-notes">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xl-12 col-lg-12 col-12">
+                <div class="search-txt">
+                    <h2>Search and Filter notes</h2>
+                </div>
+            </div>
+        </div>
+        @using (@Html.BeginForm("Search", "SearchNotes", FormMethod.Get))
+        {
+            <div class="row">
+                <div class="col-md-12 ">
+                    <div id="search-background">
+                        <div class="row">
+                            <div class="col-md-12 ">
+                                <div class="search-bar">
+                                    <i class="fa fa-search for-search" aria-hidden="true"></i>
+                                    <!--  <input type="text" class="form-control" id="fname" placeholder="Search notes here..."> -->
+                                    <input type="text" name="search" class="form-control" id="fname" value="@ViewBag.Search" placeholder="Search Notes here...">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="selection">
+                            <div class="row">
+                                <div class="col-md-2 col-sm-2  ">
+                                    <!-- <select class="form-control inputselect">
+                                         <option>Select type</option>
+                                         <option>type1</option>
+                                         <option>type2</option>
+                                         <option>type3</option>
+                                     </select> -->
+                                    @Html.DropDownList("type", new SelectList(@ViewBag.TypeList, "ID", "Name"), "Select Type", new { @class = "form-control inputselect", id = "type" })
+                                </div>
+                                <div class="col-md-2 col-sm-2 ">
+                                    <!-- <select class="form-control inputselect">
+                                        <option>Select type</option>
+                                        <option>type1</option>
+                                        <option>type2</option>
+                                        <option>type3</option>
+                                    </select> -->
+                                    @Html.DropDownList("category", new SelectList(@ViewBag.CategoryList, "ID", "Name"), "Select Category", new { @class = "form-control  inputselect", id = "category" })
+                                </div>
+                                <div class="col-md-2 col-sm-2  ">
+                                    <!-- <select class="form-control inputselect">
+                                         <option>Select type</option>
+                                         <option>type1</option>
+                                         <option>type2</option>
+                                         <option>type3</option>
+                                     </select> -->
+                                    @Html.DropDownList("university", new SelectList(@ViewBag.UniversityList), "Select University", new { @class = "form-control  inputselect", id = "university" })
+                                </div>
+                                <div class="col-md-2 col-sm-2 ">
+                                    <!-- <select class="form-control inputselect">
+                                        <option>Select type</option>
+                                        <option>type1</option>
+                                        <option>type2</option>
+                                        <option>type3</option>
+                                    </select> -->
+                                    @Html.DropDownList("course", new SelectList(@ViewBag.CourseList), "Select Course", new { @class = "form-control inputselect", id = "course" })
+                                </div>
+                                <div class="col-md-2 col-sm-2  ">
+                                    <!-- <select class="form-control inputselect">
+                                        <option>Select type</option>
+                                        <option>type1</option>
+                                        <option>type2</option>
+                                        <option>type3</option>
+                                    </select> -->
+                                    @Html.DropDownList("country", new SelectList(@ViewBag.CountryList, "ID", "Name"), "Select Country", new { @class = "form-control inputselect", id = "country" })
+                                </div>
+                                <div class="col-md-2 col-sm-2 ">
+                                    <!-- <select class="form-control inputselect">
+                                        <option>Select type</option>
+                                        <option>type1</option>
+                                        <option>type2</option>
+                                        <option>type3</option>
+                                    </select> -->
+                                    @Html.DropDownList("ratings", new SelectList(@ViewBag.RatingList, "Value", "Text"), "Select Rating", new { @class = "form-control inputselect", id = "rating" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+<!-- Search & Filter Notes Ends -->
+<!-- Total 18 Notes -->
+<section id="total-notes">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-lg-12 col-xl-12 col-12">
+                <div class="search-txt">
+                    <h2>Total @ViewBag.ResultCount Results</h2>
+                </div>
+            </div>
+        </div>
+        <div class="notes-content">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+
+                    <!-- Book 1 -->
+                    <div class="col-md-4   col-sm-6 col-xs-12 ">
+                        <div class="notes">
+                            <!-- Book Image -->
+                            <div class="notes-img">
+                                <a href="#" ,new { id=item.Note.ID })">
+                                    @if (@item.Note.DisplayPicture != null)
+                                    {
+                                        <img src="@Url.Content(item.Note.DisplayPicture)" alt="img-1" class="img-responsive">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/DefaultImage/1.jpg" alt="img-1" class="img-responsive">
+                                    }
+                                </a>
+                            </div>
+                            <!-- Book Type -->
+                            <div class="notes-type">
+                                <h3>@item.Note.Title</h3>
+                            </div>
+                            <!-- Book Information -->
+                            <div class="notes-info">
+                                <ul class="info-list">
+                                    @if (!String.IsNullOrEmpty(item.Note.UniversityName) && item.Note.Country != null)
+                                    {
+                                        <li><i class="fa fa-university"></i><span>@item.Note.UniversityName, @item.Note.Countries.Name </span></li>
+                                    }
+                                    else if (!String.IsNullOrEmpty(item.Note.UniversityName) && item.Note.Country == null)
+                                    {
+                                        <li><i class="fa fa-university"></i><span>@item.Note.UniversityName</span></li>
+                                    }
+                                    else if (String.IsNullOrEmpty(item.Note.UniversityName) && item.Note.Country != null)
+                                    {
+                                        <li><i class="fa fa-university"></i><span>@item.Note.Countries.Name</span></li>
+                                    }
+                                    else
+                                    {
+                                        <li><i class="fa fa-university"></i></li>
+                                    }
+
+                                    @if (@item.Note.NumberofPages == null)
+                                    {
+                                        <li><i class="fa fa-book"></i></li>
+                                    }
+                                    else
+                                    {
+                                        <li><i class="fa fa-book"></i><span>@item.Note.NumberofPages pages</span></li>
+                                    }
+                                    <li><i class="fa fa fa-calendar"></i><span>@item.Note.PublishedDate.Value.ToString("MMM dd yyyy")</span></li>
+
+
+
+                                    <li><i class="fa fa-flag"></i><span class="change">@item.TotalSpam User Marked This Note As Inappropriate</span></li>
+
+                                </ul>
+                            </div>
+                            <!-- 5 Star Rating -->
+                            <div class="stars">
+                                <div class="row">
+
+                                    <div class="rate">
+                                        @for (int i = 0; i < 5; i++)
+                                        {
+                                            if (i < item.AverageRating)
+                                            {
+                                                <i class="fa fa-star"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-star-o"></i>
+                                            }
+                                        }
+
+                                    </div>
+                                    <p>@item.TotalRating reviews</p>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Total 18 Notes Ends  -->
+<!-- Pagination -->
+<!--<nav aria-label="Page navigation example">
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <ul class="pagination mypagination">
+                <li class="page-item">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa fa-angle-left "></i></a>
+                </li>
+                <li class="page-item selected"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa fa-angle-right"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>-->
+<!-- Pagination Ends -->
+@if (Model.Count() != 0)
+{
+    <div class="row justify-content-center">
+
+        <nav aria-label="...">
+            <ul class="pagination flex-wrap">
+
+                <li class="page-item">
+                    @if (ViewBag.PageNumber == 1)
+                    {
+                        <a class="page-link" href="@Url.Action("Search",  new { search = ViewBag.Search , type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = @ViewBag.PageNumber })"><i class="fa fa-angle-left"></i></a>
+                    }
+                    else
+                    {
+                        <a class="page-link" href="@Url.Action("Search", new { search = ViewBag.Search , type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = @ViewBag.PageNumber - 1 })"><i class="fa fa-angle-left"></i></a>
+                    }
+                </li>
+
+                @{
+                    double? TotalPages = ViewBag.TotalPages;
+
+                    if (ViewBag.PageNumber != 1 && ViewBag.PageNumber - 2 > 1)
+                    {
+                        int page = Convert.ToInt32(@ViewBag.PageNumber) - 3;
+                        <li class="page-item">@Html.ActionLink("1", "Search", new { search = ViewBag.Search, type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = 1 }, new { @class = "page-link" })</li>
+                        if (page != 1)
+                        {
+                            <li class="page-item more-pages-dots">@Html.ActionLink("...", "Search", new { search = ViewBag.Search, type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = page }, new { @class = "page-link more-pages-dots" })</li>
+                        }
+                    }
+
+                    for (int i = 2; i > 0; i--)
+                    {
+                        if (ViewBag.PageNumber - i > 0)
+                        {
+                            int page = Convert.ToInt32(@ViewBag.PageNumber) - i;
+                            <li class="page-item">@Html.ActionLink(page.ToString(), "Search", new { search = ViewBag.Search, type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = page }, new { @class = "page-link" })</li>
+                        }
+                    }
+
+                    <li class="page-item active">
+                        <a class="page-link">@ViewBag.PageNumber<span class="sr-only">(current)</span></a>
+                    </li>
+
+                    for (int i = 1; i < 3; i++)
+                    {
+                        if (ViewBag.PageNumber + i <= TotalPages)
+                        {
+                            int page = Convert.ToInt32(@ViewBag.PageNumber) + i;
+                            <li class="page-item">@Html.ActionLink(page.ToString(), "Search", new { search = ViewBag.Search, type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = page }, new { @class = "page-link" })</li>
+                        }
+                    }
+
+                    if (ViewBag.PageNumber != TotalPages && ViewBag.PageNumber + 2 < TotalPages)
+                    {
+                        int page = Convert.ToInt32(@ViewBag.PageNumber) + 3;
+                        if (page != TotalPages)
+                        {
+                            <li class="page-item">@Html.ActionLink("...", "Search", new { search = ViewBag.Search, type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = page }, new { @class = "page-link more-pages-dots" })</li>
+                        }
+                        <li class="page-item">@Html.ActionLink(TotalPages.ToString(), "Search", new { search = ViewBag.Search, type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = TotalPages }, new { @class = "page-link" })</li>
+                    }
+                }
+
+                <li class="page-item">
+                    @if (ViewBag.PageNumber == TotalPages)
+                    {
+                        <a class="page-link" href="@Url.Action("Search", new { search = ViewBag.Search , type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = @ViewBag.PageNumber })"><i class="fa fa-angle-right"></i></a>
+                    }
+                    else
+                    {
+                        <a class="page-link" href="@Url.Action("Search", new { search = ViewBag.Search , type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = @ViewBag.PageNumber + 1 })"><i class="fa fa-angle-right"></i></a>
+                    }
+                </li>
+
+            </ul>
+        </nav>
+
+    </div>
+}
+
+<!-- Search Page Ends -->

@@ -1,0 +1,120 @@
+﻿
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0 ,user-scalable=no">
+    <!-- Title -->
+    <title>Notes Marketplace</title>
+    <!-- Google Link For Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans
+             :wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Fontawesome(For icons)-->
+    <link rel="stylesheet" href="~/Content/Front/css/font-awesome/css/font-awesome.min.css">
+    <!--bootstrap.css file-->
+    <link rel="stylesheet" href="~/Content/Front/css/bootstrap/bootstrap.min.css">
+    <!-- Custom Css file-->
+    <link rel="stylesheet" href="~/Content/Front/css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/Content/Front/css/responsive.css">
+    <style>
+    </style>
+</head>
+
+<body data-spy="scroll" data-target=".navbar" data-offset="65">
+    <!-- Header -->
+    <header>
+        <nav class="navbar navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="site-nav-wrapper">
+                    <!--For LOGO -->
+                    <div class="navbar-header">
+                        <!--Mobile Menu Open Button -->
+                        <span id="mobile-nav-open-btn">&#9776;</span>
+                        <a href="#home" class="navbar-brand smooth-scroll"><img src="~/Img/Front/pre-login/logo.png" alt="logo" onclick="location.href='@Url.Action("Home", "Home")'"></a>
+                    </div>
+                    <!--Main Menu -->
+                    <div class="cointer">
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav  pull-right">
+
+                                <li><a class="smooth-scroll brdr" href="@Url.Action("SearchNotes","SearchNotes")">Search Notes</a></li>
+                                <li><a class="smooth-scroll brdr" href="@Url.Action("Dashboard","SellYourNotes")">Sell Your Notes</a></li>
+
+                                <li><a class="smooth-scroll brdr" href="@Url.Action("FAQ","FAQ")">FAQ</a></li>
+                                <li><a class="smooth-scroll brdr" href="@Url.Action("ContactUs","ContactUs")">Contact Us</a></li>
+
+                                <li>
+                                    <a class="smooth-scroll" href="#">
+                                        <button type="submit" class="btn text-center" id="mynavbtn" onclick="location.href='@Url.Action("Login", "SignUp")'">Login</button>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--Mobile Menu-->
+                    <div id="mobile-nav">
+                        <!--Mobile Menu Close Button -->
+                        <span id="mobile-nav-close-btn">&times;</span>
+                        <div id="mobile-nav-content">
+                            <ul class="nav">
+
+                                <li><a class="smooth-scroll brdr" href="@Url.Action("SearchNotes","SearchNotes")">Search Notes</a></li>
+                                <li><a class="smooth-scroll brdr" href="@Url.Action("Dashboard","SellYourNotes")">Sell Your Notes</a></li>
+
+                                <li><a class="smooth-scroll brdr" href="@Url.Action("FAQ","FAQ")">FAQ</a></li>
+                                <li><a class="smooth-scroll brdr" href="@Url.Action("ContactUs","ContactUs")">Contact Us</a></li>
+
+                                <li>
+                                    <a class="smooth-scroll" href="#">
+                                        <button type="submit" class="btn text-center" id="mynavbtn" onclick="location.href='@Url.Action("Login", "SignUp")'">Login</button>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- Header Ends -->
+    @RenderBody()
+    <!-- footer -->
+    <footer>
+        <div class="end">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-12 col-sm-6 col-xs-8">
+                        <p>
+                            Copyright &copy;Tatvasoft All Rights Reserved.
+                        </p>
+                    </div>
+                    <div class="col-md-6 col-12 col-sm-6 col-xs-4 text-right">
+                        <ul class="social-list">
+                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Ends -->
+    <!--jquery-->
+    <script src="~/Script/Front/js/jquery.min.js"></script>
+    <!-- Proper JS -->
+    <script src="~/Script/Front/js/popper.min.js"></script>
+    <!--bootstrap.js file-->
+    <script src="~/Script/Front/js/bootstrap/bootstrap.min.js"></script>
+    <!-- custom js file-->
+    <script src="~/Script/Front/js/script.js"></script>
+    <script src="~/Script/jquery.validate.min.js"></script>
+    <script src="~/Script/jquery.validate.unobtrusive.min.js"></script>
+</body>
+
+</html>

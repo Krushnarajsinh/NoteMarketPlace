@@ -1,0 +1,86 @@
+﻿@model MyNoteMarketPlace.Models.ContactUsModel
+
+@{
+
+    ViewBag.Title = "Contact Us";
+    Layout = "~/Views/Shared/_Nav.cshtml";
+}
+
+<!-- Top Image  -->
+<section id="add-notes-top">
+
+    <div class="top-img">
+
+        <img src="~/Img/Front/User-Profile/banner-with-overlay.jpg" alt="user-profile" class="img-responsive" style="height: 250px;">
+        <span class="top-center">
+            <h2 class="top-head">Contact Us</h2>
+        </span>
+
+
+    </div>
+</section>
+<!-- Top Image Ends -->
+<!-- Contact Us Form -->
+<section class="user-form space-remove">
+    <!--   <form class="last-form"> -->
+    @using (Html.BeginForm("ContactUs", "ContactUs", FormMethod.Post, new { @class = "last-form" }))
+    {
+        <section id="personal-details" class="user-profile  contact-us content-background-md">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-12">
+                        <div class="heading">
+                            <h3>Get In Touch</h3>
+                            <label class="control-label">Let us know how to get back to you</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 col-sm-6 col-xs-12">
+
+                        <!-- Full Name -->
+                        <div class="form-group">
+                            <label class="control-label">Full Name *</label>
+                            <!--  <input type="text" class="form-control InputEmail1" placeholder="Enter your full name"> -->
+                            @Html.ValidationMessageFor(x => x.FullName, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;"  })
+                            @Html.TextBoxFor(x => x.FullName, new { @class = "form-control InputEmail1", @placeholder = "Enter your full name" })
+                        </div>
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label class="control-label">Email Address *</label>
+                            <!-- <input type="text" class="form-control InputEmail1" placeholder="Enter your email address"> -->
+                            @Html.ValidationMessageFor(x => x.EmailID, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;"  })
+                            @Html.TextBoxFor(x => x.EmailID, new { @class = "form-control InputEmail1", @placeholder = "Enter your email address" })
+                        </div>
+                        <!-- Subject -->
+                        <div class="form-group">
+                            <label class="control-label">Subject *</label>
+                            <!--   <input type="text" class="form-control InputEmail1" placeholder="Enter your subject"> -->
+                            @Html.ValidationMessageFor(x => x.Subjects, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;"  })
+                            @Html.TextBoxFor(x => x.Subjects, new { @class = "form-control InputEmail1", @placeholder = "Enter your subject" })
+                        </div>
+                    </div>
+                    <!-- Question -->
+                    <div class="col-md-6 col-sm-12 col-sm-6 col-xs-12">
+                        <div class="form-group">
+
+                            <div class="textarea-input">
+                                <label class="control-label" for="InputEmail1">Comments/Questions *</label>
+                                <!--  <textarea placeholder="Comments..." class="form-control InputEmail1"></textarea> -->
+                                @Html.ValidationMessageFor(x => x.Comments, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;"  })
+                                @Html.TextAreaFor(x => x.Comments, new { @class = "form-control InputEmail1", @placeholder = "Comments..." })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 col-6 col-sm-3 col-xs-12">
+                        <button type="submit" class="btn btn-primary btn-block login-btn text-uppercase text-center" id="mybtn"><b>submit</b></button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    <!--   </form> -->
+</section>
+<!-- Contact Us Form -->

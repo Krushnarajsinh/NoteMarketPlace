@@ -1,0 +1,59 @@
+﻿@model MyNoteMarketPlace.Models.UsersModel
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0 ,user-scalable=no">
+    <!-- Title -->
+    <title>Notes Marketplace</title>
+    <!-- Google Link For Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans
+             :wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Fontawesome(For icons)-->
+    <link rel="stylesheet" href="~/Content/Front/css/font-awesome/css/font-awesome.min.css">
+    <!--bootstrap.css file-->
+    <link rel="stylesheet" href="~/Content/Front/css/bootstrap/bootstrap.min.css">
+    <!-- Custom Css file-->
+    <link rel="stylesheet" href="~/Content/Front/css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/Content/Front/css/responsive.css">
+</head>
+
+<body>
+    <section id="email-verification">
+        <div class="container">
+            <div class="row">
+                <div class="inner-background">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <img src="~/Img/Front/pre-login/logo.png" alt="logo" class="img-responsive">
+                        <h2>Email Verification</h2>
+                        <h4>Dear @ViewBag.name,</h4>
+                        <p>Thanks for Signing up!</p>
+                        <h5 class="other">
+                            Simply click below for email verification
+                        </h5>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12  col-xs-12 ">
+                                <!--   <button type="submit" class="btn btn-primary btn-lg btn-block">VERIFY EMAIL ADDRESS</button> -->
+                                <a href="@Url.Action("Verify","SignUp",new { code = Model.SecretCode.ToString() })" type="submit" class="btn btn-primary btn-lg btn-block" ><b>VERIFY EMAIL ADDRESS</b></a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--jquery-->
+    <script src="~/Script/Front/js/jquery.min.js"></script>
+    <!--bootstrap.js file-->
+    <script src="~/Script/Front/js/bootstrap/bootstrap.min.js"></script>
+    <!-- custom js file-->
+    <script src="~/Script/Front/js/script.js"></script>
+
+</body>
+</html>

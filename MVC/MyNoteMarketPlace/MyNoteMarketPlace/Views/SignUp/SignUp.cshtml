@@ -1,0 +1,228 @@
+﻿
+@model MyNoteMarketPlace.Models.UsersModel
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head >
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0 ,user-scalable=no">
+    <!-- Title -->
+    <title>Notes Marketplace</title>
+    <!-- Google Link For Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans
+             :wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Fontawesome(For icons)-->
+    <link rel="stylesheet" href="~/Content/Front/css/font-awesome/css/font-awesome.min.css">
+    <!--bootstrap.css file-->
+    <link rel="stylesheet" href="~/Content/Front/css/bootstrap/bootstrap.min.css">
+    <!-- Custom Css file-->
+    <link rel="stylesheet" href="~/Content/Front/css/style.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="~/Content/Front/css/responsive.css">
+    <style>
+        #signup {
+           background: url("/Img/Front/pre-login/banner-with-overlay.jpg") no-repeat fixed center !important;
+            min-width: 100%;
+            min-height: 100%;
+            background-size: cover;
+        }
+
+            #signup .content-background-lg {
+                margin: auto;
+                cursor: zoom-in
+
+
+            }
+
+            #signup #login_form {
+                width: 40%;
+            }
+
+            #signup .logo {
+                padding-top: 40px;
+            }
+
+            #signup h2 {
+                font-size: 30px;
+            }
+
+            #signup p {
+                margin-top: -5px;
+            }
+
+            #signup .form-control {
+                width: 90%;
+                margin: 0px 30px 5px 20px;
+            }
+              #signup .control-label {
+                padding: 0px 0px 0px 35px!important;
+            }
+
+      
+
+
+              #signup #password-field {
+            border: 1px solid #6255a5;
+                  }
+            #signup #password-confirm-field {
+              border-radius: 3px;
+             color: #8a8a8a;
+              overflow: hidden;
+             /**/
+             width: 90%;
+             border: 1px solid #6255a5;
+            
+            }
+
+            #signup .field-icon {
+                -webkit-transform: translateY(-4px);
+                transform: translateY(-4px);
+                padding-right: 60px;
+            }
+
+            #signup .btn-primary {
+                width: 90% !important;
+                margin: 0px 30px 0px 20px;
+                margin-top: 25px;
+            }
+
+            #signup .bottom p {
+                margin-bottom: 0px;
+                margin-top: 10px;
+            }
+
+        #signup .brief p {
+            padding-left: 80px !important;
+            -webkit-transform: translateY(-10px);
+            transform: translateY(-10px);
+            color: forestgreen;
+            font-size: 16px;
+        }
+
+                #signup .brief p i {
+                    font-size: 18px;
+                }
+                .form-error {
+            color: red;
+        }
+    </style>
+  
+</head>
+
+<body>
+    <!-- Sign Up -->
+    <section id="signup">
+
+        <div class="content-background-lg">
+            <div class="logo">
+                <img src="~/Img/Front/pre-login/top-logo.png" alt="logo" class="img-responsive">
+            </div>
+            <div id="login_form">
+
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12  col-sm-12 col-xs-12">
+                            <div id="form-type" class="text-center">
+                                <h2><span>Create an Account</span></h2>
+                                <p>Enter your details to signup</p>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12  col-sm-12 col-xs-12">
+                                    <div class="brief">
+                                        <!--  <p><span><i class="fa fa-check-circle" aria-hidden="true"></i></span>
+                                        Your account has been successfully created.</p> -->
+
+                                        @if (TempData["Success"] != null)
+                                        {
+                                            <p><span><i class="fa fa-check-circle" aria-hidden="true"></i></span> @TempData["Success"] </p>
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--   <form class="form-horizontal" method="" action=""> -->
+                            @using (Html.BeginForm("SignUp", "SignUp", FormMethod.Post, new { @class = "form-horizontal" }))
+                            {
+                              
+                                <!-- First Name -->
+                                <div class="form-group">
+                                    <label class=" control-label">First Name<span class="required"> *</span></label>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <!--  <input type="email" class="form-control" name="email" value="" placeholder="Enter your first name"> -->
+                                        @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
+                                        @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", @placeholder = "Enter your first name" })
+                                    </div>
+                                </div>
+                                <!-- Last Name -->
+                                <div class="form-group">
+                                    <label class=" control-label">Last Name<span class="required"> *</span></label>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <!--  <input type="email" class="form-control" name="email" value="" placeholder="Enter your last name"> -->
+                                        @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
+                                        @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", @placeholder = "Enter your last name" })
+                                    </div>
+                                </div>
+                                <!-- Email -->
+                                <div class="form-group">
+                                    <label class=" control-label">Email<span class="required"> *</span></label>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <!--   <input type="email" class="form-control" name="email" value="" placeholder="Enter your email"> -->
+                                        @Html.ValidationMessageFor(x => x.EmailID, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
+                                        @Html.TextBoxFor(x => x.EmailID, new { @class = "form-control", @placeholder = "Enter your email" })
+                                    </div>
+                                </div>
+                                <!--Password -->
+                                <div class="form-group">
+                                    <label class="control-label">Password</label>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <!-- <input id="password-field" type="password" class="form-control" name="password" value="" placeholder="Enter your password">-->
+                                        @Html.ValidationMessageFor(x => x.Password, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
+                                        @Html.PasswordFor(x => x.Password, new { @class = "form-control", @id = "password-field", @placeholder = "Enter your password" })
+
+                                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                    </div>
+                                </div>
+                                <!-- Conform password -->
+                                <div class="form-group">
+                                    <label class="control-label confirm-label">Confirm Password</label>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <!--   <input id="password-confirm-field" type="password" class="form-control" name="password" value="" placeholder="Re-enter your password">-->
+                                        @Html.ValidationMessageFor(x => x.ConfirmPassword, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
+                                        @Html.PasswordFor(x => x.ConfirmPassword, new { @class = "form-control", @id = "password-confirm-field", @placeholder = "Re-Enter your password" })
+                                        <span toggle="#password-confirm-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">SIGN UP</button>
+                                <span class="bottom">
+                                    <p>Already have an account?<a href="@Url.Action("Login","SignUp")">Login</a></p>
+
+                                </span>
+                            }
+                            <!--</form> -->
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!--jquery-->
+    <script src="~/Script/Front/js/jquery.min.js"></script>
+    <!--bootstrap.js file-->
+    <script src="~/Script/Front/js/bootstrap/bootstrap.min.js"></script>
+    <!-- custom js file-->
+    <script src="~/Script/Front/js/script.js"></script>
+    <script src="~/Script/jquery.validate.min.js"></script>
+    <script src="~/Script/jquery.validate.unobtrusive.min.js"></script>
+
+</body>
+
+</html>
+

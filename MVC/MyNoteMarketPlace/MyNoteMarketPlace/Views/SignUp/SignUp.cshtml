@@ -135,9 +135,9 @@
                                         <!--  <p><span><i class="fa fa-check-circle" aria-hidden="true"></i></span>
                                         Your account has been successfully created.</p> -->
 
-                                        @if (TempData["Success"] != null)
+                                        @if (TempData["Good"] != null)
                                         {
-                                            <p><span><i class="fa fa-check-circle" aria-hidden="true"></i></span> @TempData["Success"] </p>
+                                            <p><span><i class="fa fa-check-circle" aria-hidden="true"></i></span> @TempData["Good"] </p>
                                         }
 
                                     </div>
@@ -219,9 +219,8 @@
     <script src="~/Script/Front/js/bootstrap/bootstrap.min.js"></script>
     <!-- custom js file-->
     <script src="~/Script/Front/js/script.js"></script>
-    <script src="~/Script/jquery.validate.min.js"></script>
+   <script src="~/Script/jquery.validate.min.js"></script>
     <script src="~/Script/jquery.validate.unobtrusive.min.js"></script>
-
 </body>
 
 </html>

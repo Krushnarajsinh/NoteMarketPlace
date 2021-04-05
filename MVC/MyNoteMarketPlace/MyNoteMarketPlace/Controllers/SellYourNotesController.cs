@@ -20,7 +20,7 @@ namespace MyNoteMarketPlace.Controllers
         [Route("SellYourNotes")]
         public ActionResult Dashboard(string search1, string search2, string sort1, string sort2, int page1 = 1, int page2 = 1)
         {
-            // add active class to navigation bar for this page
+           
             ViewBag.SellYourNotes = "active";
 
             // viewbag for searching, sorting and pagination
@@ -33,7 +33,7 @@ namespace MyNoteMarketPlace.Controllers
 
             // note status id.....  6 = draft, 7 = submitted for review, 8 = inreview, 9 = published, 10 = rejected 
 
-            // create object of dashboardviewmodel
+           
             DashboardViewModel dashboardviewmodel = new DashboardViewModel();
 
             // get logged in user
@@ -46,12 +46,12 @@ namespace MyNoteMarketPlace.Controllers
             dashboardviewmodel.MyRejectedNotes = _dbcontext.SellerNotes.Where(x => x.SellerID == user.ID && x.Status == 10 && x.IsActive == true).Count();
             dashboardviewmodel.BuyerRequest = _dbcontext.Downloads.Where(x => x.Seller == user.ID && x.IsSellerHasAllowedDownload == false && x.AttachmentPath == null).Count();
 
-            // if search in inprogressnote is empty
+          
             if (string.IsNullOrEmpty(search1))
             {
                 dashboardviewmodel.InProgressNotes = _dbcontext.SellerNotes.Where(x => x.SellerID == user.ID && (x.Status == 6 || x.Status == 7 || x.Status == 8));
             }
-            // if search in inprogressnote is not empty
+            
             else
             {
                 search1 = search1.ToLower();
@@ -62,12 +62,12 @@ namespace MyNoteMarketPlace.Controllers
                                                                         (x.Title.ToLower().Contains(search1) || x.NoteCategories.Name.ToLower().Contains(search1) || x.ReferenceData.Value.ToLower().Contains(search1))
                                                                      );
             }
-            // if search in publishednote is empty
+            
             if (string.IsNullOrEmpty(search2))
             {
                 dashboardviewmodel.PublishedNotes = _dbcontext.SellerNotes.Where(x => x.SellerID == user.ID && x.Status == 9);
             }
-            // if search in inprogressnote is not empty
+           
             else
             {
                 search2 = search2.ToLower();
@@ -79,22 +79,22 @@ namespace MyNoteMarketPlace.Controllers
                                                     );
             }
 
-            // sorting table
+           
             dashboardviewmodel.InProgressNotes = SortTableInProgressNote(sort1, dashboardviewmodel.InProgressNotes);
             dashboardviewmodel.PublishedNotes = SortTablePublishNote(sort2, dashboardviewmodel.PublishedNotes);
 
-            // count total results
+            
             ViewBag.TotalPagesInProgress = Math.Ceiling(dashboardviewmodel.InProgressNotes.Count() / 5.0);
             ViewBag.TotalPagesInPublished = Math.Ceiling(dashboardviewmodel.PublishedNotes.Count() / 5.0);
 
-            // show results according to pagination
+           
             dashboardviewmodel.InProgressNotes = dashboardviewmodel.InProgressNotes.Skip((page1 - 1) * 5).Take(5);
             dashboardviewmodel.PublishedNotes = dashboardviewmodel.PublishedNotes.Skip((page2 - 1) * 5).Take(5);
 
             return View(dashboardviewmodel);
         }
 
-        // sorting for inprogress table
+       
         private IEnumerable<SellerNotes> SortTableInProgressNote(string sort, IEnumerable<SellerNotes> table)
         {
             switch (sort)
@@ -148,7 +148,7 @@ namespace MyNoteMarketPlace.Controllers
             return table;
         }
 
-        // sorting for published note table
+        
         private IEnumerable<SellerNotes> SortTablePublishNote(string sort, IEnumerable<SellerNotes> table)
         {
             switch (sort)
@@ -216,49 +216,49 @@ namespace MyNoteMarketPlace.Controllers
         [Route("SellYourNotes/DeleteDraft/{id}")]
         public ActionResult DeleteDraft(int id)
         {
-            // get notes using id
+            
             SellerNotes note = _dbcontext.SellerNotes.Where(x => x.ID == id && x.IsActive == true).FirstOrDefault();
-            // if note is not found
+            
             if (note == null)
             {
                 return HttpNotFound();
             }
-            // get attachement files using note id
+           
             IEnumerable<SellerNotesAttachements> noteattachement = _dbcontext.SellerNotesAttachements.Where(x => x.NoteID == id && x.IsActive == true).ToList();
-            // if noteattachement count is 0
+            
             if (noteattachement.Count() == 0)
             {
                 return HttpNotFound();
             }
-            // filepaths for note and note attachements
+           
             string notefolderpath = Server.MapPath("~/Members/" + note.SellerID + "/" + note.ID);
             string noteattachmentfolderpath = Server.MapPath("~/Members/" + note.SellerID + "/" + note.ID + "/Attachements");
 
-            // get directory 
+          
             DirectoryInfo notefolder = new DirectoryInfo(notefolderpath);
             DirectoryInfo attachementnotefolder = new DirectoryInfo(noteattachmentfolderpath);
-            // empty directory
+           
             EmptyFolder(attachementnotefolder);
             EmptyFolder(notefolder);
-            // delete directory
+            
             Directory.Delete(notefolderpath);
 
-            // remove note from database
+           
             _dbcontext.SellerNotes.Remove(note);
 
-            // remove attachement from database
+            
             foreach (var item in noteattachement)
             {
                 SellerNotesAttachements attachement = _dbcontext.SellerNotesAttachements.Where(x => x.ID == item.ID).FirstOrDefault();
                 _dbcontext.SellerNotesAttachements.Remove(attachement);
             }
 
-            // save changes
+          
             _dbcontext.SaveChanges();
 
             return RedirectToAction("Dashboard");
         }
-        // delete files from directory or empty directory
+        
         private void EmptyFolder(DirectoryInfo directory)
         {
             // check if directory have files

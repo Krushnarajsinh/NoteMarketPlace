@@ -13,11 +13,9 @@ namespace MyNoteMarketPlace.Controllers
 {
     public class SignUpController : Controller
     {
-      /*  Create repository = null; */
+        /*  Create repository = null; */
         Datebase1Entities context = new Datebase1Entities();
-        public SignUpController() {
-          
-        }
+
         // GET: SignUp
         public ActionResult SignUp()
         {
@@ -26,41 +24,41 @@ namespace MyNoteMarketPlace.Controllers
         [HttpPost]
         public ActionResult SignUp(UsersModel model)
         {
-           
-            
 
 
-                if (ModelState.IsValid)
+
+
+            if (ModelState.IsValid)
+            {
+
+                var exist = CheckEmail(model.EmailID);
+                if (exist)
                 {
+                    ModelState.AddModelError("EmailID", "This EmailID is already exist");
+                    return View(model);
+                }
+                Users me = new Users()
+                {
+                    RoleID = 3,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    EmailID = model.EmailID,
+                    Password = model.Password,
+                    IsEmailVerified = model.IsEmailVerified,
+                    IsActive = true,
+                    SecretCode = Guid.NewGuid(),
 
-                    var isExist = IsEmailExist(model.EmailID);
-                    if (isExist)
-                    {
-                        ModelState.AddModelError("EmailID", "This EmailID already exist");
-                        return View(model);
-                    }
-                    Users user = new Users()
-                    {
-                        RoleID = 3,
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        EmailID = model.EmailID,
-                        Password =model.Password,
-                        IsEmailVerified = model.IsEmailVerified,
-                        SecretCode = Guid.NewGuid(),
-                        IsActive = true,
+                };
+                context.Users.Add(me);
 
-                    };
-                    context.Users.Add(user);
-               
 
-                    context.SaveChanges();
-                
-               
-                  SendVerificationLinkEmail(model.EmailID, model.FirstName, user.SecretCode.ToString());
+                context.SaveChanges();
 
-                TempData["Success"] = "Your account has been successfully created.";
-               
+
+                IsEmailVarified(model.EmailID, model.FirstName, me.SecretCode.ToString());
+
+                TempData["Good"] = "Your account has been successfully created.";
+
             }
             ModelState.Clear();
             /* return View();*/
@@ -69,20 +67,21 @@ namespace MyNoteMarketPlace.Controllers
         }
 
         [NonAction]
-        public bool IsEmailExist(string emailID)
+        public bool CheckEmail(string emailID)
         {
             using (var context = new Datebase1Entities())
             {
-                var v = context.Users.Where(a => a.EmailID == emailID).FirstOrDefault();
-                return v != null;
+                var check_email = context.Users.Where(a => a.EmailID == emailID).FirstOrDefault();
+                return check_email != null;
             }
         }
         [Route("EmailVerification/{code}")]
-        public ActionResult EmailVerification(string code) {
+        public ActionResult EmailVerification(string code)
+        {
             Users obj = context.Users.Where(x => x.SecretCode.ToString() == code).FirstOrDefault();
             ViewBag.name = obj.FirstName;
             return View(obj);
-           
+
         }
         [Route("Verify/{code}")]
         public ActionResult Verify(string code)
@@ -94,18 +93,18 @@ namespace MyNoteMarketPlace.Controllers
         }
 
         [NonAction]
-        public void SendVerificationLinkEmail(string emailID, string username, string SecretCode)
+        public void IsEmailVarified(string emailID, string username, string SecretCode)
         {
             var verifyUrl = "/EmailVerification/" + SecretCode;
             var link = Request.Url.AbsoluteUri.Replace(Request.Url.PathAndQuery, verifyUrl);
 
-            var fromEmail = new MailAddress("rathodkrushnaraj8055@gmail.com");
-            var toEmail = new MailAddress(emailID);
-            var fromEmailPassword = "rathod8055"; // Replace with actual password
+            var from = new MailAddress("rathodkrushnaraj8055@gmail.com");
+            var to = new MailAddress(emailID);
+            var Password = "*********"; // Replace with actual password
             string subject = "Note Marketplace - Email Verification";
 
-          
-            var newlink= "https://localhost:44386/" + "SignUp/EmailVerification?ID=" + SecretCode;
+
+            var newlink = "https://localhost:44386/" + "SignUp/EmailVerification?ID=" + SecretCode;
 
 
             string body = "Hello " + username + "," +
@@ -121,10 +120,10 @@ namespace MyNoteMarketPlace.Controllers
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
+                Credentials = new NetworkCredential(from.Address, Password)
             };
 
-            using (var message = new MailMessage(fromEmail, toEmail)
+            using (var message = new MailMessage(from, to)
             {
                 Subject = subject,
                 Body = body,
@@ -134,7 +133,8 @@ namespace MyNoteMarketPlace.Controllers
         }
         [HttpGet]
         [Route("Login")]
-        public ActionResult Login() {
+        public ActionResult Login()
+        {
             return View();
         }
         [HttpPost]
@@ -143,51 +143,48 @@ namespace MyNoteMarketPlace.Controllers
         public ActionResult Login(UserLogin obj, string ReturnUrl = "")
         {
             //string message = "";
-            using (Datebase1Entities dbobj = new Datebase1Entities())
+            using (Datebase1Entities entity = new Datebase1Entities())
             {
-                var v = dbobj.Users.Where(a => a.EmailID == obj.EmailID).FirstOrDefault();
-                if (v != null)
+                var take = entity.Users.Where(a => a.EmailID == obj.EmailID).FirstOrDefault();
+                if (take != null)
                 {
-                    if (v.IsEmailVerified == true)
+                    if (take.IsEmailVerified == true)
                     {
-                        if (string.Compare(obj.Password, v.Password) == 0)
+                        if (string.Compare(obj.Password, take.Password) == 0)
                         {
-                            int timeout = obj.RememberMe ? 525600 : 20; // 525600 min = 1 year
-                            var ticket = new FormsAuthenticationTicket(obj.EmailID, obj.RememberMe, timeout);
-                            string encrypted = FormsAuthentication.Encrypt(ticket);
-                            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encrypted);
-                            cookie.Expires = DateTime.Now.AddMinutes(timeout);
+                            int take_time = obj.RememberMe ? 525600 : 20;
+                            var locking = new FormsAuthenticationTicket(obj.EmailID, obj.RememberMe, take_time);
+                            string styling = FormsAuthentication.Encrypt(locking);
+                            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, styling);
+                            cookie.Expires = DateTime.Now.AddMinutes(take_time);
                             cookie.HttpOnly = true;
                             Response.Cookies.Add(cookie);
 
 
-                            if (Url.IsLocalUrl(ReturnUrl))
-                            {
-                                return Redirect(ReturnUrl);
-                            }
-                            else
-                            {
-                                //05-03-2021 Updated third parameter , new { userid = v.UID }
-                                return RedirectToAction("DashBoard", "SellYourNotes");
-                            }
+
+
+
+                            //05-03-2021 Updated third parameter , new { userid = v.UID }
+                            return RedirectToAction("DashBoard", "SellYourNotes");
+
                         }
                         else
                         {
                             //message = "Invalid Password";
-                            ModelState.AddModelError("Password", "Invalid Password");
+                            ModelState.AddModelError("Password", "Your Password Invalid");
                             return View(obj);
                         }
                     }
                     else
                     {
-                        ModelState.AddModelError("Email", "Email is not verified");
+                        ModelState.AddModelError("Email", "Your Email is not verified");
                         return View(obj);
                     }
                 }
                 else
                 {
                     //message = "Invalid Email";
-                    ModelState.AddModelError("Email", "Invalid Email");
+                    ModelState.AddModelError("Email", "This is Invalid Email");
                     return View(obj);
                 }
             }
@@ -218,28 +215,28 @@ namespace MyNoteMarketPlace.Controllers
         {
             if (ModelState.IsValid)
             {
-                var isExist = IsEmailExist(model.EmailID);
+                var isExist = CheckEmail(model.EmailID);
                 if (isExist == false)
                 {
                     ModelState.AddModelError("EmailID", "Email Address Does not exist");
                     return View(model);
                 }
                 Users user = context.Users.Where(x => x.EmailID == model.EmailID).FirstOrDefault();
-                string pass = Membership.GeneratePassword(6, 2);  //Rendom Password IS Generated
-                user.Password = pass;
+                string new_password = Membership.GeneratePassword(8, 2);  //Rendom Password IS Generated
+                user.Password = new_password;
                 context.SaveChanges();
-                SendPassword(user.EmailID, pass);
-                TempData["Success"] = "New Password Has Been Sent To Your EmailID";
+                CheckPassword(user.EmailID, new_password);
+                TempData["Information"] = "New Password Has Been Sent To Your Email Address";
             }
             return RedirectToAction("ForgotPassword");
         }
 
         [NonAction]
-        public void SendPassword(string emailID, string pass)
+        public void CheckPassword(string emailID, string pass)
         {
-            var fromEmail = new MailAddress("rathodkrushnaraj8055@gmail.com");
-            var toEmail = new MailAddress(emailID);
-            var fromEmailPassword = "rathod8055"; // Replace with actual password
+            var from = new MailAddress("rathodkrushnaraj8055@gmail.com");
+            var to = new MailAddress(emailID);
+            var Password = "********"; // Replace with Original password
             string subject = "Note Marketplace - Email Verification";
 
             string body = "Hello," +
@@ -254,10 +251,10 @@ namespace MyNoteMarketPlace.Controllers
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromEmail.Address, fromEmailPassword)
+                Credentials = new NetworkCredential(from.Address, Password)
             };
 
-            using (var message = new MailMessage(fromEmail, toEmail)
+            using (var message = new MailMessage(from, to)
             {
                 Subject = subject,
                 Body = body,
@@ -278,8 +275,8 @@ namespace MyNoteMarketPlace.Controllers
         [Route("ChangePassword")]
         public ActionResult ChangePassword(ChangePasswordModel model)
         {
-            var emailid = User.Identity.Name.ToString();
-            Users obj = context.Users.Where(x => x.EmailID == emailid).FirstOrDefault();
+            var take_email = User.Identity.Name.ToString();
+            Users obj = context.Users.Where(x => x.EmailID == take_email).FirstOrDefault();
 
             if (ModelState.IsValid)
             {
@@ -296,7 +293,7 @@ namespace MyNoteMarketPlace.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("OldPassword", "OldPassword Is Incorrect");
+                    ModelState.AddModelError("OldPassword", "Your OldPassword Is Incorrect");
                 }
             }
             return View();

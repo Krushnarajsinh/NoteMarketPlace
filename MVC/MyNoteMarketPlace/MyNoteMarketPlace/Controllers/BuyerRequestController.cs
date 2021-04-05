@@ -19,10 +19,10 @@ namespace MyNoteMarketPlace.Controllers
         // GET: BuyerRequest
         public ActionResult BuyerRequest(string search, string sort, int page = 1)
         {
-            // viewbag for active class in navigation
+           
             ViewBag.BuyerRequest = "active";
 
-            // viewbag for sorting, searching and pagination
+           
             ViewBag.Sort = sort;
             ViewBag.Search = search;
             ViewBag.PageNumber = page;
@@ -37,7 +37,7 @@ namespace MyNoteMarketPlace.Controllers
                                                               where download.Seller == user.ID && download.IsSellerHasAllowedDownload == false && download.AttachmentPath == null
                                                               select new BuyerRequestViewModel { TblDownload = download, TblUser = users, TblUserProfile = userprofile };
 
-            // if search is not empty
+        
             if (!string.IsNullOrEmpty(search))
             {
                 search = search.ToLower();
@@ -50,11 +50,10 @@ namespace MyNoteMarketPlace.Controllers
                                                  ).ToList();
             }
 
-            // sort results
+          
             buyerrequest = SortTableBuyerRequest(sort, buyerrequest);
-            // get total pages
             ViewBag.TotalPages = Math.Ceiling(buyerrequest.Count() / 10.0);
-            // get result according to pagination
+           
             buyerrequest = buyerrequest.Skip((page - 1) * 10).Take(10);
 
             return View(buyerrequest);
@@ -147,17 +146,17 @@ namespace MyNoteMarketPlace.Controllers
         [Route("BuyerRequest/AllowDownload/{id}")]
         public ActionResult AllowDownload(int id)
         {
-            // get logged in user
+           
             Users user = context.Users.Where(x => x.EmailID == User.Identity.Name).FirstOrDefault();
-            // get download object by id
+            
             Downloads download = context.Downloads.Find(id);
-            // check if logged in user and note seller is same or not
+            
             if (user.ID == download.Seller)
             {
-                // get sellernoteattachement object
+               
                 SellerNotesAttachements attachement = context.SellerNotesAttachements.Where(x => x.NoteID == download.NoteID && x.IsActive == true).FirstOrDefault();
 
-                // update data in download table
+               
                 context.Downloads.Attach(download);
                 download.IsSellerHasAllowedDownload = true;
                 download.AttachmentPath = attachement.FilePath;
@@ -165,7 +164,7 @@ namespace MyNoteMarketPlace.Controllers
                 download.ModifiedDate = DateTime.Now;
                 context.SaveChanges();
 
-                // send mail
+             
                 AllowDownloadTemplate(download, user);
 
                 return RedirectToAction("BuyerRequest");
@@ -188,7 +187,7 @@ namespace MyNoteMarketPlace.Controllers
             var fromEmail=email.Value.Trim();
             /* var toEmail = new MailAddress(downloader.EmailID); */
             var toEmail = downloader.EmailID.Trim();
-            var fromEmailPassword = "rathod8055"; // Replace with actual password
+            var fromEmailPassword = "********"; // Replace with actual password
             string subject = seller.FirstName + "Allows you to download a note";
             string body = "Hello" + downloader.FirstName + "," +
                 "<br/><br/>We would like to inform you that, " + seller.FirstName + "Allows you to download a note." +
@@ -205,13 +204,7 @@ namespace MyNoteMarketPlace.Controllers
                 Credentials = new NetworkCredential(fromEmail, fromEmailPassword)
             };
 
-            /* using (var message = new MailMessage()
-             {
-                 message.From= new MailAddress(fromEmail, "NotesMarketplace"),
-             Subject = subject,
-                 Body = body,
-                 IsBodyHtml = true
-             })*/
+          
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress(fromEmail, "NotesMarketplace");
             mail.To.Add(new MailAddress(toEmail));

@@ -49,7 +49,7 @@ namespace MyNoteMarketPlace.Controllers
         {
             var fromEmail = new MailAddress(obj.EmailID); //Email of user
             var toEmail = new MailAddress("rathodkrushnaraj8055@gmail.com"); //Email of admin
-            var fromEmailPassword = "rathod8055"; // Replace with actual password
+            var fromEmailPassword = "*********"; // Replace with Original password
             string subject = obj.FullName + " - Query";
 
             string body = "Hello," +

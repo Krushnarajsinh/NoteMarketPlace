@@ -160,11 +160,6 @@ namespace MyNoteMarketPlace.Controllers
                             cookie.HttpOnly = true;
                             Response.Cookies.Add(cookie);
 
-
-
-
-
-                            //05-03-2021 Updated third parameter , new { userid = v.UID }
                             return RedirectToAction("DashBoard", "SellYourNotes");
 
                         }

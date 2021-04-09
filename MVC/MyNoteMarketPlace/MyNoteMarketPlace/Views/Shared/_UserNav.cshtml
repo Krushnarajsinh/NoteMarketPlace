@@ -22,12 +22,14 @@
     <link rel="stylesheet" href="~/Content/Front/css/style.css">
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="~/Content/Front/css/responsive.css">
-    <style>
+    @{
+        <style>
         .userprofile-user-icon img {
-            margin-top: 0px !important;
+           margin-top: 0px !important;
             margin-left: -2.5px !important;
         }
-    </style>
+        </style>
+    }
 </head>
 
 <body data-spy="scroll" data-target=".navbar" data-offset="65">
@@ -47,14 +49,14 @@
                         <div class="collapse navbar-collapse">
                             <ul class="nav navbar-nav  pull-right">
 
-                                <li><a class="smooth-scroll brdr" href="@Url.Action("SearchNotes","SearchNotes")">Search Notes</a></li>
-                                <li><a class="smooth-scroll brdr" href="@Url.Action("Dashboard","SellYourNotes")">Sell Your Notes</a></li>
+                                <li><a class="smooth-scroll brdr" href='@Url.Action("Search","SearchNotes")'>Search Notes</a></li>
+                                <li><a class="smooth-scroll brdr" href='@Url.Action("Dashboard","SellYourNotes")'>Sell Your Notes</a></li>
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    <li><a class="smooth-scroll brdr" href="@Url.Action("BuyerRequest","BuyerRequest")">Buyer Requests</a></li>
+                                    <li><a class="smooth-scroll brdr" href='@Url.Action("BuyerRequest","BuyerRequest")'>Buyer Requests</a></li>
                                 }
-                                <li><a class="smooth-scroll brdr" href="@Url.Action("FAQ","FAQ")">FAQ</a></li>
-                                <li><a class="smooth-scroll brdr" href="@Url.Action("ContactUs","ContactUs")">Contact Us</a></li>
+                                <li><a class="smooth-scroll brdr" href='@Url.Action("FAQ","FAQ")'>FAQ</a></li>
+                                <li><a class="smooth-scroll brdr" href='@Url.Action("ContactUs","ContactUs")'>Contact Us</a></li>
                                 @if (User.Identity.IsAuthenticated)
                                 {
                                     <li>
@@ -68,8 +70,8 @@
                                                 <a class="dropdown-item" href="#">My Downloads</a>
                                                 <a class="dropdown-item" href="#">My Sold Notes</a>
                                                 <a class="dropdown-item" href="#">My Rejected Notes</a>
-                                                <a class="dropdown-item" href="@Url.Action("ChangePassword","SignUp")">Change Password</a>
-                                                <a class="dropdown-item givecolor" href="@Url.Action("Logout", "SignUp")">LOGOUT</a>
+                                                <a class="dropdown-item" href='@Url.Action("ChangePassword","SignUp")'>Change Password</a>
+                                                <a class="dropdown-item givecolor" href='@Url.Action("Logout", "SignUp")'>LOGOUT</a>
                                             </div>
                                         </div>
                                     </li>
@@ -101,14 +103,14 @@
                         <div id="mobile-nav-content">
                             <ul class="nav">
 
-                                <li><a class="smooth-scroll brdr" href="@Url.Action("SearchNotes","SearchNotes")">Search Notes</a></li>
-                                <li><a class="smooth-scroll brdr" href="@Url.Action("Dashboard","SellYourNotes")">Sell Your Notes</a></li>
+                                <li><a class="smooth-scroll brdr" href='@Url.Action("Search","SearchNotes")'>Search Notes</a></li>
+                                <li><a class="smooth-scroll brdr" href='@Url.Action("Dashboard","SellYourNotes")'>Sell Your Notes</a></li>
                                 @if (User.Identity.IsAuthenticated)
                                 {
-                                    <li><a class="smooth-scroll brdr" href="@Url.Action("BuyerRequest","BuyerRequest")">Buyer Requests</a></li>
+                                    <li><a class="smooth-scroll brdr" href='@Url.Action("BuyerRequest","BuyerRequest")'>Buyer Requests</a></li>
                                 }
-                                <li><a class="smooth-scroll brdr" href="@Url.Action("FAQ","FAQ")">FAQ</a></li>
-                                <li><a class="smooth-scroll brdr" href="@Url.Action("ContactUs","ContactUs")">Contact Us</a></li>
+                                <li><a class="smooth-scroll brdr" href='@Url.Action("FAQ","FAQ")'>FAQ</a></li>
+                                <li><a class="smooth-scroll brdr" href='@Url.Action("ContactUs","ContactUs")'>Contact Us</a></li>
                                 @if (User.Identity.IsAuthenticated)
                                 {
                                     <li>
@@ -122,8 +124,8 @@
                                                 <a class="dropdown-item" href="#">My Downloads</a>
                                                 <a class="dropdown-item" href="#">My Sold Notes</a>
                                                 <a class="dropdown-item" href="#">My Rejected Notes</a>
-                                                <a class="dropdown-item" href="@Url.Action("ChangePassword","SignUp")">Change Password</a>
-                                                <a class="dropdown-item givecolor" href="@Url.Action("Logout", "SignUp")">LOGOUT</a>
+                                                <a class="dropdown-item" href='@Url.Action("ChangePassword","SignUp")'>Change Password</a>
+                                                <a class="dropdown-item givecolor" href='@Url.Action("Logout", "SignUp")'>LOGOUT</a>
                                             </div>
                                         </div>
                                     </li>

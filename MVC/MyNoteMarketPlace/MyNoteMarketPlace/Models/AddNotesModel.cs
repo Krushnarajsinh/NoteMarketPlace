@@ -28,7 +28,7 @@ namespace MyNoteMarketPlace.Models
         public Nullable<int> NoteType { get; set; }
         public Nullable<int> NumberofPages { get; set; }
         public string Description { get; set; }
-        public byte[] UniversityName { get; set; }
+        public string UniversityName { get; set; }
         public Nullable<int> Country { get; set; }
         public string Course { get; set; }
         public string CourseCode { get; set; }

@@ -18,7 +18,8 @@
     background: url("/Img/Front/User-Profile/down-arrow.png") no-repeat;
     appearance: none;
     background-position: 99% 50%;
-}
+      }
+    
     </style>
 
     }
@@ -294,10 +295,11 @@
     </div >
     </div >
 
-    <div class="form-group" >
+   <div class="form-group" >
     <label class="control-label" for="InputEmail1" > Sell Price<span class="required" > *</span > </label >
     <!-- <input type="text" class="form-control InputEmail1" aria-describedby="emailHelp" placeholder="Enter your institution name" > -->
     <!-- @Html.TextBoxFor(model => model.SellingPrice, new { @class = "form-control InputEmail1", id = "price", placeholder = "Enter your notes price", disabled = "disabled" }) -->
+
     @Html.TextBoxFor(model => model.SellingPrice, new { @class = "form-control InputEmail1", id = "price", placeholder = "Enter your notes price" })
     @Html.ValidationMessageFor(model => model.SellingPrice, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
     </div >
@@ -321,14 +323,15 @@
     <!-- Push & Submit Button -->
     <div class="row" >
     <div class="col-md-6 col-sm-6 col-6 col-sm-6 col-xs-12" >
-    <div class="row" >
-    <div class="col-md-6 col-sm-6 col-6 col-sm-6 col-xs-12" >
-    <button type="submit" class="btn btn-primary btn-block login-btn text-uppercase text-center left-btn" id="mybtn" > <b > submit</b > </button >
-    </div >
-    <!-- <div class="col-md-6 col-sm-6 col-6  col-xs12" >
-    <button type="submit" class="btn btn-primary  btn-block login-btn text-uppercase text-center right-btn" id="mybtn" > <b > Publish</b > </button >
-    </div > -->
-    </div >
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-6 col-sm-6 col-xs-12">
+                <button type="submit" class="btn btn-primary btn-block login-btn text-uppercase text-center left-btn" id="mybtn"> <b> submit</b> </button>
+            </div>
+          <!--  <div class="col-md-6 col-sm-6 col-6  col-xs12">
+                <a role="button" class="btn btn-primary  btn-block login-btn text-uppercase text-center right-btn" id="mybtn" href="@Url.Action("PublishNote",new { id = @Model.ID })"><b>Publish</b></a>
+                 <button type="submit" class="btn btn-primary  btn-block login-btn text-uppercase text-center right-btn" id="mybtn" > <b > Publish</b > </button > 
+             </div>  -->
+        </div>
     </div >
     </div >
     </div >

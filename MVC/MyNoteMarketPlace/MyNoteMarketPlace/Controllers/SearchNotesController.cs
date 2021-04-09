@@ -10,6 +10,7 @@ namespace MyNoteMarketPlace.Controllers
     public class SearchNotesController : Controller
     {
         readonly private Datebase1Entities context = new Datebase1Entities();
+
         // GET: SearchNotes
         [HttpGet]
         [Route("Search")]
@@ -35,49 +36,51 @@ namespace MyNoteMarketPlace.Controllers
             ViewBag.CourseList = context.SellerNotes.Where(x => x.IsActive == true && x.Course != null && x.Status == 9).Select(x => x.Course).Distinct();
             ViewBag.RatingList = new List<SelectListItem> { new SelectListItem { Text = "1+", Value = "1" }, new SelectListItem { Text = "2+", Value = "2" }, new SelectListItem { Text = "3+", Value = "3" }, new SelectListItem { Text = "4+", Value = "4" }, new SelectListItem { Text = "5", Value = "5" } };
 
+            //Collect Published Notes details
+            var notes = context.SellerNotes.Where(x => x.Status == 9);
 
-            var noteslist = context.SellerNotes.Where(x => x.Status == 9);
-
-
+            //If Search Is Not Empty
             if (!String.IsNullOrEmpty(search))
             {
-                noteslist = noteslist.Where(x => x.Title.ToLower().Contains(search.ToLower()) ||
+                notes = notes.Where(x => x.Title.ToLower().Contains(search.ToLower()) ||
                                                  x.NoteCategories.Name.ToLower().Contains(search.ToLower())
                                             );
             }
 
+
             if (!String.IsNullOrEmpty(type))
             {
-                noteslist = noteslist.Where(x => x.NoteType.ToString().ToLower().Contains(type.ToLower()));
+                notes = notes.Where(x => x.NoteType.ToString().ToLower().Contains(type.ToLower()));   //In SellerNotes table we defined NoType As Int So We Write .ToString()
             }
 
             if (!String.IsNullOrEmpty(category))
             {
-                noteslist = noteslist.Where(x => x.Category.ToString().ToLower().Contains(category.ToLower()));
+                notes = notes.Where(x => x.Category.ToString().ToLower().Contains(category.ToLower()));
             }
 
             if (!String.IsNullOrEmpty(university))
             {
-                noteslist = noteslist.Where(x => x.UniversityName.ToLower().Contains(university.ToLower()));
+                notes = notes.Where(x => x.UniversityName.ToLower().Contains(university.ToLower()));
             }
 
             if (!String.IsNullOrEmpty(course))
             {
-                noteslist = noteslist.Where(x => x.Course.ToLower().Contains(course.ToLower()));
+                notes = notes.Where(x => x.Course.ToLower().Contains(course.ToLower()));
             }
 
             if (!String.IsNullOrEmpty(country))
             {
-                noteslist = noteslist.Where(x => x.Country.ToString().ToLower().Contains(country.ToLower()));
+                notes = notes.Where(x => x.Country.ToString().ToLower().Contains(country.ToLower()));
             }
 
 
-            List<SearchNotesViewModel> searchnoteslist = new List<SearchNotesViewModel>();
+            List<SearchNotesViewModel> searchnotes = new List<SearchNotesViewModel>();
 
+            // if rating is empty
 
             if (String.IsNullOrEmpty(ratings))
             {
-                foreach (var item in noteslist)
+                foreach (var item in notes)
                 {
 
                     var review = context.SellerNotesReviews.Where(x => x.NoteID == item.ID && x.IsActive == true).Select(x => x.Ratings);
@@ -86,23 +89,23 @@ namespace MyNoteMarketPlace.Controllers
 
                     var avgreview = totalreview > 0 ? Math.Ceiling(review.Average()) : 0;
                     // get spam report count
-                    var spamcount = context.SellerNotesReportedIssues.Where(x => x.NoteID == item.ID).Count();
+                    var inappropriate_count = context.SellerNotesReportedIssues.Where(x => x.NoteID == item.ID).Count();
 
                     SearchNotesViewModel note = new SearchNotesViewModel()
                     {
                         Note = item,
                         AverageRating = Convert.ToInt32(avgreview),
                         TotalRating = totalreview,
-                        TotalSpam = spamcount
+                        TotalSpam = inappropriate_count
                     };
 
-                    searchnoteslist.Add(note);
+                    searchnotes.Add(note);
                 }
             }
-
+            // if rating is not empty
             else
             {
-                foreach (var item in noteslist)
+                foreach (var item in notes)
                 {
 
                     var review = context.SellerNotesReviews.Where(x => x.NoteID == item.ID).Select(x => x.Ratings);
@@ -112,7 +115,8 @@ namespace MyNoteMarketPlace.Controllers
                     var avgreview = totalreview > 0 ? Math.Ceiling(review.Average()) : 0;
 
                     var spamcount = context.SellerNotesReportedIssues.Where(x => x.NoteID == item.ID).Count();
-
+                    // check if average review is greater than or equal to given input rating
+                    //Add Those Notes only Whose avgreview is > ratings
                     if (avgreview >= Convert.ToInt32(ratings))
                     {
 
@@ -124,7 +128,7 @@ namespace MyNoteMarketPlace.Controllers
                             TotalSpam = spamcount
                         };
 
-                        searchnoteslist.Add(note);
+                        searchnotes.Add(note);
                     }
 
                 }
@@ -133,11 +137,12 @@ namespace MyNoteMarketPlace.Controllers
             // page number
             ViewBag.PageNumber = page;
             // count total pages
-            ViewBag.TotalPages = Math.Ceiling(searchnoteslist.Count() / 9.0);
+            ViewBag.TotalPages = Math.Ceiling(searchnotes.Count() / 9.0);
             // show record according to pagination
-            IEnumerable<SearchNotesViewModel> result = searchnoteslist.AsEnumerable().Skip((page - 1) * 9).Take(9);
-            // total result count
-            ViewBag.ResultCount = searchnoteslist.Count();
+            IEnumerable<SearchNotesViewModel> result = searchnotes.AsEnumerable().Skip((page - 1) * 9).Take(9);
+
+            // total Number Of Notes In Search Page
+            ViewBag.ResultCount = searchnotes.Count();
 
             return View(result);
         }

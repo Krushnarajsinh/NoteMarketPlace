@@ -3,17 +3,20 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 
+// note status id... draft=6,  submitted for review=7, inreview=8,  published=9,  rejected=10 
 
 namespace MyNoteMarketPlace.Controllers
 {
     public class SellYourNotesController : Controller
 
     {
-        readonly private Datebase1Entities _dbcontext = new Datebase1Entities();
+        readonly private Datebase1Entities context = new Datebase1Entities();
         // GET: Dashboard
         [HttpGet]
         [Authorize]
@@ -22,7 +25,6 @@ namespace MyNoteMarketPlace.Controllers
         {
            
             ViewBag.SellYourNotes = "active";
-
             // viewbag for searching, sorting and pagination
             ViewBag.Sort1 = sort1;
             ViewBag.Sort2 = sort2;
@@ -31,31 +33,30 @@ namespace MyNoteMarketPlace.Controllers
             ViewBag.Search1 = search1;
             ViewBag.Search2 = search2;
 
-            // note status id.....  6 = draft, 7 = submitted for review, 8 = inreview, 9 = published, 10 = rejected 
-
            
             DashboardViewModel dashboardviewmodel = new DashboardViewModel();
 
-            // get logged in user
-            Users user = _dbcontext.Users.Where(x => x.EmailID == User.Identity.Name).FirstOrDefault();
-
-            // get number of sold notes, money earned, my downloads, my rejected notes and buyer request
-            dashboardviewmodel.NumberOfSoldNotes = _dbcontext.Downloads.Where(x => x.Seller == user.ID && x.IsSellerHasAllowedDownload == true && x.AttachmentPath != null).Count();
-            dashboardviewmodel.MoneyEarned = _dbcontext.Downloads.Where(x => x.Seller == user.ID && x.IsSellerHasAllowedDownload == true && x.AttachmentPath != null).Select(x => x.PurchasedPrice).Sum();
-            dashboardviewmodel.MyDownloads = _dbcontext.Downloads.Where(x => x.Downloader == user.ID && x.IsSellerHasAllowedDownload == true && x.AttachmentPath != null).Count();
-            dashboardviewmodel.MyRejectedNotes = _dbcontext.SellerNotes.Where(x => x.SellerID == user.ID && x.Status == 10 && x.IsActive == true).Count();
-            dashboardviewmodel.BuyerRequest = _dbcontext.Downloads.Where(x => x.Seller == user.ID && x.IsSellerHasAllowedDownload == false && x.AttachmentPath == null).Count();
-
           
+            Users user =context.Users.Where(x => x.EmailID == User.Identity.Name).FirstOrDefault();
+
+            //firstly, get number of sold notes, money earned, my downloads, my rejected notes and buyer request
+            dashboardviewmodel.NumberOfSoldNotes = context.Downloads.Where(x => x.Seller == user.ID && x.IsSellerHasAllowedDownload == true && x.AttachmentPath != null).Count();
+            dashboardviewmodel.MoneyEarned = context.Downloads.Where(x => x.Seller == user.ID && x.IsSellerHasAllowedDownload == true && x.AttachmentPath != null).Select(x => x.PurchasedPrice).Sum();
+            dashboardviewmodel.MyDownloads = context.Downloads.Where(x => x.Downloader == user.ID && x.IsSellerHasAllowedDownload == true && x.AttachmentPath != null).Count();
+            dashboardviewmodel.MyRejectedNotes = context.SellerNotes.Where(x => x.SellerID == user.ID && x.Status == 10 && x.IsActive == true).Count();
+            //seller doesn't allow for download and attachmentpath is null
+            dashboardviewmodel.BuyerRequest = context.Downloads.Where(x => x.Seller == user.ID && x.IsSellerHasAllowedDownload == false && x.AttachmentPath == null).Count();
+
+          //If User Doesn't Search Yet
             if (string.IsNullOrEmpty(search1))
             {
-                dashboardviewmodel.InProgressNotes = _dbcontext.SellerNotes.Where(x => x.SellerID == user.ID && (x.Status == 6 || x.Status == 7 || x.Status == 8));
+                dashboardviewmodel.InProgressNotes = context.SellerNotes.Where(x => x.SellerID == user.ID && (x.Status == 6 || x.Status == 7 || x.Status == 8));
             }
             
             else
             {
                 search1 = search1.ToLower();
-                dashboardviewmodel.InProgressNotes = _dbcontext.SellerNotes.Where
+                dashboardviewmodel.InProgressNotes = context.SellerNotes.Where
                                                                      (
                                                                         x => x.SellerID == user.ID &&
                                                                         (x.Status == 6 || x.Status == 7 || x.Status == 8) &&
@@ -65,13 +66,13 @@ namespace MyNoteMarketPlace.Controllers
             
             if (string.IsNullOrEmpty(search2))
             {
-                dashboardviewmodel.PublishedNotes = _dbcontext.SellerNotes.Where(x => x.SellerID == user.ID && x.Status == 9);
+                dashboardviewmodel.PublishedNotes = context.SellerNotes.Where(x => x.SellerID == user.ID && x.Status == 9);
             }
            
             else
             {
                 search2 = search2.ToLower();
-                dashboardviewmodel.PublishedNotes = _dbcontext.SellerNotes.Where
+                dashboardviewmodel.PublishedNotes = context.SellerNotes.Where
                                                     (
                                                         x => x.SellerID == user.ID &&
                                                         x.Status == 9 &&
@@ -80,8 +81,8 @@ namespace MyNoteMarketPlace.Controllers
             }
 
            
-            dashboardviewmodel.InProgressNotes = SortTableInProgressNote(sort1, dashboardviewmodel.InProgressNotes);
-            dashboardviewmodel.PublishedNotes = SortTablePublishNote(sort2, dashboardviewmodel.PublishedNotes);
+            dashboardviewmodel.InProgressNotes = SortInProgressNoteTable(sort1, dashboardviewmodel.InProgressNotes);
+            dashboardviewmodel.PublishedNotes = SortPublishNoteTable(sort2, dashboardviewmodel.PublishedNotes);
 
             
             ViewBag.TotalPagesInProgress = Math.Ceiling(dashboardviewmodel.InProgressNotes.Count() / 5.0);
@@ -95,136 +96,136 @@ namespace MyNoteMarketPlace.Controllers
         }
 
        
-        private IEnumerable<SellerNotes> SortTableInProgressNote(string sort, IEnumerable<SellerNotes> table)
+        private IEnumerable<SellerNotes> SortInProgressNoteTable(string sort, IEnumerable<SellerNotes> progressnotes)
         {
             switch (sort)
             {
                 case "CreatedDate_Asc":
                     {
-                        table = table.OrderBy(x => x.CreatedDate);
+                        progressnotes = progressnotes.OrderBy(x => x.CreatedDate);
                         break;
                     }
                 case "CreatedDate_Desc":
                     {
-                        table = table.OrderByDescending(x => x.CreatedDate);
+                        progressnotes = progressnotes.OrderByDescending(x => x.CreatedDate);
                         break;
                     }
                 case "Title_Asc":
                     {
-                        table = table.OrderBy(x => x.Title);
+                        progressnotes = progressnotes.OrderBy(x => x.Title);
                         break;
                     }
                 case "Title_Desc":
                     {
-                        table = table.OrderByDescending(x => x.Title);
+                        progressnotes = progressnotes.OrderByDescending(x => x.Title);
                         break;
                     }
                 case "Category_Asc":
                     {
-                        table = table.OrderBy(x => x.NoteCategories.Name);
+                        progressnotes = progressnotes.OrderBy(x => x.NoteCategories.Name);
                         break;
                     }
                 case "Category_Desc":
                     {
-                        table = table.OrderByDescending(x => x.NoteCategories.Name);
+                        progressnotes = progressnotes.OrderByDescending(x => x.NoteCategories.Name);
                         break;
                     }
                 case "Status_Asc":
                     {
-                        table = table.OrderBy(x => x.ReferenceData.Value);
+                        progressnotes = progressnotes.OrderBy(x => x.ReferenceData.Value);
                         break;
                     }
                 case "Status_Desc":
                     {
-                        table = table.OrderByDescending(x => x.ReferenceData.Value);
+                        progressnotes = progressnotes.OrderByDescending(x => x.ReferenceData.Value);
                         break;
                     }
                 default:
                     {
-                        table = table.OrderByDescending(x => x.CreatedDate);
+                        progressnotes = progressnotes.OrderByDescending(x => x.CreatedDate);
                         break;
                     }
             }
-            return table;
+            return progressnotes;
         }
 
         
-        private IEnumerable<SellerNotes> SortTablePublishNote(string sort, IEnumerable<SellerNotes> table)
+        private IEnumerable<SellerNotes> SortPublishNoteTable(string sort, IEnumerable<SellerNotes> publishnotes)
         {
             switch (sort)
             {
                 case "Title_Asc":
                     {
-                        table = table.OrderBy(x => x.Title);
+                         publishnotes = publishnotes.OrderBy(x => x.Title);
                         break;
                     }
                 case "Title_Desc":
                     {
-                        table = table.OrderByDescending(x => x.Title);
+                        publishnotes = publishnotes.OrderByDescending(x => x.Title);
                         break;
                     }
                 case "Category_Asc":
                     {
-                        table = table.OrderBy(x => x.NoteCategories.Name);
+                        publishnotes = publishnotes.OrderBy(x => x.NoteCategories.Name);
                         break;
                     }
                 case "Category_Desc":
                     {
-                        table = table.OrderByDescending(x => x.NoteCategories.Name);
+                        publishnotes = publishnotes.OrderByDescending(x => x.NoteCategories.Name);
                         break;
                     }
                 case "PublishedDate_Asc":
                     {
-                        table = table.OrderBy(x => x.PublishedDate);
+                        publishnotes = publishnotes.OrderBy(x => x.PublishedDate);
                         break;
                     }
                 case "PublishedDate_Desc":
                     {
-                        table = table.OrderByDescending(x => x.PublishedDate);
+                        publishnotes = publishnotes.OrderByDescending(x => x.PublishedDate);
                         break;
                     }
                 case "IsPaid_Asc":
                     {
-                        table = table.OrderBy(x => x.IsPaid);
+                        publishnotes = publishnotes.OrderBy(x => x.IsPaid);
                         break;
                     }
                 case "IsPaid_Desc":
                     {
-                        table = table.OrderByDescending(x => x.IsPaid);
+                        publishnotes = publishnotes.OrderByDescending(x => x.IsPaid);
                         break;
                     }
                 case "SellingPrice_Asc":
                     {
-                        table = table.OrderBy(x => x.SellingPrice);
+                        publishnotes = publishnotes.OrderBy(x => x.SellingPrice);
                         break;
                     }
                 case "SellingPrice_Desc":
                     {
-                        table = table.OrderByDescending(x => x.SellingPrice);
+                        publishnotes = publishnotes.OrderByDescending(x => x.SellingPrice);
                         break;
                     }
                 default:
                     {
-                        table = table.OrderByDescending(x => x.PublishedDate);
+                        publishnotes = publishnotes.OrderByDescending(x => x.PublishedDate);
                         break;
                     }
             }
-            return table;
+            return publishnotes;
         }
 
         [Authorize]
-        [Route("SellYourNotes/DeleteDraft/{id}")]
+       // [Route("SellYourNotes/DeleteDraft/{id}")]
         public ActionResult DeleteDraft(int id)
         {
             
-            SellerNotes note = _dbcontext.SellerNotes.Where(x => x.ID == id && x.IsActive == true).FirstOrDefault();
+            SellerNotes note = context.SellerNotes.Where(x => x.ID == id && x.IsActive == true).FirstOrDefault();
             
             if (note == null)
             {
                 return HttpNotFound();
             }
            
-            IEnumerable<SellerNotesAttachements> noteattachement = _dbcontext.SellerNotesAttachements.Where(x => x.NoteID == id && x.IsActive == true).ToList();
+            IEnumerable<SellerNotesAttachements> noteattachement = context.SellerNotesAttachements.Where(x => x.NoteID == id && x.IsActive == true).ToList();
             
             if (noteattachement.Count() == 0)
             {
@@ -235,31 +236,31 @@ namespace MyNoteMarketPlace.Controllers
             string noteattachmentfolderpath = Server.MapPath("~/Members/" + note.SellerID + "/" + note.ID + "/Attachements");
 
           
-            DirectoryInfo notefolder = new DirectoryInfo(notefolderpath);
-            DirectoryInfo attachementnotefolder = new DirectoryInfo(noteattachmentfolderpath);
+            DirectoryInfo folder = new DirectoryInfo(notefolderpath);
+            DirectoryInfo attachementfolder = new DirectoryInfo(noteattachmentfolderpath);
            
-            EmptyFolder(attachementnotefolder);
-            EmptyFolder(notefolder);
+            DeleteDirectory(attachementfolder);
+            DeleteDirectory(folder);
             
             Directory.Delete(notefolderpath);
 
-           
-            _dbcontext.SellerNotes.Remove(note);
+           //Delete Data From Database Also
+            context.SellerNotes.Remove(note);
 
             
             foreach (var item in noteattachement)
             {
-                SellerNotesAttachements attachement = _dbcontext.SellerNotesAttachements.Where(x => x.ID == item.ID).FirstOrDefault();
-                _dbcontext.SellerNotesAttachements.Remove(attachement);
+                SellerNotesAttachements attachement = context.SellerNotesAttachements.Where(x => x.ID == item.ID).FirstOrDefault();
+                context.SellerNotesAttachements.Remove(attachement);
             }
 
           
-            _dbcontext.SaveChanges();
+            context.SaveChanges();
 
             return RedirectToAction("Dashboard");
         }
         
-        private void EmptyFolder(DirectoryInfo directory)
+        private void DeleteDirectory(DirectoryInfo directory)
         {
             // check if directory have files
             if (directory.GetFiles() != null)
@@ -277,7 +278,7 @@ namespace MyNoteMarketPlace.Controllers
                 // call emptyfolder and delete subdirectory
                 foreach (DirectoryInfo subdirectory in directory.GetDirectories())
                 {
-                    EmptyFolder(subdirectory);
+                    DeleteDirectory(subdirectory);
                     subdirectory.Delete();
                 }
             }
@@ -290,9 +291,9 @@ namespace MyNoteMarketPlace.Controllers
         public ActionResult AddNotes() {
             AddNotesViewModel viewModel = new AddNotesViewModel
             {
-                NoteCategoryList = _dbcontext.NoteCategories.Where(x => x.IsActive == true).ToList(),
-                NoteTypeList = _dbcontext.NoteTypes.Where(x => x.IsActive == true).ToList(),
-                CountryList = _dbcontext.Countries.Where(x => x.IsActive == true).ToList()
+                NoteCategoryList = context.NoteCategories.Where(x => x.IsActive == true).ToList(),
+                NoteTypeList = context.NoteTypes.Where(x => x.IsActive == true).ToList(),
+                CountryList = context.Countries.Where(x => x.IsActive == true).ToList()
             };
 
             return View(viewModel);
@@ -311,7 +312,7 @@ namespace MyNoteMarketPlace.Controllers
                 ModelState.AddModelError("UploadNotes", "This field is required");
                 return View(addnotesviewmodel);
             }
-            // check and raise error for note preview is null for paid notes
+            // check and raise error when note preview is null for paid notes
             if (addnotesviewmodel.IsPaid == true && addnotesviewmodel.NotesPreview == null)
             {
                 ModelState.AddModelError("NotesPreview", "This field is required if selling type is paid");
@@ -323,7 +324,7 @@ namespace MyNoteMarketPlace.Controllers
                 // create seller note object
                 SellerNotes sellernotes = new SellerNotes();
 
-                Users user = _dbcontext.Users.FirstOrDefault(x => x.EmailID == User.Identity.Name);
+                Users user = context.Users.FirstOrDefault(x => x.EmailID == User.Identity.Name);
 
                 sellernotes.SellerID = user.ID;
                 sellernotes.Title = addnotesviewmodel.Title;
@@ -351,18 +352,20 @@ namespace MyNoteMarketPlace.Controllers
                 sellernotes.IsActive = true;
 
                 // add note in database and save
-                _dbcontext.SellerNotes.Add(sellernotes);
-                _dbcontext.SaveChanges();
+                context.SellerNotes.Add(sellernotes);
+                context.SaveChanges();
 
                 // get seller note
-                sellernotes = _dbcontext.SellerNotes.Find(sellernotes.ID);
+                sellernotes = context.SellerNotes.Find(sellernotes.ID);
 
-                // if display picture is not null then save picture into directory and directory path into database
+                // if display picture field is not null then save that picture into directory and save directory path into database
                 if (addnotesviewmodel.DisplayPicture != null)
                 {
                     string displaypicturefilename = System.IO.Path.GetFileName(addnotesviewmodel.DisplayPicture.FileName);
-                    string displaypicturepath = "~/Members/" + user.ID + "/" + sellernotes.ID + "/";
+                    string displaypicturepath = "~/Members/" + user.ID + "/" + sellernotes.ID + "/";  //this is vertual path it is convert into physical path using Server.MapPath()
+
                     CreateDirectoryIfMissing(displaypicturepath);
+
                     string displaypicturefilepath = Path.Combine(Server.MapPath(displaypicturepath), displaypicturefilename);
                     sellernotes.DisplayPicture = displaypicturepath + displaypicturefilename;
                     addnotesviewmodel.DisplayPicture.SaveAs(displaypicturefilepath);
@@ -380,10 +383,10 @@ namespace MyNoteMarketPlace.Controllers
                 }
 
                 // update note preview path and display picture path and save changes
-                _dbcontext.SellerNotes.Attach(sellernotes);
-                _dbcontext.Entry(sellernotes).Property(x => x.DisplayPicture).IsModified = true;
-                _dbcontext.Entry(sellernotes).Property(x => x.NotesPreview).IsModified = true;
-                _dbcontext.SaveChanges();
+                context.SellerNotes.Attach(sellernotes);
+                context.Entry(sellernotes).Property(x => x.DisplayPicture).IsModified = true;
+                context.Entry(sellernotes).Property(x => x.NotesPreview).IsModified = true;
+                context.SaveChanges();
 
                 // attachement files
                 foreach (HttpPostedFileBase file in addnotesviewmodel.UploadNotes)
@@ -410,8 +413,8 @@ namespace MyNoteMarketPlace.Controllers
                         };
 
                         // save seller notes attachement
-                        _dbcontext.SellerNotesAttachements.Add(notesattachements);
-                        _dbcontext.SaveChanges();
+                        context.SellerNotesAttachements.Add(notesattachements);
+                        context.SaveChanges();
                     }
                 }
 
@@ -423,9 +426,9 @@ namespace MyNoteMarketPlace.Controllers
                 // create object of addnotesviewmodel
                 AddNotesViewModel viewModel = new AddNotesViewModel
                 {
-                    NoteCategoryList = _dbcontext.NoteCategories.Where(x => x.IsActive == true).ToList(),
-                    NoteTypeList = _dbcontext.NoteTypes.Where(x => x.IsActive == true).ToList(),
-                    CountryList = _dbcontext.Countries.Where(x => x.IsActive == true).ToList()
+                    NoteCategoryList = context.NoteCategories.Where(x => x.IsActive == true).ToList(),
+                    NoteTypeList = context.NoteTypes.Where(x => x.IsActive == true).ToList(),
+                    CountryList = context.Countries.Where(x => x.IsActive == true).ToList()
                 };
 
                 return View(viewModel);
@@ -449,13 +452,13 @@ namespace MyNoteMarketPlace.Controllers
         [Route("SellYourNotes/EditNotes/{id}")]
         public ActionResult EditNotes(int id)
         {
-            // get logged in user
-            Users user = _dbcontext.Users.Where(x => x.EmailID == User.Identity.Name).FirstOrDefault();
+            // get current user
+            Users user = context.Users.Where(x => x.EmailID == User.Identity.Name).FirstOrDefault();
 
-            // get note
-            SellerNotes note = _dbcontext.SellerNotes.Where(x => x.ID == id && x.IsActive == true && x.SellerID == user.ID).FirstOrDefault();
-            // get note attachement
-            SellerNotesAttachements attachement = _dbcontext.SellerNotesAttachements.Where(x => x.NoteID == id).FirstOrDefault();
+            // get sellernotes table details
+            SellerNotes note = context.SellerNotes.Where(x => x.ID == id && x.IsActive == true && x.SellerID == user.ID).FirstOrDefault();
+            // get noteattachement table details
+            SellerNotesAttachements attachement = context.SellerNotesAttachements.Where(x => x.NoteID == id).FirstOrDefault();
             if (note != null)
             {
                 // create object of edit note viewmodel
@@ -477,10 +480,12 @@ namespace MyNoteMarketPlace.Controllers
                     Professor = note.Professor,
                     IsPaid = note.IsPaid,
                     SellingPrice = note.SellingPrice,
+
+
                     Preview = note.NotesPreview,
-                    NoteCategoryList = _dbcontext.NoteCategories.Where(x => x.IsActive == true).ToList(),
-                    NoteTypeList = _dbcontext.NoteTypes.Where(x => x.IsActive == true).ToList(),
-                    CountryList = _dbcontext.Countries.Where(x => x.IsActive == true).ToList()
+                    NoteCategoryList = context.NoteCategories.Where(x => x.IsActive == true).ToList(),
+                    NoteTypeList = context.NoteTypes.Where(x => x.IsActive == true).ToList(),
+                    CountryList = context.Countries.Where(x => x.IsActive == true).ToList()
                 };
 
                 // return viewmodel to edit notes page
@@ -502,10 +507,10 @@ namespace MyNoteMarketPlace.Controllers
             // check if model state is valid or not
             if (ModelState.IsValid)
             {
-                // get logged in user
-                var user = _dbcontext.Users.Where(x => x.EmailID == User.Identity.Name).FirstOrDefault();
-                // get note 
-                var sellernotes = _dbcontext.SellerNotes.Where(x => x.ID == id && x.IsActive == true && x.SellerID == user.ID).FirstOrDefault();
+                // get current user
+                var user = context.Users.Where(x => x.EmailID == User.Identity.Name).FirstOrDefault();
+                // get Seller notes table 
+                var sellernotes = context.SellerNotes.Where(x => x.ID == id && x.IsActive == true && x.SellerID == user.ID).FirstOrDefault();
                 // if sellernote null
                 if (sellernotes == null)
                 {
@@ -518,10 +523,10 @@ namespace MyNoteMarketPlace.Controllers
                     return View(notes);
                 }
                 // get note attachement 
-                var notesattachement = _dbcontext.SellerNotesAttachements.Where(x => x.NoteID == notes.NoteID && x.IsActive == true).ToList();
+                var notesattachement = context.SellerNotesAttachements.Where(x => x.NoteID == notes.NoteID && x.IsActive == true).ToList();
 
-                // attache note object and update
-                _dbcontext.SellerNotes.Attach(sellernotes);
+                // attache seller note object and update
+                context.SellerNotes.Attach(sellernotes);
                 sellernotes.Title = notes.Title;
                 sellernotes.Category = notes.Category;
                 sellernotes.NoteType = notes.NoteType;
@@ -544,7 +549,7 @@ namespace MyNoteMarketPlace.Controllers
                 }
                 sellernotes.ModifiedDate = DateTime.Now;
                 sellernotes.ModifiedBy = user.ID;
-                _dbcontext.SaveChanges();
+                context.SaveChanges();
 
                 // if display picture is not null
                 if (notes.DisplayPicture != null)
@@ -563,7 +568,9 @@ namespace MyNoteMarketPlace.Controllers
                     // save updated profile picture in directory and save directory path in database
                     string displaypicturefilename = System.IO.Path.GetFileName(notes.DisplayPicture.FileName);
                     string displaypicturepath = "~/Members/" + user.ID + "/" + sellernotes.ID + "/";
+
                     CreateDirectoryIfMissing(displaypicturepath);
+
                     string displaypicturefilepath = Path.Combine(Server.MapPath(displaypicturepath), displaypicturefilename);
                     sellernotes.DisplayPicture = displaypicturepath + displaypicturefilename;
                     notes.DisplayPicture.SaveAs(displaypicturefilepath);
@@ -586,25 +593,27 @@ namespace MyNoteMarketPlace.Controllers
                     // save updated note preview in directory and save directory path in database
                     string notespreviewfilename = System.IO.Path.GetFileName(notes.NotesPreview.FileName);
                     string notespreviewpath = "~/Members/" + user.ID + "/" + sellernotes.ID + "/";
+
                     CreateDirectoryIfMissing(notespreviewpath);
+
                     string notespreviewfilepath = Path.Combine(Server.MapPath(notespreviewpath), notespreviewfilename);
                     sellernotes.NotesPreview = notespreviewpath + notespreviewfilename;
                     notes.NotesPreview.SaveAs(notespreviewfilepath);
                 }
 
-                // check if user upload notes or not
+                // check if seller upload notes or not
                 if (notes.UploadNotes[0] != null)
                 {
                     // if user upload notes then delete directory that have previously uploaded notes
                     string path = Server.MapPath(notesattachement[0].FilePath);
                     DirectoryInfo dir = new DirectoryInfo(path);
-                    EmptyFolder(dir);
+                    DeleteDirectory(dir);
 
                     // remove previously uploaded attachement from database
                     foreach (var item in notesattachement)
                     {
-                        SellerNotesAttachements attachement = _dbcontext.SellerNotesAttachements.Where(x => x.ID == item.ID).FirstOrDefault();
-                        _dbcontext.SellerNotesAttachements.Remove(attachement);
+                        SellerNotesAttachements attachement = context.SellerNotesAttachements.Where(x => x.ID == item.ID).FirstOrDefault();
+                        context.SellerNotesAttachements.Remove(attachement);
                     }
 
                     // add newly uploaded attachement in database and save it in database
@@ -632,8 +641,8 @@ namespace MyNoteMarketPlace.Controllers
                             };
 
                             // save seller notes attachement
-                            _dbcontext.SellerNotesAttachements.Add(notesattachements);
-                            _dbcontext.SaveChanges();
+                            context.SellerNotesAttachements.Add(notesattachements);
+                            context.SaveChanges();
                         }
                     }
                 }
@@ -646,6 +655,86 @@ namespace MyNoteMarketPlace.Controllers
             }
 
         }
+
+
+
+        [Authorize]
+        public ActionResult PublishNote(int id)
+        {
+            // get note for perticular id
+            var note = context.SellerNotes.Find(id);
+            // if note is not found
+            if (note == null)
+            {
+                return HttpNotFound();
+            }
+            // get current user
+            var user = context.Users.Where(x => x.EmailID == User.Identity.Name).FirstOrDefault();
+
+            // seller name
+            string seller = user.FirstName + " " + user.LastName;
+
+            if (user.ID == note.SellerID)
+            {
+                // update note status from draft to review = 7
+                context.SellerNotes.Attach(note);
+                note.Status = 7;
+                note.ModifiedDate = DateTime.Now;
+                note.ModifiedBy = user.ID;
+                context.SaveChanges();
+
+                // send mail to admin for publish note request
+                SendPublishedNoteMail(note.Title, seller);
+            }
+
+            return RedirectToAction("Dashboard");
+        }
+
+        // send mail to admin for publish note request
+        public void SendPublishedNoteMail(string note, string seller)
+        {
+            
+
+            // get support email
+            var email = context.SystemConfigurations.Where(x => x.Key == "supportemail").FirstOrDefault();
+           
+            var receiver = context.SystemConfigurations.Where(x => x.Key == "adminemail").FirstOrDefault();
+            var fromEmailPassword = "***********"; // Replace with your original password
+            
+
+            string from, to, subject;
+            from = email.Value.Trim();
+            to = receiver.Value.Trim();
+            subject = seller + " sent his note for review";
+            
+            string body = "Hello Admins,<br/><br/>" +
+                           " We want to inform you that," + ViewBag.SellerName + "sent his note" + ViewBag.NoteTitle +
+                           "for review.Please look at the notes and take required actions." +
+                           "<br/><br/>Regards,<br/>Notes Marketplace";
+
+
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(from, fromEmailPassword)
+            };
+
+
+            MailMessage mail = new MailMessage();
+            mail.From = new MailAddress(from, "NotesMarketplace");
+            mail.To.Add(new MailAddress(to));
+            mail.Subject = subject;
+            mail.Body = body;
+            mail.IsBodyHtml = true;
+            smtp.Send(mail);
+
+        }
+
 
 
     }

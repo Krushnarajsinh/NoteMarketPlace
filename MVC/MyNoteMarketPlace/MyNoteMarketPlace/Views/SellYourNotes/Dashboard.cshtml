@@ -6,6 +6,30 @@
 
 }
 
+@{ 
+<style>
+    .pagination {
+     
+    margin-left: 40% !important;
+    margin-bottom:5%;
+ 
+}
+    #dashboard-progress Input[type=search], #dashboard-publish Input[type=search] {
+        width: 322px;
+        border: 1px solid #d1d1d1;
+        margin-bottom: 20px;
+        margin-left: -100px;
+    }
+    table {
+  
+    margin-bottom: 50px !important;
+
+}
+
+    
+    </style>
+}
+
 
 <!-- Dashboard Head -->
 <section id="dashboard-upper">
@@ -50,8 +74,8 @@
                                 <!-- Number of notes sell -->
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-6 col-xs-6">
                                     <div class="dash-left text-center">
-                                        <h4><b><a class="value" href="@Url.Action("MySoldNotes", "User")">@Model.NumberOfSoldNotes</a></b></h4>
-                                        <p>  <a class="heading" href="@Url.Action("MySoldNotes", "User")">Number of Notes Sold</a></p>
+                                        <h4><b><a class="value" href="#">@Model.NumberOfSoldNotes</a></b></h4>
+                                        <p>  <a class="heading" href="#">Number of Notes Sold</a></p>
                                     </div>
                                 </div>
 
@@ -61,15 +85,15 @@
                                     <div class="dash-left text-center">
                                         @if (@Model.MoneyEarned == null)
                                         {
-                                            <h4><b> <a class="value" href="@Url.Action("MySoldNotes", "User")">$ 0</a></b></h4>
+                                            <h4><b> <a class="value" href="#">$0</a></b></h4>
                                         }
                                         else
                                         {
-                                            <h4><b> <a class="value" href="@Url.Action("MySoldNotes", "User")">$@Model.MoneyEarned</a></b></h4>
+                                            <h4><b> <a class="value" href="#">$@Model.MoneyEarned</a></b></h4>
                                         }
 
 
-                                        <p> <a class="heading" href="@Url.Action("MySoldNotes", "User")">Money Earned</a> </p>
+                                        <p> <a class="heading" href="#">Money Earned</a> </p>
 
 
                                     </div>
@@ -89,8 +113,8 @@
 
                                 <!-- Number of notes sell -->
                                 <div class="right-dash text-center">
-                                    <h4><b>  <a class="value" href="@Url.Action("MyDownloads", "User")">@Model.MyDownloads</a></b></h4>
-                                    <p><a class="heading" href="@Url.Action("MyDownloads", "User")">My Downloads</a></p>
+                                    <h4><b>  <a class="value" href="#">@Model.MyDownloads</a></b></h4>
+                                    <p><a class="heading" href="#">My Downloads</a></p>
 
                                 </div>
 
@@ -100,8 +124,8 @@
 
                             <!-- Number of notes sell -->
                             <div class="right-dash text-center">
-                                <h4><b><a class="value" href="@Url.Action("MyRejectedNotes", "User")">@Model.MyRejectedNotes</a></b></h4>
-                                <p> <a class="heading" href="@Url.Action("MyRejectedNotes", "User")">My Rejected Notes</a></p>
+                                <h4><b><a class="value" href="#">@Model.MyRejectedNotes</a></b></h4>
+                                <p> <a class="heading" href="#">My Rejected Notes</a></p>
 
 
                             </div>
@@ -111,8 +135,8 @@
 
                             <!-- Number of notes sell -->
                             <div class="right-dash text-center">
-                                <h4><b> <a class="value" href="@Url.Action("BuyerRequest", "BuyerRequest")">@Model.BuyerRequest</a></b></h4>
-                                <p> <a class="heading" href="@Url.Action("BuyerRequest", "BuyerRequest")">Buyer Requests</a></p>
+                                <h4><b> <a class="value" href='@Url.Action("BuyerRequest", "BuyerRequest")'>@Model.BuyerRequest</a></b></h4>
+                                <p> <a class="heading" href='@Url.Action("BuyerRequest", "BuyerRequest")'>Buyer Requests</a></p>
 
 
                             </div>
@@ -143,7 +167,7 @@
                     <div class="row justify-content-end  left-end search-btn">
                         <div class="wrapper">
                             <img src="~/Img/Front/Dashboard/search.jpg" class="searchimage doup">
-                            <input type="text" class="form-control search-bar InputEmail1" placeholder="Search" value="@ViewBag.Search1" name="search1">
+                            <input type="search" class="form-control search-bar InputEmail1" placeholder="Search" value="@ViewBag.Search1" name="search1">
                             <input type="search" name="search2" value="@ViewBag.Search2" hidden>
                         </div>
                         <div class="btn-merge">
@@ -160,7 +184,7 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col" class="align-middle">@Html.ActionLink("Added date", "Dashboard", new { sort1 = ViewBag.Sort1 == null ? "CreatedDate_Asc" : (ViewBag.Sort1 == "CreatedDate_Desc" ? "CreatedDate_Asc" : "CreatedDate_Desc"), sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2, search1 = @ViewBag.Search1, search2 = @ViewBag.Search2 })</th>
+                                <th scope="col" class="align-middle">@Html.ActionLink("Added date", "Dashboard", new { sort1 = ViewBag.Sort1 == null ? "CreatedDate_Asc" : (ViewBag.Sort1 == "CreatedDate_Asc" ? "CreatedDate_Desc" : "CreatedDate_Asc"), sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2, search1 = @ViewBag.Search1, search2 = @ViewBag.Search2 })</th>
                                 <th scope="col" class="align-middle">@Html.ActionLink("Title", "Dashboard", new { sort1 = ViewBag.Sort1 == null ? "Title_Asc" : (ViewBag.Sort1 == "Title_Asc" ? "Title_Desc" : "Title_Asc"), sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2, search1 = @ViewBag.Search1, search2 = @ViewBag.Search2 })</th>
                                 <th scope="col" class="align-middle">@Html.ActionLink("Category", "Dashboard", new { sort1 = ViewBag.Sort1 == null ? "Category_Asc" : (ViewBag.Sort1 == "Category_Asc" ? "Category_Desc" : "Category_Asc"), sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2, search1 = @ViewBag.Search1, search2 = @ViewBag.Search2 })</th>
                                 <th scope="col" class="align-middle">@Html.ActionLink("Status", "Dashboard", new { sort1 = ViewBag.Sort1 == null ? "Status_Asc" : (ViewBag.Sort1 == "Status_Asc" ? "Status_Desc" : "Status_Asc"), sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2, search1 = @ViewBag.Search1, search2 = @ViewBag.Search2 })</th>
@@ -202,7 +226,7 @@
                                             {
                                                 <div class="row text-center set-icon-1">
                                                     <div class="col-11 col-sm-11 col-md-9 col-lg-7">
-                                                        <a href="@Url.Action("SearchNotes", "SearchNotes", new { id = @inprogressnote.ID })"><img src="~/Img/Front/Dashboard/eye.png" alt="View"></a>
+                                                        <a href="@Url.Action("NotesDetails", "SearchNotes", new { id = @inprogressnote.ID })"><img src="~/Img/Front/Dashboard/eye.png" alt="View"></a>
                                                     </div>
                                                 </div>
 
@@ -246,7 +270,7 @@
     </nav>
 
     <!-- Pagination Ends -->
- -->
+ 
 @if (Model.InProgressNotes.Count() != 0)
 {
     <div class="row justify-content-center">
@@ -346,7 +370,7 @@
                         <div class="wrapper">
                             <img src="~/Img/Front/Dashboard/search.jpg" class="searchimage doup">
                             <input type="search" name="search1" value="@ViewBag.Search1" hidden>
-                            <input type="text" class="form-control search-bar InputEmail1" placeholder="Search" value="@ViewBag.Search2" name="search2">
+                            <input type="search" class="form-control search-bar InputEmail1" placeholder="Search" value="@ViewBag.Search2" name="search2">
 
                         </div>
 
@@ -401,7 +425,7 @@
                                         <td class="align-middle">
                                             <div class="row text-center set-icon">
                                                 <div class="col-11 col-sm-11 col-md-9 col-lg-7">
-                                                    <a href="@Url.Action("SearchNotes", "SearchNotes", new { id = @publishednote.ID })"><img src="~/Img/Front/Dashboard/eye.png" alt="view"></a>
+                                                    <a href="@Url.Action("NotesDetails", "SearchNotes", new { id = @publishednote.ID })"><img src="~/Img/Front/Dashboard/eye.png" alt="view"></a>
                                                 </div>
                                             </div>
                                         </td>
@@ -441,7 +465,7 @@
     </div>
 </nav>
 <!-- Pagination Ends -->
- -->
+ 
 @if (Model.PublishedNotes.Count() != 0)
 {
     <div class="row justify-content-center">

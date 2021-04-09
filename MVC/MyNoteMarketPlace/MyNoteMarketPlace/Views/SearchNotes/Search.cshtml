@@ -20,6 +20,11 @@
             appearance: none;
             background-position: 99% 50%;
         }
+          .pagination {
+          margin-left: 40% !important;
+          margin-bottom:5%;
+ 
+         }
     </style>
 
 }
@@ -58,7 +63,7 @@
                                 <div class="search-bar">
                                     <i class="fa fa-search for-search" aria-hidden="true"></i>
                                     <!--  <input type="text" class="form-control" id="fname" placeholder="Search notes here..."> -->
-                                    <input type="text" name="search" class="form-control" id="fname" value="@ViewBag.Search" placeholder="Search Notes here...">
+                                    <input type="search" name="search" class="form-control" id="fname" value="@ViewBag.Search" placeholder="Search Notes here...">
                                 </div>
                             </div>
                         </div>
@@ -147,7 +152,7 @@
                         <div class="notes">
                             <!-- Book Image -->
                             <div class="notes-img">
-                                <a href="#" ,new { id=item.Note.ID })">
+                                <a href="@Url.Action("Notes", "SearchNotes" ,new { id=item.Note.ID })">
                                     @if (@item.Note.DisplayPicture != null)
                                     {
                                         <img src="@Url.Content(item.Note.DisplayPicture)" alt="img-1" class="img-responsive">
@@ -160,7 +165,9 @@
                             </div>
                             <!-- Book Type -->
                             <div class="notes-type">
-                                <h3>@item.Note.Title</h3>
+                                <a href="@Url.Action("Notes", "SearchNotes",new { id = item.Note.ID })">
+                                    <h3>@item.Note.Title</h3>
+                                    </a>
                             </div>
                             <!-- Book Information -->
                             <div class="notes-info">

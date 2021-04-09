@@ -2,11 +2,29 @@
 
 @{
     ViewBag.Title = "BuyerRequest";
-    Layout = "~/Views/Shared/_UserNav.cshtml";
+     Layout = "~/Views/Shared/_UserNav.cshtml";
+   
+}
+@{
+    <style>
+        .pagination {
+             margin-left: 50% !important;
+   
+
+        }
+
+        #dashboard-progress Input[type=search], #dashboard-publish Input[type=search] {
+            width: 322px;
+            border: 1px solid #d1d1d1;
+            margin-bottom: 20px;
+            margin-left: -100px;
+        }
+        
+    </style>
 }
 
-<!-- Buyer Requests Teble -->
-<!-- Buyer Requests Teble -->
+    <!-- Buyer Requests Teble -->
+    <!-- Buyer Requests Teble -->
     <div class="outerbox">
         <section id="dashboard-progress" class="mydownload-margin">
             <div class="container">
@@ -20,7 +38,7 @@
                             <div class="row justify-content-end left-end">
                                 <div class="wrapper">
                                     <img src="~/Img/Front/Dashboard/search.jpg" class="searchimage doup">
-                                    <input type="text" class="form-control search-bar InputEmail1" placeholder="Search" value="@ViewBag.Search">
+                                    <input type="search" class="form-control search-bar InputEmail1" placeholder="Search" value="@ViewBag.Search">
                                 </div>
                                 <div class="btn-merge">
                                     <button type="submit" class="btn text-uppercase text-center" id="mybt"><b>Search</b></button>
@@ -60,29 +78,29 @@
                                     }
                                     else
                                     {
-                                        var srno = (ViewBag.PageNumber - 1) * 10;
+                                        var number = (ViewBag.PageNumber - 1) * 10;
                                         foreach (var item in Model)
                                         {
                                             <tr>
-                                                @{ srno = srno + 1; }
-                                                <td class="align-middle text-center">@srno</td>
-                                                <td class="align-middle getpurple"><a href="@Url.Action("Notes", "SearchNotes", new { id = @item.TblDownload.NoteID })">@item.TblDownload.NoteTitle</a></td>
-                                                <td class="align-middle">@item.TblDownload.NoteCategory</td>
-                                                <td class="align-middle">@item.TblUser.EmailID</td>
-                                                <td class="align-middle">@item.TblUserProfile.Phone_number_Country_Code @item.TblUserProfile.Phone_number</td>
-                                                @if (@item.TblDownload.IsPaid == true)
+                                                @{ number = number + 1; }
+                                                <td class="align-middle text-center">@number</td>
+                                                <td class="align-middle getpurple"><a href="@Url.Action("NotesDetails", "SearchNotes", new { id = @item.download.NoteID })">@item.download.NoteTitle</a></td>
+                                                <td class="align-middle">@item.download.NoteCategory</td>
+                                                <td class="align-middle">@item.User.EmailID</td>
+                                                <td class="align-middle">@item.userProfile.Phone_number_Country_Code @item.userProfile.Phone_number</td>
+                                                @if (@item.download.IsPaid == true)
                                                 {
                                                     <td class="align-middle">Paid</td>
-                                                    <td class="align-middle">$@item.TblDownload.PurchasedPrice</td>
+                                                    <td class="align-middle">$@item.download.PurchasedPrice</td>
                                                 }
                                                 else
                                                 {
                                                     <td class="align-middle">Free</td>
                                                     <td class="align-middle">$0</td>
                                                 }
-                                                <td class="align-middle">@item.TblDownload.CreatedDate.Value.ToString("dd MMM yyyy hh:mm:ss")</td>
+                                                <td class="align-middle">@item.download.CreatedDate.Value.ToString("dd MMM yyyy hh:mm:ss")</td>
                                                 <td class="align-middle">
-                                                    <a type="button" href="@Url.Action("Notes", "SearchNotes", new { id = @item.TblDownload.NoteID } )"><img src="~/Img/Front/Dashboard/eye.png" alt="view" class="eye"></a>
+                                                    <a type="button" href="@Url.Action("NotesDetails", "SearchNotes", new { id = @item.download.NoteID } )"><img src="~/Img/Front/Dashboard/eye.png" alt="view" class="eye"></a>
                                                 </td>
                                                 <td class="align-middle">
                                                     <!-- Default dropleft button -->
@@ -92,7 +110,7 @@
                                                             <i class="fa fa-ellipsis-v  dowhite"></i>
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                                            <a href="@Url.Action("AllowDownload", new { id = @item.TblDownload.ID })" class="dropdown-item" type="button">Allow Download</a>
+                                                            <a href="@Url.Action("AllowDownload", new { id = @item.download.ID })" class="dropdown-item" type="button">Allow Download</a>
                                                         </div>
 
                                                     </div>
@@ -195,3 +213,4 @@
         }
         <!-- Pagination End-->
         <!--Buyer Requests Table Ends -->
+       

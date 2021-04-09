@@ -4,12 +4,17 @@ select.input-validation-error {
     border: 1px solid red;
 }
 
+
+
+
 /*===============================
               New Pagination
 ===================================*/
 .pagination {
     margin: 30px 0 10px 0;
+    margin-left: 50% !important;
 }
+
 
 li.page-item {
     margin: 0 3px;
@@ -1140,7 +1145,7 @@ Input[type=file]::-webkit-file-upload-button {
     margin-top: 1px;
 }
 
-/* For Pagination */
+/* For Pagination 
 .pagination {
     margin-bottom: 60px;
 }
@@ -1165,7 +1170,7 @@ Input[type=file]::-webkit-file-upload-button {
 
 .mypagination {
     margin-left: 40%;
-}
+} */
 
 #notesdetail-detail {
     margin-top: 160px;
@@ -1630,7 +1635,7 @@ set-background-shadow-cicis-menu-to-go {
 }
 
 #dashboard-progress Input[type=text],
-#dashboard-publish Input[type=text] {
+#dashboard-publish Input[type=text], #dashboard-progress Input[type=search], #dashboard-publish Input[type=search] {
     width: 322px;
     border: 1px solid #d1d1d1;
     margin-bottom: 20px;
@@ -1682,8 +1687,9 @@ set-background-shadow-cicis-menu-to-go {
     left: -90px !important;
 }
 
-.search-bar {
+.search-bar, #dashboard-progress Input[type=search], #dashboard-publish Input[type=search] {
     padding-left: 35px !important;
+   
 }
 
 .wrapper span {
@@ -1704,7 +1710,8 @@ set-background-shadow-cicis-menu-to-go {
 }
 
 .wrapper .form-control {
-    padding-left: 40px;
+     padding-left: 40px;
+    
 }
 
 #dashboard-upper {
@@ -1976,9 +1983,9 @@ input[type='radio']:checked:after {
     color: #6255a5;
 }
 
-.mypagination {
+/*.mypagination {
     margin-bottom: 40px;
-}
+}*/
 
 .dropdown-item {
     padding-left: 30px;

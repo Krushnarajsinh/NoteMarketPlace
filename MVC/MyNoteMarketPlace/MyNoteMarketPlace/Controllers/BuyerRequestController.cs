@@ -35,111 +35,112 @@ namespace MyNoteMarketPlace.Controllers
                                                               join users in context.Users on download.Downloader equals users.ID
                                                               join userprofile in context.UserProfile on download.Downloader equals userprofile.User_ID
                                                               where download.Seller == user.ID && download.IsSellerHasAllowedDownload == false && download.AttachmentPath == null
-                                                              select new BuyerRequestViewModel { TblDownload = download, TblUser = users, TblUserProfile = userprofile };
+                                                              select new BuyerRequestViewModel { download = download, User = users, userProfile = userprofile };
 
-        
+            // if search is not empty
             if (!string.IsNullOrEmpty(search))
             {
                 search = search.ToLower();
                 buyerrequest = buyerrequest.Where(
-                                                    x => x.TblDownload.NoteTitle.ToLower().Contains(search) ||
-                                                         x.TblDownload.NoteCategory.ToLower().Contains(search) ||
-                                                         x.TblUser.EmailID.ToLower().Contains(search) ||
-                                                         x.TblDownload.PurchasedPrice.ToString().ToLower().Contains(search) ||
-                                                         x.TblUserProfile.Phone_number.ToLower().Contains(search)
+                                                    x => x.download.NoteTitle.ToLower().Contains(search) ||
+                                                         x.download.NoteCategory.ToLower().Contains(search) ||
+                                                         x.User.EmailID.ToLower().Contains(search) ||
+                                                         x.download.PurchasedPrice.ToString().ToLower().Contains(search) ||
+                                                         x.userProfile.Phone_number.ToLower().Contains(search)
                                                  ).ToList();
             }
 
           
-            buyerrequest = SortTableBuyerRequest(sort, buyerrequest);
+            buyerrequest = SortBuyerRequestTable(sort, buyerrequest);
+            // get total pages of buyerrequest
             ViewBag.TotalPages = Math.Ceiling(buyerrequest.Count() / 10.0);
-           
+            // get result according to pagination
             buyerrequest = buyerrequest.Skip((page - 1) * 10).Take(10);
 
             return View(buyerrequest);
         }
 
-        private IEnumerable<BuyerRequestViewModel> SortTableBuyerRequest(string sort, IEnumerable<BuyerRequestViewModel> table)
+        private IEnumerable<BuyerRequestViewModel> SortBuyerRequestTable(string sort, IEnumerable<BuyerRequestViewModel> buyerrequest)
         {
             switch (sort)
             {
                 case "Title_Asc":
                     {
-                        table = table.OrderBy(x => x.TblDownload.NoteTitle);
+                        buyerrequest = buyerrequest.OrderBy(x => x.download.NoteTitle);
                         break;
                     }
                 case "Title_Desc":
                     {
-                        table = table.OrderByDescending(x => x.TblDownload.NoteTitle);
+                        buyerrequest = buyerrequest.OrderByDescending(x => x.download.NoteTitle);
                         break;
                     }
                 case "Category_Asc":
                     {
-                        table = table.OrderBy(x => x.TblDownload.NoteCategory);
+                        buyerrequest = buyerrequest.OrderBy(x => x.download.NoteCategory);
                         break;
                     }
                 case "Category_Desc":
                     {
-                        table = table.OrderByDescending(x => x.TblDownload.NoteCategory);
+                        buyerrequest = buyerrequest.OrderByDescending(x => x.download.NoteCategory);
                         break;
                     }
                 case "Buyer_Asc":
                     {
-                        table = table.OrderBy(x => x.TblUser.EmailID);
+                        buyerrequest = buyerrequest.OrderBy(x => x.User.EmailID);
                         break;
                     }
                 case "Buyer_Desc":
                     {
-                        table = table.OrderByDescending(x => x.TblUser.EmailID);
+                        buyerrequest = buyerrequest.OrderByDescending(x => x.User.EmailID);
                         break;
                     }
                 case "Phone_Asc":
                     {
-                        table = table.OrderBy(x => x.TblUserProfile.Phone_number);
+                        buyerrequest = buyerrequest.OrderBy(x => x.userProfile.Phone_number);
                         break;
                     }
                 case "Phone_Desc":
                     {
-                        table = table.OrderByDescending(x => x.TblUserProfile.Phone_number);
+                        buyerrequest = buyerrequest.OrderByDescending(x => x.userProfile.Phone_number);
                         break;
                     }
                 case "Type_Asc":
                     {
-                        table = table.OrderBy(x => x.TblDownload.IsPaid);
+                        buyerrequest = buyerrequest.OrderBy(x => x.download.IsPaid);
                         break;
                     }
                 case "Type_Desc":
                     {
-                        table = table.OrderByDescending(x => x.TblDownload.IsPaid);
+                        buyerrequest = buyerrequest.OrderByDescending(x => x.download.IsPaid);
                         break;
                     }
                 case "Price_Asc":
                     {
-                        table = table.OrderBy(x => x.TblDownload.PurchasedPrice);
+                        buyerrequest = buyerrequest.OrderBy(x => x.download.PurchasedPrice);
                         break;
                     }
                 case "Price_Desc":
                     {
-                        table = table.OrderByDescending(x => x.TblDownload.PurchasedPrice);
+                        buyerrequest = buyerrequest.OrderByDescending(x => x.download.PurchasedPrice);
                         break;
                     }
                 case "DownloadedDate_Asc":
                     {
-                        table = table.OrderBy(x => x.TblDownload.CreatedDate);
+                        buyerrequest = buyerrequest.OrderBy(x => x.download.CreatedDate);
                         break;
                     }
                 case "DownloadedDate_Desc":
                     {
-                        table = table.OrderByDescending(x => x.TblDownload.CreatedDate);
+                        buyerrequest = buyerrequest.OrderByDescending(x => x.download.CreatedDate);
                         break;
                     }
                 default:
                     {
-                        table = table.OrderByDescending(x => x.TblDownload.CreatedDate);
+                        buyerrequest = buyerrequest.OrderByDescending(x => x.download.CreatedDate);
                         break;
                     }
             }
-            return table;
+            return buyerrequest;
         }
 
         [Authorize]
@@ -165,7 +166,7 @@ namespace MyNoteMarketPlace.Controllers
                 context.SaveChanges();
 
              
-                AllowDownloadTemplate(download, user);
+                SendMailForAllowDownload(download, user);
 
                 return RedirectToAction("BuyerRequest");
 
@@ -177,7 +178,7 @@ namespace MyNoteMarketPlace.Controllers
             }
         }
 
-        public void AllowDownloadTemplate(Downloads download, Users seller)
+        public void SendMailForAllowDownload(Downloads download, Users seller)
         {
             var downloader = context.Users.Where(x => x.ID == download.Downloader).FirstOrDefault();
             SystemConfigurations syst = new SystemConfigurations();
@@ -187,7 +188,7 @@ namespace MyNoteMarketPlace.Controllers
             var fromEmail=email.Value.Trim();
             /* var toEmail = new MailAddress(downloader.EmailID); */
             var toEmail = downloader.EmailID.Trim();
-            var fromEmailPassword = "********"; // Replace with actual password
+            var fromEmailPassword = "********"; // Replace with original password
             string subject = seller.FirstName + "Allows you to download a note";
             string body = "Hello" + downloader.FirstName + "," +
                 "<br/><br/>We would like to inform you that, " + seller.FirstName + "Allows you to download a note." +

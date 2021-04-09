@@ -9,6 +9,8 @@ namespace MyNoteMarketPlace.Models
 {
     public class AddNotesViewModel
     {
+        public int ID { get; set; }
+
         [Required(ErrorMessage = "This field is required")]
       
         public string Title { get; set; }

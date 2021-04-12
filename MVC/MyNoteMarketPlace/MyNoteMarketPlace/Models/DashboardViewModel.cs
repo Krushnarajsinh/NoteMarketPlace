@@ -7,7 +7,7 @@ namespace MyNoteMarketPlace.Models
 {
     public class DashboardViewModel
     {
-        public IEnumerable<SellerNotes> InProgressNotes { get; set; }
+        public IEnumerable<SellerNotes> ProgressNotes { get; set; }
         public IEnumerable<SellerNotes> PublishedNotes { get; set; }
         public int? MyDownloads { get; set; }
         public int? NumberOfSoldNotes { get; set; }
@@ -16,3 +16,4 @@ namespace MyNoteMarketPlace.Models
         public int? BuyerRequest { get; set; }
     }
 }
+

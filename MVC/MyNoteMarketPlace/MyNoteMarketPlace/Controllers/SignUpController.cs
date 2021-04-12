@@ -24,10 +24,6 @@ namespace MyNoteMarketPlace.Controllers
         [HttpPost]
         public ActionResult SignUp(UsersModel model)
         {
-
-
-
-
             if (ModelState.IsValid)
             {
 
@@ -140,7 +136,7 @@ namespace MyNoteMarketPlace.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Login")]
-        public ActionResult Login(UserLogin obj, string ReturnUrl = "")
+        public ActionResult Login(UserLogin obj)
         {
             //string message = "";
             using (Datebase1Entities entity = new Datebase1Entities())
@@ -160,7 +156,7 @@ namespace MyNoteMarketPlace.Controllers
                             cookie.HttpOnly = true;
                             Response.Cookies.Add(cookie);
 
-                            return RedirectToAction("DashBoard", "SellYourNotes");
+                            return RedirectToAction("Search", "SearchNotes");
 
                         }
                         else

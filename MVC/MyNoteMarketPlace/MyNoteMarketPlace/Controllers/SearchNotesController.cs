@@ -74,7 +74,7 @@ namespace MyNoteMarketPlace.Controllers
             }
 
 
-            List<SearchNotesViewModel> searchnotes = new List<SearchNotesViewModel>();
+            List<SearchNotesViewModel> searchnoteslist = new List<SearchNotesViewModel>();
 
             // if rating is empty
 
@@ -99,7 +99,7 @@ namespace MyNoteMarketPlace.Controllers
                         TotalSpam = inappropriate_count
                     };
 
-                    searchnotes.Add(note);
+                    searchnoteslist.Add(note);
                 }
             }
             // if rating is not empty
@@ -128,7 +128,7 @@ namespace MyNoteMarketPlace.Controllers
                             TotalSpam = spamcount
                         };
 
-                        searchnotes.Add(note);
+                        searchnoteslist.Add(note);
                     }
 
                 }
@@ -137,12 +137,12 @@ namespace MyNoteMarketPlace.Controllers
             // page number
             ViewBag.PageNumber = page;
             // count total pages
-            ViewBag.TotalPages = Math.Ceiling(searchnotes.Count() / 9.0);
+            ViewBag.TotalPages = Math.Ceiling(searchnoteslist.Count() / 9.0);
             // show record according to pagination
-            IEnumerable<SearchNotesViewModel> result = searchnotes.AsEnumerable().Skip((page - 1) * 9).Take(9);
+            IEnumerable<SearchNotesViewModel> result = searchnoteslist.AsEnumerable().Skip((page - 1) * 9).Take(9);
 
             // total Number Of Notes In Search Page
-            ViewBag.ResultCount = searchnotes.Count();
+            ViewBag.ResultCount = searchnoteslist.Count();
 
             return View(result);
         }

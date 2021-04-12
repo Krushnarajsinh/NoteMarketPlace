@@ -193,7 +193,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @if (Model.InProgressNotes.Count() == 0)
+                            @if (Model.ProgressNotes.Count() == 0)
                             {
                                 <tr class="no-record">
                                     <td colspan="5" class="text-center align-middle">No Record Found</td>
@@ -201,7 +201,7 @@
                             }
                             else
                             {
-                                foreach (var inprogressnote in Model.InProgressNotes)
+                                foreach (var inprogressnote in Model.ProgressNotes)
                                 {
                                     <tr>
                                         <td class="align-middle">@inprogressnote.CreatedDate.Value.ToString("dd-MM-yyyy")</td>
@@ -271,7 +271,7 @@
 
     <!-- Pagination Ends -->
  
-@if (Model.InProgressNotes.Count() != 0)
+@if (Model.ProgressNotes.Count() != 0)
 {
     <div class="row justify-content-center">
 

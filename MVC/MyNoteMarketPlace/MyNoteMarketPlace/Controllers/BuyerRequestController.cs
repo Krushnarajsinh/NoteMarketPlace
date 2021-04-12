@@ -27,7 +27,7 @@ namespace MyNoteMarketPlace.Controllers
             ViewBag.Search = search;
             ViewBag.PageNumber = page;
 
-            //get logged in user
+            //get current user
             Users user = context.Users.Where(x => x.EmailID == User.Identity.Name).FirstOrDefault();
 
             // get buyer requests

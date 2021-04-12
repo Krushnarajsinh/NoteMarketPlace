@@ -152,7 +152,7 @@
                         <div class="notes">
                             <!-- Book Image -->
                             <div class="notes-img">
-                                <a href="@Url.Action("Notes", "SearchNotes" ,new { id=item.Note.ID })">
+                                <a href="@Url.Action("Notes", "NotesDetails" ,new { id=item.Note.ID })">
                                     @if (@item.Note.DisplayPicture != null)
                                     {
                                         <img src="@Url.Content(item.Note.DisplayPicture)" alt="img-1" class="img-responsive">
@@ -165,7 +165,7 @@
                             </div>
                             <!-- Book Type -->
                             <div class="notes-type">
-                                <a href="@Url.Action("Notes", "SearchNotes",new { id = item.Note.ID })">
+                                <a href="@Url.Action("Notes", "NotesDetails",new { id = item.Note.ID })">
                                     <h3>@item.Note.Title</h3>
                                     </a>
                             </div>

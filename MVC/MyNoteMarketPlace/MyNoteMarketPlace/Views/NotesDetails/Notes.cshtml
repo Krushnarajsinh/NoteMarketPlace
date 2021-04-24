@@ -1,0 +1,335 @@
+﻿@model  MyNoteMarketPlace.Models.NotesDetailsModel
+@{
+    ViewBag.Title = "NotesDetails";
+    Layout = "~/Views/Shared/_UserNav.cshtml";
+}
+
+@{
+    <style>
+
+        .btn-confirm a.btn.btn-no {
+            margin-left: 0px !important;
+        }
+    </style>
+}
+<!-- Notes Details -->
+<section id="notes-details">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-12">
+                <h3>Notes Details</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-6 ">
+                <div class="row">
+                    <div class="col-md-5 col-sm-5 col-5 col-xs-5">
+                        <div class="myimg">
+                            <!--<img src="~/Img/Front/Notes Details/1.jpg" alt="detail-1" class="img-responsive img-fluid">-->
+                            @if (Model.SellerNote.DisplayPicture != null)
+                            {
+                                <img src="@Url.Content(Model.SellerNote.DisplayPicture)" class="img-responsive img-fluid">
+                            }
+                            else
+                            {
+                                <img src="~/DefaultImage/1.jpg" alt="note" class="img-responsive img-fluid">
+                            }
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-sm-7 col-7 col-xs-7">
+                        <h2>@Model.SellerNote.Title</h2>
+                        <h5>@Model.SellerNote.NoteCategories.Name</h5>
+                        <p class="text-left">@Model.SellerNote.Description</p>
+                        <div class="row">
+
+
+                            <!--  <button type="submit" class="btn btn-primary text-uppercase text-center" data-toggle="modal" data-target="#exampleModal"><b>download/$15</b></button> -->
+                            <!-- if user is authenticated -->
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <!-- if note is paid and note's seller and logged in user is not same -->
+                                if (Model.SellerNote.IsPaid && Model.SellerNote.SellerID != Model.UserID)
+                                {
+                                    <!-- if note is not already requested -->
+                                    if (Model.NoteRequested == false)
+                                    {
+                            <div class="col-md-12 col-sm-12 col-12">
+                                <!--  <a class="btn btn-primary text-uppercase text-center" role="button" data-toggle="modal" data-target="#confirmation"><b>Download / $@Model.SellerNote.SellingPrice</b></a> -->
+                                <button type="submit" class="btn btn-primary text-uppercase text-center" role="button" data-toggle="modal" data-target="#confirmation"><b>Download / $@Model.SellerNote.SellingPrice</b></button>
+                            </div>
+                                    }
+                                    <!-- if logged in user is allowed to download -->
+                                    if (Model.AllowDownload == true)
+                                    {
+                        <div class="col-md-12 col-sm-12 col-12">
+                            <!-- <a class="btn btn-primary text-uppercase text-center" href="@Url.Action("DownloadNotes", new { noteid = Model.SellerNote.ID })" role="button" download><b>Download / $@Model.SellerNote.SellingPrice</b></a> -->
+                            <button type="submit" class="btn btn-primary text-uppercase text-center"  onclick="location.href='@Url.Action("DownloadNotes", new { noteid = Model.SellerNote.ID })'" role="button" download><b>Download / $@Model.SellerNote.SellingPrice</b></button>
+                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    <!-- if note is free or paid and note's seller and logged in user is same -->
+                        <div class="col-md-12 col-sm-12 col-12">
+                            <!--   <a class="btn btn-primary text-uppercase text-center" href="@Url.Action("DownloadNotes", new { noteid = Model.SellerNote.ID })" role="button" download><b>Download / $@Model.SellerNote.SellingPrice</b></a> -->
+                            <button type="submit" class="btn btn-primary text-uppercase text-center" onclick="location.href='@Url.Action("DownloadNotes", new { noteid = Model.SellerNote.ID })'" role="button" download><b>Download / $@Model.SellerNote.SellingPrice</b></button>
+                        </div>
+                                }
+                            }
+                            else
+                            {
+                                <!-- if user is not authenticated -->
+                        <div class="col-md-12 col-sm-12 col-12">
+                            <!--  <a class="btn btn-primary text-uppercase text-center" href="@Url.Action("Login", "SignUp")"><b>Download / $@Model.SellerNote.SellingPrice</b></a> -->
+                            <button type="submit" class="btn btn-primary text-uppercase text-center"  onclick="location.href='@Url.Action("Login", "SignUp")'"><b>Download / $@Model.SellerNote.SellingPrice</b></button>
+
+
+
+                        </div>
+                            }
+
+                            <!-- Section Confirmation Box -->
+                            <div class="modal fade " id="confirmation" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-confirm-body">
+                                            <div>
+                                                <p class="confirm-text">
+                                                    Are you sure you want to download this Paid note. Please confirm.
+                                                </p>
+
+                                                <div class="btn-confirm">
+                                                    <a class="btn btn-yes" href="@Url.Action("RequestPaidNotes", new { noteid = Model.SellerNote.ID })" id="confirmationbutton" onclick="$('#confirmation').modal('hide'); $('#exampleModal').modal('show');" role="button">YES</a>
+                                                    <a class="btn btn-no" data-dismiss="modal" aria-label="Close" role="button">NO</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Section Confirmation-Box END -->
+
+
+
+                            @{
+                                using (var context = new MyNoteMarketPlace.Datebase1Entities())
+                                {
+                                    var systemconfiguration = context.SystemConfigurations.Where(x => x.Key == "supportphone").FirstOrDefault();
+                                    string phone = systemconfiguration.Value;
+
+                                    <!-- Thanks PopUp -->
+                                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="row">
+                                                <div class="col-xl-12 col-sm-12 col-12 col-md-12 ">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <a type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <img src="~/Img/Front/Notes Details/close.png">
+                                                            </a>
+                                                        </div>
+                                                        <div class="model-data">
+
+                                                            <div class="model-head text-center">
+                                                                <img class="img-fluid" src="~/Img/Front/Notes Details/SUCCESS.png">
+                                                                <h2>Thank your for purchasing!</h2>
+                                                            </div>
+                                                            <div class="middel-content text-left">
+                                                                <h3>Dear Smith ,</h3>
+                                                                <p class="para-1">As this is paid notes-you need to pay to seller Rahil Shah offline.We will send him an email that you want to download this note.He may contact you further for payment process completion.</p>
+                                                                <p class="para-2">In Case, you have urgency,<br>Please contact us on +91 @phone.</p>
+                                                                <p class="para-3">Once he recevies the payment and acknowledge us-Seleted notes you can see over my downloads tab for download.</p>
+                                                                <p class="para-4">Have a good day.</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Thanks PopUp Ends -->
+
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-6  margin-top">
+                <div class="row">
+                    <div class="col-md-5 col-sm-5 col-5  col-xs-5 left-side">
+                        <h5>Institution:</h5>
+                        <h5>Country:</h5>
+                        <h5>Course Name:</h5>
+                        <h5>Course Code:</h5>
+                        <h5>Professor:</h5>
+                        <h5>Number of Pages:</h5>
+                        <h5>Approved Date:</h5>
+                        <h5>Rating:</h5>
+                    </div>
+                    <div class="col-md-7 col-sm-7 col-7 col-xs-7 right-side text-right">
+                        <h5>@Model.SellerNote.UniversityName</h5>
+                        <!-- <h5>United State</h5> -->
+                        @if (@Model.SellerNote.Country != null)
+                        {
+                            <h5>@Model.SellerNote.Countries.Name</h5>
+                        }
+                        else
+                        {
+                            <h5></h5>
+                        }
+                        <h5>@Model.SellerNote.Course</h5>
+                        <h5>@Model.SellerNote.CourseCode</h5>
+                        <h5>@Model.SellerNote.Professor</h5>
+                        <!-- <h5>277</h5> -->
+                        @if (Model.SellerNote.NumberofPages != null)
+                        {
+                            <h5>@Model.SellerNote.NumberofPages</h5>
+                        }
+                        else
+                        {
+                            <h5></h5>
+                        }
+                        <!-- <h5>November 25 2020</h5> -->
+                        @if (Model.SellerNote.PublishedDate != null)
+                        {
+                            <h5>@Model.SellerNote.PublishedDate.Value.ToString("MMM dd yyyy")</h5>
+                        }
+                        else
+                        {
+                            <h5></h5>
+                        }
+                        <div class="rate-fa " style="margin-right: 20px !important;">
+
+                            @for (var i = 0; i < 5; i++)
+                            {
+                                if (i < Model.AverageRating)
+                                {
+                                    <i class="fa fa-star giverate"></i>
+                                }
+                                else
+                                {
+                                    <i class="fa fa-star-o"></i>
+                                }
+                            }
+                            <i class="numofreview" style="font-size: 16px !important;">@Model.TotalReview Reviews</i>
+                        </div>
+                    </div>
+                </div>
+                <div class="inappropriate">
+                    <p>@Model.TotalSpamReport User marked this note as inappropriate</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Notes Details Ends -->
+<!-- For Horizontal line -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-12 col-xs-12 horizontal">
+            <hr>
+        </div>
+    </div>
+</div>
+<!-- Notes Perview -->
+<section id="notes-preview">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6   col-6">
+                <div class="heading">
+                    <h3>Notes Preview</h3>
+                </div>
+                <!-- responsive iframe -->
+                <!-- ============== -->
+                <div id="Iframe-Cicis-Menu-To-Go" class="set-margin-cicis-menu-to-go set-padding-cicis-menu-to-go set-border-cicis-menu-to-go set-background-shadow-cicis-menu-to-go center-block-horiz">
+                    <div class="responsive-wrapper
+     responsive-wrapper-padding-bottom-90pct" style="-webkit-overflow-scrolling: touch; overflow: auto;">
+                        <!--   <iframe src="http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf">
+                               <p style="font-size: 110%;">
+                                   <em>
+                                       <strong>ERROR: </strong>
+                                       An &#105;frame should be displayed here but your browser version does not support &#105;frames.
+                                   </em> Please update your browser to its most recent version and try again, or access the file <a href="http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf">with this link.</a>
+                               </p>
+                           </iframe> -->
+
+                        @if (Model.SellerNote.NotesPreview != null)
+                        {
+                            <iframe src="@Url.Content(Model.SellerNote.NotesPreview)"></iframe>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customers-->
+            <div class="col-md-6   col-6 customers">
+                <div class="heading">
+                    <h3>Customer Reviews</h3>
+                </div>
+                <div class="customer-reviews">
+
+                    @foreach (var item in Model.NotesReview)
+                    {
+
+                        <div class="row ">
+                            <div class="col-3 col-sm-3 col-md-2 col-sm-2 col-xs-3 cus-img">
+                                <!-- <img src="~/Img/Front/home/customer-1.png" alt="user" class="img-fluid img-circle"> -->
+
+                                @if (item.TblUserProfile.Profile_Picture != null)
+                                {
+                                    <img src="@Url.Content(item.TblUserProfile.Profile_Picture)" alt="user" class="img-circle img-fluid">
+                                }
+                                else
+                                {
+                                    <img src="~/DefaultImage/profile.png" class="img-fluid img-circle" alt="user">
+                                }
+
+                            </div>
+                            <div class="col-9 col-sm-9 col-md-10 col-sm-10 col-xs-9 cus-details">
+                                <h5>@item.TblUser.FirstName @item.TblUser.LastName</h5>
+                                <div class="row stras-padding">
+                                    <div class="col-md-12 col-sm-12 col-12 col-xs-12">
+                                        <div class="rate-fa">
+
+                                            @for (var i = 0; i < 5; i++)
+                                            {
+                                                if (i < item.TblSellerNotesReview.Ratings)
+                                                {
+                                                    <i class="fa fa-star giverate"></i>
+                                                }
+                                                else
+                                                {
+                                                    <i class="fa fa-star-o"></i>
+                                                }
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-12 col-xs-12">
+                                        <p>@item.TblSellerNotesReview.Comments </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-12 col-xs-12">
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Notes Perview Ends -->

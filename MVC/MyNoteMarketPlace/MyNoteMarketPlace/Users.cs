@@ -21,10 +21,10 @@ namespace MyNoteMarketPlace
             this.Downloads1 = new HashSet<Downloads>();
             this.SellerNotesReportedIssues = new HashSet<SellerNotesReportedIssues>();
             this.SellerNotesReviews = new HashSet<SellerNotesReviews>();
-            this.UserProfile = new HashSet<UserProfile>();
             this.UserStates = new HashSet<UserStates>();
             this.SellerNotes = new HashSet<SellerNotes>();
             this.SellerNotes1 = new HashSet<SellerNotes>();
+            this.UserProfile = new HashSet<UserProfile>();
         }
     
         public int ID { get; set; }
@@ -52,12 +52,12 @@ namespace MyNoteMarketPlace
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SellerNotesReviews> SellerNotesReviews { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserProfile> UserProfile { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserStates> UserStates { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SellerNotes> SellerNotes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SellerNotes> SellerNotes1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserProfile> UserProfile { get; set; }
     }
 }

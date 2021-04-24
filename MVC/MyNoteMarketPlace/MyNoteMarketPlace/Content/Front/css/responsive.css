@@ -2097,6 +2097,11 @@
         .set-label {
             padding-left: 5% !important;
         }
+        /*No Btn For Confirmation-Box In Dashboard & for add-Notes in Publish Notes */
+        .btn-confirm a.btn.btn-no {
+            margin-left: -10px!important;
+        }
+
     }
 
     @media (max-width: 415px) {

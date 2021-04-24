@@ -664,7 +664,7 @@ Input[type=file]::-webkit-file-upload-button {
     border-radius: 3px;
     margin-top: 15px;
     margin-bottom: 60px;
-    margin-left: 92px;
+  
 }
 
 /*===============================
@@ -736,7 +736,7 @@ Input[type=file]::-webkit-file-upload-button {
     height: 620px;
     width: 100%;
     position: relative;
-    background-image: url("../img/home/banner-with-overlay.jpg");
+    background-image: url("~/Img/Front/home/banner-with-overlay.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -1441,7 +1441,7 @@ Input[type=file]::-webkit-file-upload-button {
     border: 1px solid #d1d1d1;
 }
 
-/*For PopUp background*/
+/*For PopUp box*/
 #exampleModal h3 {
     font-family: "Open Sans", sans-serif;
     font-size: 18px;
@@ -2017,7 +2017,7 @@ h2.set-text {
 
 #exampleModal #mybt {
 
-    margin-left: 3%
+    margin-left: 3%;
 }
 
 .top-page {
@@ -2145,3 +2145,61 @@ h2.set-text {
     margin-bottom: 60px;
     margin-left: 15px;
 }
+
+/*===============================
+           Confirmation
+================================*/
+
+.modal-content {
+    border: none;
+}
+
+.modal {
+    margin-top: 60px;
+}
+
+.modal-confirm-body {
+    padding: 25px;
+}
+
+.confirm-text {
+    text-align: center;
+    font-size: 18px;
+    color: #333333;
+    white-space: normal;
+    word-break: break-word;
+}
+
+.btn-confirm {
+    text-align: center;
+}
+
+    .btn-confirm a.btn.btn-yes {
+        color: #fff;
+        background: #6255a5;
+        height: 32px;
+        border-radius: 3px;
+        width: 100px;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 18px;
+        margin-right: 20px;
+    }
+
+    .btn-confirm a.btn.btn-no {
+        color: #fff;
+        background: #ff3636;
+        height: 32px;
+        border-radius: 3px;
+        width: 100px;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 18px;
+        margin-left: 20px;
+    }
+
+        .btn-confirm a.btn.btn-no:hover,
+        .btn-confirm a.btn.btn-yes:hover {
+            border: 1px solid white;
+            border-radius: 3px;
+        }

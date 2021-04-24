@@ -202,7 +202,6 @@
     <Property Name="User ID" Type="int" Nullable="false" />
     <Property Name="DOB" Type="datetime" />
     <Property Name="Gender" Type="int" />
-    <Property Name="SecondaryEmailAddress" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="Phone number-Country Code" Type="varchar" MaxLength="5" Nullable="false" />
     <Property Name="Phone number" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="Profile Picture" Type="varchar" MaxLength="500" />

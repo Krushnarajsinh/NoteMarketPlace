@@ -82,7 +82,7 @@ namespace MyNoteMarketPlace.Controllers
             {
                 foreach (var item in notes)
                 {
-
+                    //fetch rating from table
                     var review = context.SellerNotesReviews.Where(x => x.NoteID == item.ID && x.IsActive == true).Select(x => x.Ratings);
 
                     var totalreview = review.Count();

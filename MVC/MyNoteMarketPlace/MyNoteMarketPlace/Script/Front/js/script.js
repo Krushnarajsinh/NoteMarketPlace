@@ -1,4 +1,4 @@
-/*===============================
+﻿/*===============================
              Toggle Password
 ===================================*/
 $(".toggle-password").click(function () {
@@ -43,7 +43,7 @@ $(function () {
             // Show white nav
             $("nav").addClass("white-nav-top-1");
             //Show dark logo
-            $(".navbar-brand-1 img").attr("src", "img/pre-login/logo.png");
+            $(".navbar-brand-1 img").attr("src", "/Img/Front/pre-login/logo.png");
             // Show back to top button
             $("#back-to-top").fadeIn();
             $(".open-btn").css("color", "#6255a5");
@@ -51,7 +51,7 @@ $(function () {
             //Hide white nav
             $("nav").removeClass("white-nav-top-1");
             //Show Normal Logo
-            $(".navbar-brand-1 img").attr("src", "img/pre-login/top-logo.png");
+            $(".navbar-brand-1 img").attr("src", "/Img/Front/pre-login/top-logo.png");
             // Hide back to top button
             $("#back-to-top").fadeOut();
             $(".open-btn").css("color", "#fff");
@@ -70,7 +70,7 @@ $(function () {
 
         $("html, body").animate({
             scrollTop: $(section_id).offset().top - 64
-        }, 1250 /*animation duration*/ , "easeInOutExpo" /*Easing plugin*/ );
+        }, 1250 /*animation duration*/, "easeInOutExpo" /*Easing plugin*/);
 
     });
 });
@@ -103,4 +103,59 @@ $(document).ready(function () {
             $(".myhead" + i).show();
         });
     }
+});
+/* ==================================
+         Add Notes
+====================================*/
+$(document).ready(function () {
+    $("#add-form input[name='IsPaid']").change(function () {
+        if ($("#paid").is(":checked")) {
+            $("#price").removeAttr("disabled");
+            $("#price").focus();
+            $("#note-preview").attr("required", "required");
+        } else {
+            $("#price").val(0);
+            $("#price").attr("disabled", "disabled");
+            $("#note-preview").removeAttr("required");
+        }
+    });
+});
+$(document).ready(function () {
+    $("#edit-form input[name='IsPaid']").change(function () {
+        if ($("#paid").is(":checked")) {
+            $("#price").removeAttr("disabled");
+            $("#price").focus();
+        } else {
+            $("#price").val(0);
+            $("#price").attr("disabled", "disabled");
+        }
+    });
+});
+/* ==================================
+           Search Filtering
+====================================*/
+$(document).ready(function () {
+
+    $('.filtering #type').change(function () {
+        this.form.submit();
+    });
+    $('.filtering #search').change(function () {
+        this.form.submit();
+    });
+    $('.filtering #category').change(function () {
+        this.form.submit();
+    });
+    $('.filtering #university').change(function () {
+        this.form.submit();
+    });
+    $('.filtering #course').change(function () {
+        this.form.submit();
+    });
+    $('.filtering #country').change(function () {
+        this.form.submit();
+    });
+    $('.filtering #rating').change(function () {
+        this.form.submit();
+    });
+
 });

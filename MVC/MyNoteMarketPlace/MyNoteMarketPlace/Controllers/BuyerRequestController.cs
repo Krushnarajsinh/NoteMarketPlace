@@ -143,21 +143,22 @@ namespace MyNoteMarketPlace.Controllers
             return buyerrequest;
         }
 
+
         [Authorize]
         [Route("BuyerRequest/AllowDownload/{id}")]
         public ActionResult AllowDownload(int id)
         {
-           
+
             Users user = context.Users.Where(x => x.EmailID == User.Identity.Name).FirstOrDefault();
-            
+
             Downloads download = context.Downloads.Find(id);
-            
+
             if (user.ID == download.Seller)
             {
-               
+
                 SellerNotesAttachements attachement = context.SellerNotesAttachements.Where(x => x.NoteID == download.NoteID && x.IsActive == true).FirstOrDefault();
 
-               
+
                 context.Downloads.Attach(download);
                 download.IsSellerHasAllowedDownload = true;
                 download.AttachmentPath = attachement.FilePath;
@@ -165,7 +166,7 @@ namespace MyNoteMarketPlace.Controllers
                 download.ModifiedDate = DateTime.Now;
                 context.SaveChanges();
 
-             
+
                 SendMailForAllowDownload(download, user);
 
                 return RedirectToAction("BuyerRequest");
@@ -183,17 +184,17 @@ namespace MyNoteMarketPlace.Controllers
             var downloader = context.Users.Where(x => x.ID == download.Downloader).FirstOrDefault();
             SystemConfigurations syst = new SystemConfigurations();
 
-          /*  var fromEmail = new MailAddress("rathodkrushnaraj8055@gmail.com"); */
+            /*  var fromEmail = new MailAddress("rathodkrushnaraj8055@gmail.com"); */
             var email = context.SystemConfigurations.Where(x => x.Key == "supportemail").FirstOrDefault();
-            var fromEmail=email.Value.Trim();
+            var fromEmail = email.Value.Trim();
             /* var toEmail = new MailAddress(downloader.EmailID); */
             var toEmail = downloader.EmailID.Trim();
-            var fromEmailPassword = "********"; // Replace with original password
-            string subject = seller.FirstName + "Allows you to download a note";
+            var fromEmailPassword = "rathod8055"; // Replace with original password
+            string subject = seller.FirstName + " Allows you to download a note";
             string body = "Hello" + downloader.FirstName + "," +
                 "<br/><br/>We would like to inform you that, " + seller.FirstName + "Allows you to download a note." +
                 "<br/> Please login and see My Download tabs to download particular note. " +
-                "<br/><br/>Regardds,<br/>Notes Marketplace";
+                "<br/><br/>Regards,<br/>Notes Marketplace";
 
             var smtp = new SmtpClient
             {
@@ -205,7 +206,7 @@ namespace MyNoteMarketPlace.Controllers
                 Credentials = new NetworkCredential(fromEmail, fromEmailPassword)
             };
 
-          
+
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress(fromEmail, "NotesMarketplace");
             mail.To.Add(new MailAddress(toEmail));
@@ -216,5 +217,7 @@ namespace MyNoteMarketPlace.Controllers
 
 
         }
-        }
+
+
+    }
 }

@@ -100,7 +100,7 @@
                                                 }
                                                 <td class="align-middle">@item.download.CreatedDate.Value.ToString("dd MMM yyyy hh:mm:ss")</td>
                                                 <td class="align-middle">
-                                                    <a type="button" href="@Url.Action("NotesDetails", "SearchNotes", new { id = @item.download.NoteID } )"><img src="~/Img/Front/Dashboard/eye.png" alt="view" class="eye"></a>
+                                                    <a type="button" href="@Url.Action("Notes", "NotesDetails", new { id = @item.download.NoteID } )"><img src="~/Img/Front/Dashboard/eye.png" alt="view" class="eye"></a>
                                                 </td>
                                                 <td class="align-middle">
                                                     <!-- Default dropleft button -->

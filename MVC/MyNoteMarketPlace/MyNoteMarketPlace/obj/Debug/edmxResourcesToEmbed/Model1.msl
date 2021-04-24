@@ -193,32 +193,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="UserProfile">
-      <EntityTypeMapping TypeName="Datebase1Model.UserProfile">
-        <MappingFragment StoreEntitySet="UserProfile">
-          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-          <ScalarProperty Name="College" ColumnName="College" />
-          <ScalarProperty Name="University" ColumnName="University" />
-          <ScalarProperty Name="Country" ColumnName="Country" />
-          <ScalarProperty Name="Zip_Code" ColumnName="Zip Code" />
-          <ScalarProperty Name="State" ColumnName="State" />
-          <ScalarProperty Name="City" ColumnName="City" />
-          <ScalarProperty Name="Address_Line_2" ColumnName="Address Line 2" />
-          <ScalarProperty Name="Address_Line_1" ColumnName="Address Line 1" />
-          <ScalarProperty Name="Profile_Picture" ColumnName="Profile Picture" />
-          <ScalarProperty Name="Phone_number" ColumnName="Phone number" />
-          <ScalarProperty Name="Phone_number_Country_Code" ColumnName="Phone number-Country Code" />
-          <ScalarProperty Name="SecondaryEmailAddress" ColumnName="SecondaryEmailAddress" />
-          <ScalarProperty Name="Gender" ColumnName="Gender" />
-          <ScalarProperty Name="DOB" ColumnName="DOB" />
-          <ScalarProperty Name="User_ID" ColumnName="User ID" />
-          <ScalarProperty Name="ID" ColumnName="ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="UserStates">
       <EntityTypeMapping TypeName="Datebase1Model.UserStates">
         <MappingFragment StoreEntitySet="UserStates">
@@ -278,6 +252,31 @@
           <ScalarProperty Name="ActionedBy" ColumnName="ActionedBy" />
           <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="SellerID" ColumnName="SellerID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserProfile">
+      <EntityTypeMapping TypeName="Datebase1Model.UserProfile">
+        <MappingFragment StoreEntitySet="UserProfile">
+          <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+          <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="College" ColumnName="College" />
+          <ScalarProperty Name="University" ColumnName="University" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="Zip_Code" ColumnName="Zip Code" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Address_Line_2" ColumnName="Address Line 2" />
+          <ScalarProperty Name="Address_Line_1" ColumnName="Address Line 1" />
+          <ScalarProperty Name="Profile_Picture" ColumnName="Profile Picture" />
+          <ScalarProperty Name="Phone_number" ColumnName="Phone number" />
+          <ScalarProperty Name="Phone_number_Country_Code" ColumnName="Phone number-Country Code" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="User_ID" ColumnName="User ID" />
           <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>

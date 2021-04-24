@@ -57,6 +57,22 @@
     <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Compression.ZipFile, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.ZipFile.4.3.0\lib\net46\System.IO.Compression.ZipFile.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -1770,6 +1786,7 @@
     <Content Include="Content\Front\css\style.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="DefaultImage\1.jpg" />
+    <Content Include="DefaultImage\profile.png" />
     <Content Include="Global.asax" />
     <Content Include="Img\Admin\banner-with-overlay.jpg" />
     <Content Include="Img\Admin\banner.jpg" />
@@ -1979,10 +1996,15 @@
     </Compile>
     <Compile Include="Controllers\BuyerRequestController.cs" />
     <Compile Include="Controllers\ContactUsController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MyDownloadController.cs" />
+    <Compile Include="Controllers\MySoldNotesController.cs" />
+    <Compile Include="Controllers\NotesDetailsController.cs" />
     <Compile Include="Controllers\SellYourNotesController.cs" />
     <Compile Include="Controllers\FAQController.cs" />
     <Compile Include="Controllers\SearchNotesController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
+    <Compile Include="Controllers\UserProfileController.cs" />
     <Compile Include="Countries.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -2016,8 +2038,12 @@
     <Compile Include="Models\DashboardViewModel.cs" />
     <Compile Include="Models\EditNotesViewModel.cs" />
     <Compile Include="Models\ForgotPasswordModel.cs" />
+    <Compile Include="Models\MyDownloadModel.cs" />
+    <Compile Include="Models\MySoldNotesModel.cs" />
+    <Compile Include="Models\NotesDetailsModel.cs" />
     <Compile Include="Models\SearchNotesViewModel.cs" />
     <Compile Include="Models\UserLogin.cs" />
+    <Compile Include="Models\UserProfileModel.cs" />
     <Compile Include="Models\UsersModel.cs" />
     <Compile Include="NoteCategories.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -2153,6 +2179,12 @@
     <Content Include="Views\SellYourNotes\AddNotes.cshtml" />
     <Content Include="Views\BuyerRequest\BuyerRequest.cshtml" />
     <Content Include="Views\SellYourNotes\EditNotes.cshtml" />
+    <Content Include="Views\NotesDetails\Notes.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_HomeNav.cshtml" />
+    <Content Include="Views\UserProfile\UserProfile.cshtml" />
+    <Content Include="Views\MyDownload\MyDownload.cshtml" />
+    <Content Include="Views\MySoldNotes\MySoldNotes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -207,7 +207,6 @@
           <Property Name="User ID" Type="int" Nullable="false" />
           <Property Name="DOB" Type="datetime" />
           <Property Name="Gender" Type="int" />
-          <Property Name="SecondaryEmailAddress" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Phone number-Country Code" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="Phone number" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Profile Picture" Type="varchar" MaxLength="500" />
@@ -648,10 +647,10 @@
           <NavigationProperty Name="Downloads1" Relationship="Datebase1Model.FK_Downloads_Users1" FromRole="Users" ToRole="Downloads" />
           <NavigationProperty Name="SellerNotesReportedIssues" Relationship="Datebase1Model.FK_SellerNotesReportedIssues_Users" FromRole="Users" ToRole="SellerNotesReportedIssues" />
           <NavigationProperty Name="SellerNotesReviews" Relationship="Datebase1Model.SellerNotesReviews_ReviewedByID_FK" FromRole="Users" ToRole="SellerNotesReviews" />
-          <NavigationProperty Name="UserProfile" Relationship="Datebase1Model.FK_UserProfile_Users" FromRole="Users" ToRole="UserProfile" />
           <NavigationProperty Name="UserStates" Relationship="Datebase1Model.FK_UserStates_Users" FromRole="Users" ToRole="UserStates" />
           <NavigationProperty Name="SellerNotes" Relationship="Datebase1Model.SellerNotes_ActionedBy_FK" FromRole="Users" ToRole="SellerNotes" />
           <NavigationProperty Name="SellerNotes1" Relationship="Datebase1Model.SellerNotes_SellerID_FK" FromRole="Users" ToRole="SellerNotes" />
+          <NavigationProperty Name="UserProfile" Relationship="Datebase1Model.FK_UserProfile_Users" FromRole="Users" ToRole="UserProfile" />
         </EntityType>
         <Association Name="C_Users_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
@@ -682,7 +681,6 @@
           <EntitySet Name="SellerNotesReportedIssues" EntityType="Datebase1Model.SellerNotesReportedIssues" />
           <EntitySet Name="SellerNotesReviews" EntityType="Datebase1Model.SellerNotesReviews" />
           <EntitySet Name="SystemConfigurations" EntityType="Datebase1Model.SystemConfigurations" />
-          <EntitySet Name="UserProfile" EntityType="Datebase1Model.UserProfile" />
           <EntitySet Name="UserStates" EntityType="Datebase1Model.UserStates" />
           <AssociationSet Name="FK_Downloads_Users" Association="Datebase1Model.FK_Downloads_Users">
             <End Role="Users" EntitySet="Users" />
@@ -700,10 +698,6 @@
             <End Role="Downloads" EntitySet="Downloads" />
             <End Role="SellerNotesReviews" EntitySet="SellerNotesReviews" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserProfile_ReferenceData" Association="Datebase1Model.FK_UserProfile_ReferenceData">
-            <End Role="ReferenceData" EntitySet="ReferenceData" />
-            <End Role="UserProfile" EntitySet="UserProfile" />
-          </AssociationSet>
           <AssociationSet Name="FK_SellerNotesReportedIssues_Users" Association="Datebase1Model.FK_SellerNotesReportedIssues_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="SellerNotesReportedIssues" EntitySet="SellerNotesReportedIssues" />
@@ -711,10 +705,6 @@
           <AssociationSet Name="SellerNotesReviews_ReviewedByID_FK" Association="Datebase1Model.SellerNotesReviews_ReviewedByID_FK">
             <End Role="Users" EntitySet="Users" />
             <End Role="SellerNotesReviews" EntitySet="SellerNotesReviews" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserProfile_Users" Association="Datebase1Model.FK_UserProfile_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="UserProfile" EntitySet="UserProfile" />
           </AssociationSet>
           <AssociationSet Name="FK_UserStates_Users" Association="Datebase1Model.FK_UserStates_Users">
             <End Role="Users" EntitySet="Users" />
@@ -761,6 +751,15 @@
           <AssociationSet Name="SellerNotesReviews_NoteID_FK" Association="Datebase1Model.SellerNotesReviews_NoteID_FK">
             <End Role="SellerNotes" EntitySet="SellerNotes" />
             <End Role="SellerNotesReviews" EntitySet="SellerNotesReviews" />
+          </AssociationSet>
+          <EntitySet Name="UserProfile" EntityType="Datebase1Model.UserProfile" />
+          <AssociationSet Name="FK_UserProfile_ReferenceData" Association="Datebase1Model.FK_UserProfile_ReferenceData">
+            <End Role="ReferenceData" EntitySet="ReferenceData" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProfile_Users" Association="Datebase1Model.FK_UserProfile_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Admin">
@@ -862,8 +861,8 @@
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="ModifiedBy" Type="Int32" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="UserProfile" Relationship="Datebase1Model.FK_UserProfile_ReferenceData" FromRole="ReferenceData" ToRole="UserProfile" />
           <NavigationProperty Name="SellerNotes" Relationship="Datebase1Model.SellerNotes_Status_FK" FromRole="ReferenceData" ToRole="SellerNotes" />
+          <NavigationProperty Name="UserProfile" Relationship="Datebase1Model.FK_UserProfile_ReferenceData" FromRole="ReferenceData" ToRole="UserProfile" />
         </EntityType>
         <EntityType Name="SellerNotesAttachements">
           <Key>
@@ -929,33 +928,6 @@
           <Property Name="ModifiedBy" Type="Int32" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityType Name="UserProfile">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="User_ID" Type="Int32" Nullable="false" />
-          <Property Name="DOB" Type="DateTime" Precision="3" />
-          <Property Name="Gender" Type="Int32" />
-          <Property Name="SecondaryEmailAddress" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Phone_number_Country_Code" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="Phone_number" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="Profile_Picture" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Address_Line_1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Address_Line_2" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="City" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="State" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Zip_Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Country" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="University" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="College" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="ModifiedBy" Type="Int32" />
-          <NavigationProperty Name="ReferenceData" Relationship="Datebase1Model.FK_UserProfile_ReferenceData" FromRole="UserProfile" ToRole="ReferenceData" />
-          <NavigationProperty Name="Users" Relationship="Datebase1Model.FK_UserProfile_Users" FromRole="UserProfile" ToRole="Users" />
-        </EntityType>
         <EntityType Name="UserStates">
           <Key>
             <PropertyRef Name="ID" />
@@ -1020,18 +992,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserProfile_ReferenceData">
-          <End Type="Datebase1Model.ReferenceData" Role="ReferenceData" Multiplicity="0..1" />
-          <End Type="Datebase1Model.UserProfile" Role="UserProfile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ReferenceData">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="UserProfile">
-              <PropertyRef Name="Gender" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_SellerNotesReportedIssues_Users">
           <End Type="Datebase1Model.Users" Role="Users" Multiplicity="1" />
           <End Type="Datebase1Model.SellerNotesReportedIssues" Role="SellerNotesReportedIssues" Multiplicity="*" />
@@ -1053,18 +1013,6 @@
             </Principal>
             <Dependent Role="SellerNotesReviews">
               <PropertyRef Name="ReviewedByID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserProfile_Users">
-          <End Type="Datebase1Model.Users" Role="Users" Multiplicity="1" />
-          <End Type="Datebase1Model.UserProfile" Role="UserProfile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="UserProfile">
-              <PropertyRef Name="User_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1252,6 +1200,56 @@
             </Principal>
             <Dependent Role="SellerNotesReviews">
               <PropertyRef Name="NoteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
+          <Property Name="Gender" Type="Int32" />
+          <Property Name="Phone_number_Country_Code" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="Phone_number" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Profile_Picture" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Address_Line_1" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Address_Line_2" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Zip_Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="University" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="College" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <NavigationProperty Name="ReferenceData" Relationship="Datebase1Model.FK_UserProfile_ReferenceData" FromRole="UserProfile" ToRole="ReferenceData" />
+          <NavigationProperty Name="Users" Relationship="Datebase1Model.FK_UserProfile_Users" FromRole="UserProfile" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_UserProfile_ReferenceData">
+          <End Type="Datebase1Model.ReferenceData" Role="ReferenceData" Multiplicity="0..1" />
+          <End Type="Datebase1Model.UserProfile" Role="UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ReferenceData">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="Gender" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProfile_Users">
+          <End Type="Datebase1Model.Users" Role="Users" Multiplicity="1" />
+          <End Type="Datebase1Model.UserProfile" Role="UserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="UserProfile">
+              <PropertyRef Name="User_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1453,32 +1451,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UserProfile">
-            <EntityTypeMapping TypeName="Datebase1Model.UserProfile">
-              <MappingFragment StoreEntitySet="UserProfile">
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="College" ColumnName="College" />
-                <ScalarProperty Name="University" ColumnName="University" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="Zip_Code" ColumnName="Zip Code" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Address_Line_2" ColumnName="Address Line 2" />
-                <ScalarProperty Name="Address_Line_1" ColumnName="Address Line 1" />
-                <ScalarProperty Name="Profile_Picture" ColumnName="Profile Picture" />
-                <ScalarProperty Name="Phone_number" ColumnName="Phone number" />
-                <ScalarProperty Name="Phone_number_Country_Code" ColumnName="Phone number-Country Code" />
-                <ScalarProperty Name="SecondaryEmailAddress" ColumnName="SecondaryEmailAddress" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="DOB" ColumnName="DOB" />
-                <ScalarProperty Name="User_ID" ColumnName="User ID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UserStates">
             <EntityTypeMapping TypeName="Datebase1Model.UserStates">
               <MappingFragment StoreEntitySet="UserStates">
@@ -1538,6 +1510,31 @@
                 <ScalarProperty Name="ActionedBy" ColumnName="ActionedBy" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="SellerID" ColumnName="SellerID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfile">
+            <EntityTypeMapping TypeName="Datebase1Model.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="College" ColumnName="College" />
+                <ScalarProperty Name="University" ColumnName="University" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Zip_Code" ColumnName="Zip Code" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address_Line_2" ColumnName="Address Line 2" />
+                <ScalarProperty Name="Address_Line_1" ColumnName="Address Line 1" />
+                <ScalarProperty Name="Profile_Picture" ColumnName="Profile Picture" />
+                <ScalarProperty Name="Phone_number" ColumnName="Phone number" />
+                <ScalarProperty Name="Phone_number_Country_Code" ColumnName="Phone number-Country Code" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="User_ID" ColumnName="User ID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

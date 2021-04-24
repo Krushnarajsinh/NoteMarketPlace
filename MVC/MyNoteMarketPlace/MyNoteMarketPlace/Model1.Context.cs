@@ -37,9 +37,9 @@ namespace MyNoteMarketPlace
         public virtual DbSet<SellerNotesReportedIssues> SellerNotesReportedIssues { get; set; }
         public virtual DbSet<SellerNotesReviews> SellerNotesReviews { get; set; }
         public virtual DbSet<SystemConfigurations> SystemConfigurations { get; set; }
-        public virtual DbSet<UserProfile> UserProfile { get; set; }
         public virtual DbSet<UserStates> UserStates { get; set; }
         public virtual DbSet<ContactUs> ContactUs { get; set; }
         public virtual DbSet<SellerNotes> SellerNotes { get; set; }
+        public virtual DbSet<UserProfile> UserProfile { get; set; }
     }
 }

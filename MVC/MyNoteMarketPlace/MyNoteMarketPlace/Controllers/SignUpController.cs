@@ -68,6 +68,7 @@ namespace MyNoteMarketPlace.Controllers
             using (var context = new Datebase1Entities())
             {
                 var check_email = context.Users.Where(a => a.EmailID == emailID).FirstOrDefault();
+                //returns true if check_email is not null
                 return check_email != null;
             }
         }
@@ -96,16 +97,16 @@ namespace MyNoteMarketPlace.Controllers
 
             var from = new MailAddress("rathodkrushnaraj8055@gmail.com");
             var to = new MailAddress(emailID);
-            var Password = "*********"; // Replace with actual password
+            var Password = "rathod8055"; // Replace with actual password
             string subject = "Note Marketplace - Email Verification";
 
 
-            var newlink = "https://localhost:44386/" + "SignUp/EmailVerification?ID=" + SecretCode;
+           /* var newlink = "https://localhost:44386/" + "SignUp/EmailVerification?ID=" + SecretCode;*/
 
 
             string body = "Hello " + username + "," +
            "<br/><br/>Thank you for signing up with us. Please click on below link to verify your email address and to do login." +
-           "<br/><br/><a href='" + newlink + "'>" + "Click Here For Confirmation" + "</a> " +
+           "<br/><br/><a href='" + link + "'>" + "Click Here For Confirmation" + "</a> " +
            "<br/><br/>Regards,<br/>Notes Marketplace";
 
 
@@ -148,7 +149,7 @@ namespace MyNoteMarketPlace.Controllers
                     {
                         if (string.Compare(obj.Password, take.Password) == 0)
                         {
-                            int take_time = obj.RememberMe ? 525600 : 20;
+                            int take_time = obj.RememberMe ? 525600 : 20;  // Here,525600 min = 1 year If CheckBox Is Marked Else 20 min
                             var locking = new FormsAuthenticationTicket(obj.EmailID, obj.RememberMe, take_time);
                             string styling = FormsAuthentication.Encrypt(locking);
                             var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, styling);
@@ -156,8 +157,21 @@ namespace MyNoteMarketPlace.Controllers
                             cookie.HttpOnly = true;
                             Response.Cookies.Add(cookie);
 
-                            return RedirectToAction("Search", "SearchNotes");
 
+                            // check if user profile exists or not
+                            var is_userprofile_exist = context.UserProfile.Where(x => x.User_ID == take.ID).FirstOrDefault();
+
+                            // if user profile is not exists then redirect to userprofile page else search page
+                             if (is_userprofile_exist == null)
+                             {
+                                 return RedirectToAction("UserProfile", "UserProfile");
+                             }
+                             else
+                             {
+                                 return RedirectToAction("Search", "SearchNotes");
+                             }
+
+                         //   return RedirectToAction("Search", "SearchNotes");
                         }
                         else
                         {
@@ -216,7 +230,9 @@ namespace MyNoteMarketPlace.Controllers
                 string new_password = Membership.GeneratePassword(8, 2);  //Rendom Password IS Generated
                 user.Password = new_password;
                 context.SaveChanges();
+
                 CheckPassword(user.EmailID, new_password);
+
                 TempData["Information"] = "New Password Has Been Sent To Your Email Address";
             }
             return RedirectToAction("ForgotPassword");

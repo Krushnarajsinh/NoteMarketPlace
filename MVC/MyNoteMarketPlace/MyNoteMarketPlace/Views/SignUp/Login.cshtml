@@ -105,7 +105,8 @@
                                          
                                             <div class=" col-md-12 col-sm-12 col-lg-12 col-xl-12 ">
                                                 <span class="bottom">
-                                                    <p> Don't have an account?<a href="">@Html.ActionLink("SignUp", "SignUp")</a></p>
+                                                    <!--   <p> Don't have an account?<a href="">@Html.ActionLink("SignUp", "SignUp")</a></p> -->
+                                                    <p> Don't have an account?<a href="@Url.Action("SignUp","SignUp")">SignUp</a></p>
                                                 </span>
                                             </div>
                                         }

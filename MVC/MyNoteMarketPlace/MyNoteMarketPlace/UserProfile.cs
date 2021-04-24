@@ -18,7 +18,6 @@ namespace MyNoteMarketPlace
         public int User_ID { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
         public Nullable<int> Gender { get; set; }
-        public string SecondaryEmailAddress { get; set; }
         public string Phone_number_Country_Code { get; set; }
         public string Phone_number { get; set; }
         public string Profile_Picture { get; set; }

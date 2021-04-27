@@ -270,6 +270,9 @@ namespace MyNoteMarketPlace.Controllers
             context.Downloads.Add(download);
             context.SaveChanges();
 
+            TempData["ShowModal"] = 1;
+            
+
             // sned mail
             RequestPaidNotesTemplate(download, user);
 
@@ -289,7 +292,7 @@ namespace MyNoteMarketPlace.Controllers
             // set from, to, subject, body
             string from, to, subject;
             from = fromemail.Value.Trim();
-            var fromEmailPassword = "rathod8055"; // Replace with original password
+            var fromEmailPassword = "********"; // Replace with original password
             to = seller.EmailID.Trim();
             subject = user.FirstName + " wants to purchase your notes";
             string body = "Hello " + seller.FirstName + "," +

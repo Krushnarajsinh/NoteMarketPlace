@@ -1998,6 +1998,7 @@
     <Compile Include="Controllers\ContactUsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MyDownloadController.cs" />
+    <Compile Include="Controllers\MyRejectedNotesController.cs" />
     <Compile Include="Controllers\MySoldNotesController.cs" />
     <Compile Include="Controllers\NotesDetailsController.cs" />
     <Compile Include="Controllers\SellYourNotesController.cs" />
@@ -2185,6 +2186,7 @@
     <Content Include="Views\UserProfile\UserProfile.cshtml" />
     <Content Include="Views\MyDownload\MyDownload.cshtml" />
     <Content Include="Views\MySoldNotes\MySoldNotes.cshtml" />
+    <Content Include="Views\MyRejectedNotes\MyRejectedNotes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

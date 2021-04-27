@@ -273,7 +273,7 @@ namespace MyNoteMarketPlace.Controllers
 
             // get support email
             var fromemail = context.SystemConfigurations.Where(x => x.Key == "supportemail").FirstOrDefault();
-            var fromEmailPassword = "rathod8055"; // Replace with original password
+            var fromEmailPassword = "*******"; // Replace with original password
             var tomail = context.SystemConfigurations.Where(x => x.Key == "adminemail").FirstOrDefault();
 
             // set from, to, subject, body

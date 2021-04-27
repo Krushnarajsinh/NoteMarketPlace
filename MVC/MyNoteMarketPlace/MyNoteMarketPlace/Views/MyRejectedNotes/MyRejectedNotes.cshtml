@@ -1,0 +1,215 @@
+﻿@model IEnumerable<MyNoteMarketPlace.SellerNotes>
+@{
+    ViewBag.Title = "MyRejectedNotes";
+    Layout = "~/Views/Shared/_UserNav.cshtml";
+}
+@{
+    <style>
+        .pagination {
+            margin-left: 50% !important;
+        }
+
+        #dashboard-progress Input[type=search], #dashboard-publish Input[type=search] {
+            width: 322px;
+            border: 1px solid #d1d1d1;
+            margin-bottom: 20px;
+            margin-left: -100px;
+        }
+    </style>
+
+}
+<!-- My Rejected Notes Teble -->
+<div class="outerbox">
+    <section id="dashboard-progress" class="mydownload-margin">
+        <div class="container">
+            @using (@Html.BeginForm("MyRejectedNotes", "MyRejectedNotes", FormMethod.Get))
+            {
+                <div class="row top-table">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <h3>My Rejected Notes</h3>
+                    </div>
+                    <div class=" col-lg-6 col-md-6 col-sm-6 col-xs-12 dashboard-pa ">
+                        <div class="row justify-content-end left-end">
+                            <div class="wrapper">
+                                <img src="~/Img/Front/Dashboard/search.jpg" class="searchimage doup">
+                                <input type="text" class="form-control search-bar InputEmail1" placeholder="Search">
+                            </div>
+                            <div class="btn-merge">
+                                <button type="search" class="btn text-uppercase text-center" id="mybt" value="@ViewBag.Search" name="search"><b>Search</b></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+                <!-- Download Table -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="grid-table table-responsive-xl">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="align-middle text-center">SR NO.</th>
+                                        <th scope="col" class="align-middle">@Html.ActionLink("Notes Title", "MyRejectedNotes", new { sort = ViewBag.Sort == null ? "Title_Desc" : (ViewBag.SortOrder == "Title_Asc" ? "Title_Desc" : "Title_Asc"), search = ViewBag.Search, page = ViewBag.Page })</th>
+                                        <th scope="col" class="align-middle">@Html.ActionLink("Category", "MyRejectedNotes", new { sort = ViewBag.Sort == null ? "Category_Desc" : (ViewBag.SortOrder == "Category_Asc" ? "Category_Desc" : "Category_Asc"), search = ViewBag.Search, page = ViewBag.Page })</th>
+                                        <th scope="col" class="align-middle">@Html.ActionLink("Remark", "MyRejectedNotes", new { sort = ViewBag.Sort == null ? "Remark_Desc" : (ViewBag.SortOrder == "Remark_Asc" ? "Remark_Desc" : "Remark_Asc"), search = ViewBag.Search, page = ViewBag.Page })</th>
+                                        <th scope="col" class="align-middle">CLONE</th>
+                                        <th scope="col" class="align-middle"></th>
+                                        <th scope="col" class="align-middle"></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @if (Model.Count() == 0)
+                                    {
+                                        <tr>
+                                            <td colspan="7" class="align-middle text-center">No Record Found</td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        var srno = (ViewBag.PageNumber - 1) * 10;
+                                        foreach (var item in Model)
+
+                                        {
+
+                                <tr>
+                                    @{ srno = srno + 1; }
+                                    <td class="align-middle text-center">@srno</td>
+                                    <td class="align-middle getpurple"><a href="@Url.Action("Notes", "NotesDetails", new { id = @item.ID })">@item.Title</a></td>
+                                    <td class="align-middle">@item.NoteCategories.Name</td>
+                                    <td class="align-middle"> @item.AdminRemarks</td>
+                                    <td class="align-middle"><a href="@Url.Action("CloneNote", "MyRejectedNotes", new { noteid = @item.ID })" class="getpurple">clone</a></td>
+                                    <td class="align-middle">
+                                        <div class="dropdown">
+                                            <a type="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fa fa-ellipsis-v  dowhite"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                                <a class="dropdown-item" href="@Url.Action("DownloadNotes", "NotesDetails", new { noteid = @item.ID } )">Download Notes</a>
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                                }
+                                                }
+
+                                        </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <!-- Pagination
+    <nav aria-label="Page navigation example">
+        <div class="container">
+            <div class="row justify-content-center">
+
+                <ul class="pagination mypagination top-page">
+                    <li class="page-item">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa fa-angle-left "></i></a>
+                    </li>
+                    <li class="page-item selected"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa fa-angle-right"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Pagination Ends -->
+    -->
+    <!-- Pagination-->
+
+    @if (Model.Count() != 0)
+    {
+        <div class="row justify-content-center">
+
+            <nav aria-label="...">
+                <ul class="pagination flex-wrap">
+
+                    <li class="page-item">
+                        @if (ViewBag.PageNumber == 1)
+                        {
+                            <a class="page-link" href="@Url.Action("MyRejectedNotes", new { sort = ViewBag.Sort, search = @ViewBag.Search, page = @ViewBag.PageNumber })"><i class="fa fa-angle-left"></i></a>
+                        }
+                        else
+                        {
+                            <a class="page-link" href="@Url.Action("MyRejectedNotes", new { sort = ViewBag.Sort, search = @ViewBag.Search, page = @ViewBag.PageNumber - 1 })"><i class="fa fa-angle-left"></i></a>
+                        }
+                    </li>
+
+                    @{
+                        double? TotalPages = ViewBag.TotalPages;
+
+                        if (ViewBag.PageNumber != 1 && ViewBag.PageNumber - 2 > 1)
+                        {
+                            int page = Convert.ToInt32(@ViewBag.PageNumber) - 3;
+                            <li class="page-item">@Html.ActionLink("1", "MyRejectedNotes", new { sort = @ViewBag.Sort, search = @ViewBag.Search, page = 1 }, new { @class = "page-link" })</li>
+                            if (page != 1)
+                            {
+                                <li class="page-item more-pages-dots">@Html.ActionLink("...", "MyRejectedNotes", new { sort = @ViewBag.Sort, search = @ViewBag.Search, page = page }, new { @class = "page-link more-pages-dots" })</li>
+                            }
+                        }
+
+                        for (int i = 2; i > 0; i--)
+                        {
+                            if (ViewBag.PageNumber - i > 0)
+                            {
+                                int page = Convert.ToInt32(@ViewBag.PageNumber) - i;
+                                <li class="page-item">@Html.ActionLink(page.ToString(), "MyRejectedNotes", new { sort = @ViewBag.Sort, search = @ViewBag.Search, page = page }, new { @class = "page-link" })</li>
+                            }
+                        }
+
+                        <li class="page-item active">
+                            <a class="page-link">@ViewBag.PageNumber<span class="sr-only">(current)</span></a>
+                        </li>
+
+                        for (int i = 1; i < 3; i++)
+                        {
+                            if (ViewBag.PageNumber + i <= TotalPages)
+                            {
+                                int page = Convert.ToInt32(@ViewBag.PageNumber) + i;
+                                <li class="page-item">@Html.ActionLink(page.ToString(), "MyRejectedNotes", new { sort = @ViewBag.Sort, search = @ViewBag.Search, page = page }, new { @class = "page-link" })</li>
+                            }
+                        }
+
+                        if (ViewBag.PageNumber != TotalPages && ViewBag.PageNumber + 2 < TotalPages)
+                        {
+                            int page = Convert.ToInt32(@ViewBag.PageNumber) + 3;
+                            if (page != TotalPages)
+                            {
+                                <li class="page-item">@Html.ActionLink("...", "MyRejectedNotes", new { sort = @ViewBag.Sort, search = @ViewBag.Search, page = page }, new { @class = "page-link more-pages-dots" })</li>
+                            }
+                            <li class="page-item">@Html.ActionLink(TotalPages.ToString(), "MyRejectedNotes", new { sort = @ViewBag.Sort, search = @ViewBag.Search, page = TotalPages }, new { @class = "page-link" })</li>
+                        }
+
+                    }
+
+                    <li class="page-item">
+                        @if (ViewBag.PageNumber == ViewBag.TotalPages)
+                        {
+                            <a class="page-link" href="@Url.Action("MyRejectedNotes", new { sort = ViewBag.Sort, search = @ViewBag.Search, page = @ViewBag.PageNumber })"><i class="fa fa-angle-right"></i></a>
+                        }
+                        else
+                        {
+                            <a class="page-link" href="@Url.Action("MyRejectedNotes", new { sort = ViewBag.Sort, search = @ViewBag.Search, page = @ViewBag.PageNumber + 1 })"><i class="fa fa-angle-right"></i></a>
+                        }
+                    </li>
+
+                </ul>
+            </nav>
+
+        </div>
+    }
+
+    <!-- Pagination Ends -->
+</div>
+<!-- My Rejected Notes Table Ends -->

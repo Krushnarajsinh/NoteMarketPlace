@@ -97,7 +97,7 @@ namespace MyNoteMarketPlace.Controllers
 
             var from = new MailAddress("rathodkrushnaraj8055@gmail.com");
             var to = new MailAddress(emailID);
-            var Password = "rathod8055"; // Replace with actual password
+            var Password = "**********"; // Replace with actual password
             string subject = "Note Marketplace - Email Verification";
 
 

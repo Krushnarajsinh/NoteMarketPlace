@@ -189,7 +189,7 @@ namespace MyNoteMarketPlace.Controllers
             var fromEmail = email.Value.Trim();
             /* var toEmail = new MailAddress(downloader.EmailID); */
             var toEmail = downloader.EmailID.Trim();
-            var fromEmailPassword = "rathod8055"; // Replace with original password
+            var fromEmailPassword = "******"; // Replace with original password
             string subject = seller.FirstName + " Allows you to download a note";
             string body = "Hello" + downloader.FirstName + "," +
                 "<br/><br/>We would like to inform you that, " + seller.FirstName + "Allows you to download a note." +

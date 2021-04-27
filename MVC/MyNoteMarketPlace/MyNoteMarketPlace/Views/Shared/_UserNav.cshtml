@@ -74,7 +74,7 @@
                                                 <a class="dropdown-item" href="@Url.Action("MySoldNotes","MySoldNotes")">My Sold Notes</a>
                                                 <a class="dropdown-item" href="@Url.Action("MyRejectedNotes","MyRejectedNotes")">My Rejected Notes</a>
                                                 <a class="dropdown-item" href='@Url.Action("ChangePassword","SignUp")'>Change Password</a>
-                                                <a class="dropdown-item givecolor" role="button" data-toggle="modal" data-target="#confirmation">LOGOUT</a>
+                                                <a class="dropdown-item givecolor" role="button" onclick="location.href='@Url.Action("Logout", "SignUp")'">LOGOUT</a>
 
                                             </div>
                                         </div>
@@ -85,7 +85,7 @@
                                     <li>
                                         <a class="smooth-scroll" href="#">
                                             <!--    <button type="submit" class="btn text-center" id="mynavbtn" onclick="location.href='@Url.Action("Logout", "SignUp")'">Logout</button> -->
-                                            <button type="submit" class="btn text-center" id="mynavbtn" data-toggle="modal" data-target="#confirmation">Logout</button>
+                                            <button type="submit" class="btn text-center" id="mynavbtn" onclick="location.href='@Url.Action("Logout", "SignUp")'">Logout</button>
                                         </a>
                                     </li>
                                 }
@@ -131,7 +131,7 @@
                                                 <a class="dropdown-item" href="@Url.Action("MySoldNotes","MySoldNotes")">My Sold Notes</a>
                                                 <a class="dropdown-item" href="@Url.Action("MyRejectedNotes","MyRejectedNotes")">My Rejected Notes</a>
                                                 <a class="dropdown-item" href='@Url.Action("ChangePassword","SignUp")'>Change Password</a>
-                                                <a class="dropdown-item givecolor" role="button" data-toggle="modal" data-target="#confirmation">LOGOUT</a>
+                                                <a class="dropdown-item givecolor" role="button" onclick="location.href='@Url.Action("Logout", "SignUp")'">LOGOUT</a>
                                             </div>
                                         </div>
 
@@ -141,7 +141,7 @@
                                 {
                                     <li>
                                         <a class="smooth-scroll" href="#">
-                                            <button type="submit" class="btn text-center" id="mynavbtn" data-toggle="modal" data-target="#confirmation">Logout</button>
+                                            <button type="submit" class="btn text-center" id="mynavbtn" onclick="location.href='@Url.Action("Logout", "SignUp")'">Logout</button>
                                         </a>
                                     </li>
                                 }
@@ -201,7 +201,7 @@
     <script src='~/Script/Front/js/script.js'></script>
     <script src="~/Script/jquery.validate.min.js"></script>
     <script src="~/Script/jquery.validate.unobtrusive.min.js"></script>
-
+    @RenderSection("CustomScript",required: false)
 </body>
 
 </html>

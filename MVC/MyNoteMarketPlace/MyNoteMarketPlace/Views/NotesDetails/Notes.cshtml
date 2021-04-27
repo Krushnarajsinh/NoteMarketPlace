@@ -12,6 +12,18 @@
         }
     </style>
 }
+
+@{ 
+
+    string showModal = "";
+    if (TempData["ShowModal"] != null && TempData["ShowModal"].Equals(1))
+    {
+        showModal = "show";
+    }
+    else {
+        showModal = "hide";
+    }
+}
 <!-- Notes Details -->
 <section id="notes-details">
     <div class="container">
@@ -53,39 +65,39 @@
                                     <!-- if note is not already requested -->
                                     if (Model.NoteRequested == false)
                                     {
-                            <div class="col-md-12 col-sm-12 col-12">
-                                <!--  <a class="btn btn-primary text-uppercase text-center" role="button" data-toggle="modal" data-target="#confirmation"><b>Download / $@Model.SellerNote.SellingPrice</b></a> -->
-                                <button type="submit" class="btn btn-primary text-uppercase text-center" role="button" data-toggle="modal" data-target="#confirmation"><b>Download / $@Model.SellerNote.SellingPrice</b></button>
-                            </div>
+                                        <div class="col-md-12 col-sm-12 col-12">
+                                            <!--  <a class="btn btn-primary text-uppercase text-center" role="button" data-toggle="modal" data-target="#confirmation"><b>Download / $@Model.SellerNote.SellingPrice</b></a> -->
+                                            <button type="submit" class="btn btn-primary text-uppercase text-center" role="button" data-toggle="modal" data-target="#confirmation"><b>Download / $@Model.SellerNote.SellingPrice</b></button>
+                                        </div>
                                     }
                                     <!-- if logged in user is allowed to download -->
                                     if (Model.AllowDownload == true)
                                     {
-                        <div class="col-md-12 col-sm-12 col-12">
-                            <!-- <a class="btn btn-primary text-uppercase text-center" href="@Url.Action("DownloadNotes", new { noteid = Model.SellerNote.ID })" role="button" download><b>Download / $@Model.SellerNote.SellingPrice</b></a> -->
-                            <button type="submit" class="btn btn-primary text-uppercase text-center"  onclick="location.href='@Url.Action("DownloadNotes", new { noteid = Model.SellerNote.ID })'" role="button" download><b>Download / $@Model.SellerNote.SellingPrice</b></button>
-                        </div>
+                                        <div class="col-md-12 col-sm-12 col-12">
+                                            <!-- <a class="btn btn-primary text-uppercase text-center" href="@Url.Action("DownloadNotes", new { noteid = Model.SellerNote.ID })" role="button" download><b>Download / $@Model.SellerNote.SellingPrice</b></a> -->
+                                            <button type="submit" class="btn btn-primary text-uppercase text-center" onclick="location.href='@Url.Action("DownloadNotes", new { noteid = Model.SellerNote.ID })'" role="button" download><b>Download / $@Model.SellerNote.SellingPrice</b></button>
+                                        </div>
                                     }
                                 }
                                 else
                                 {
                                     <!-- if note is free or paid and note's seller and logged in user is same -->
-                        <div class="col-md-12 col-sm-12 col-12">
-                            <!--   <a class="btn btn-primary text-uppercase text-center" href="@Url.Action("DownloadNotes", new { noteid = Model.SellerNote.ID })" role="button" download><b>Download / $@Model.SellerNote.SellingPrice</b></a> -->
-                            <button type="submit" class="btn btn-primary text-uppercase text-center" onclick="location.href='@Url.Action("DownloadNotes", new { noteid = Model.SellerNote.ID })'" role="button" download><b>Download / $@Model.SellerNote.SellingPrice</b></button>
-                        </div>
+                                    <div class="col-md-12 col-sm-12 col-12">
+                                        <!--   <a class="btn btn-primary text-uppercase text-center" href="@Url.Action("DownloadNotes", new { noteid = Model.SellerNote.ID })" role="button" download><b>Download / $@Model.SellerNote.SellingPrice</b></a> -->
+                                        <button type="submit" class="btn btn-primary text-uppercase text-center" onclick="location.href='@Url.Action("DownloadNotes", new { noteid = Model.SellerNote.ID })'" role="button" download><b>Download / $@Model.SellerNote.SellingPrice</b></button>
+                                    </div>
                                 }
                             }
                             else
                             {
                                 <!-- if user is not authenticated -->
-                        <div class="col-md-12 col-sm-12 col-12">
-                            <!--  <a class="btn btn-primary text-uppercase text-center" href="@Url.Action("Login", "SignUp")"><b>Download / $@Model.SellerNote.SellingPrice</b></a> -->
-                            <button type="submit" class="btn btn-primary text-uppercase text-center"  onclick="location.href='@Url.Action("Login", "SignUp")'"><b>Download / $@Model.SellerNote.SellingPrice</b></button>
+                                <div class="col-md-12 col-sm-12 col-12">
+                                    <!--  <a class="btn btn-primary text-uppercase text-center" href="@Url.Action("Login", "SignUp")"><b>Download / $@Model.SellerNote.SellingPrice</b></a> -->
+                                    <button type="submit" class="btn btn-primary text-uppercase text-center" onclick="location.href='@Url.Action("Login", "SignUp")'"><b>Download / $@Model.SellerNote.SellingPrice</b></button>
 
 
 
-                        </div>
+                                </div>
                             }
 
                             <!-- Section Confirmation Box -->
@@ -99,7 +111,7 @@
                                                 </p>
 
                                                 <div class="btn-confirm">
-                                                    <a class="btn btn-yes" href="@Url.Action("RequestPaidNotes", new { noteid = Model.SellerNote.ID })" id="confirmationbutton" onclick="$('#confirmation').modal('hide'); $('#exampleModal').modal('show');" role="button">YES</a>
+                                                    <a class="btn btn-yes" href="@Url.Action("RequestPaidNotes", new { noteid = Model.SellerNote.ID })" id="confirmationbutton" onclick="$('#confirmation').modal('hide'); " role="button">YES</a>
                                                     <a class="btn btn-no" data-dismiss="modal" aria-label="Close" role="button">NO</a>
                                                 </div>
                                             </div>
@@ -333,3 +345,14 @@
     </div>
 </section>
 <!-- Notes Perview Ends -->
+
+@section CustomScript
+{
+    <script>
+
+        $(function () {
+            var k = "@(showModal)";
+            $('#exampleModal').modal(k);
+        });
+    </script>
+}

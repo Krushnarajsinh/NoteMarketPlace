@@ -142,221 +142,227 @@
                                     foreach (var item in Model)
                                     {
 
-                                        <tr>
-                                            @{ srno = srno + 1; }
-                                            <td class="align-middle text-center">@srno</td>
-                                            <td class="align-middle getpurple"><a href="@Url.Action("Notes", "NotesDetails", new { id = @item.NoteID })">@item.Title</a></td>
-                                            <td class="align-middle">@item.Category</td>
-                                            <td class="align-middle">@item.Seller</td>
-                                            <td class="align-middle">@item.SellType</td>
+                            <tr>
+                                @{ srno = srno + 1; }
+                                <td class="align-middle text-center">@srno</td>
+                                <td class="align-middle getpurple"><a href="@Url.Action("Notes", "NotesDetails", new { id = @item.NoteID })">@item.Title</a></td>
+                                <td class="align-middle">@item.Category</td>
+                                <td class="align-middle">@item.Seller</td>
+                                <td class="align-middle">@item.SellType</td>
 
-                                            @if (@item.Price != null)
+                                @if (@item.Price != null)
+                                {
+
+                                    <td class="align-middle">$@item.Price</td>
+                                }
+                                else
+                                {
+
+                                    <td class="align-middle">$0</td>
+                                }
+                                @if (@item.NoteDownloaded == true)
+                                {
+                                    <td class="align-middle">@item.DownloadedDate.Value.ToString("dd MMM yyyy, hh:mm:ss")</td>
+
+                                }
+                                else
+                                {
+                                    <td class="align-middle">Download This Note</td>
+                                }
+
+                                <td class="align-middle">
+                                    <a type="button" href="@Url.Action("Notes", "NotesDetails", new { id = item.NoteID })"><img src="~/Img/Front/Dashboard/eye.png" alt="view"></a>
+                                </td>
+
+                                <td class="align-middle">
+                                    <div class="dropdown">
+                                        <a type="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-ellipsis-v  dowhite"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item" href="@Url.Action("DownloadNotes", "NotesDetails", new { noteid = @item.NoteID } )">Download Notes</a>
+
+
+
+                                            @if (item.NoteDownloaded == true)
                                             {
-
-                                                <td class="align-middle">$@item.Price</td>
+                                                <a class="dropdown-item" data-toggle="modal" data-target="#addreview-@item.DownloadID">Add Reviews/Feedback</a>
+                                                <a class="dropdown-item" data-toggle="modal" data-target="#reportspam-@item.DownloadID">Report as Inappropriate</a>
                                             }
                                             else
                                             {
-
-                                                <td class="align-middle">$0</td>
+                                                <a class="dropdown-item">Add Review/Feedback</a>
+                                                <a class="dropdown-item">Report as Inappropriate</a>
                                             }
-                                            <td class="align-middle">@item.DownloadedDate.Value.ToString("dd MMM yyyy, hh:mm:ss")</td>
+                                        </div>
+                                    </div>
+
+                                    @if (item.NoteDownloaded == true)
+                                    {
+                                        <!--Add Review Moadl -->
+                                        <div class="modal fade modal-download" id="addreview-@item.DownloadID" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+
+                                                <div class="row">
+                                                    <div class="col-xl-12">
+                                                        <div class="modal-content add-review">
+                                                            <div class="modal-header">
+
+                                                                <a type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <i class="fa fa-close 2x"></i>
+                                                                </a>
+                                                            </div>
+                                                            <div class="model-data">
+
+                                                                <div class="modal-head text-left">
+                                                                    <h2 class="set-text">Add Review</h2>
+                                                                </div>
+
+                                                                @using (Html.BeginForm("AddReview", "MyDownload", FormMethod.Post))
+                                                                {
+
+                                                                    @Html.AntiForgeryToken()
+
+                                                                    <input name="AgainstDownloadsID" value="@item.DownloadID" hidden>
+                                                                    <input name="noteid" value="@item.NoteID" hidden>
+
+                                                                    <div class="middel-content text-left content-justify-left">
+                                                                        <!-- Ratings -->
+                                                                        <div class="row set-rate">
+                                                                            <div class="col-12">
+                                                                                <div class="rate">
 
 
 
-                                            <td class="align-middle">
-                                                <a type="button" href="@Url.Action("Notes", "NotesDetails", new { id = item.NoteID })"><img src="~/Img/Front/Dashboard/eye.png" alt="view"></a>
-                                            </td>
 
-                                            <td class="align-middle">
-                                                <div class="dropdown">
-                                                    <a type="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="fa fa-ellipsis-v  dowhite"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                                        <a class="dropdown-item" href="@Url.Action("DownloadNotes", "NotesDetails", new { noteid = @item.NoteID } )">Download Notes</a>
+                                                                                    @Html.RadioButtonFor(model => item.Rating, 5, new { id = "star5-" + @item.DownloadID, Name = "Ratings" })
+                                                                                    <label for="star5-@item.DownloadID" title="text">5 stars</label>
+                                                                                    @Html.RadioButtonFor(model => item.Rating, 4, new { id = "star4-" + @item.DownloadID, Name = "Ratings" })
+                                                                                    <label for="star4-@item.DownloadID" title="text">4 stars</label>
+                                                                                    @Html.RadioButtonFor(model => item.Rating, 3, new { id = "star3-" + @item.DownloadID, Name = "Ratings" })
+                                                                                    <label for="star3-@item.DownloadID" title="text">3 stars</label>
+                                                                                    @Html.RadioButtonFor(model => item.Rating, 2, new { id = "star2-" + @item.DownloadID, Name = "Ratings" })
+                                                                                    <label for="star2-@item.DownloadID" title="text">2 stars</label>
+                                                                                    @Html.RadioButtonFor(model => item.Rating, 1, new { id = "star1-" + @item.DownloadID, Name = "Ratings" })
+                                                                                    <label for="star1-@item.DownloadID" title="text">1 star</label>
+                                                                                    @Html.ValidationMessageFor(model => item.Rating, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
+                                                                                </div>
 
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <div class="form-group">
+                                                                                    <div class="textarea-input">
+                                                                                        <label class="control-label set-label" for="review-@item.DownloadID">Comments<span class="required"> *</span></label>
+                                                                                        <!--  <textarea placeholder="Comments..." class="form-control InputEmail1" id="text-ar-1"></textarea> -->
+                                                                                        @Html.TextAreaFor(model => item.Comment, new { @class = "form-control  InputEmail1 text-area", id = "review-" + @item.DownloadID, Name = "Comments", placeholder = "comments...", required = "required" })
+                                                                                        @Html.ValidationMessageFor(model => item.Comment, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
 
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <button type="submit" class="btn btn-primary text-uppercase text-center" id="mybt"><b>submit</b></button>
+                                                                            </div>
+                                                                        </div>
 
-                                                        @if (item.NoteDownloaded == true)
-                                                        {
-                                                            <a class="dropdown-item" data-toggle="modal" data-target="#addreview-@item.DownloadID">Add Reviews/Feedback</a>
-                                                            <a class="dropdown-item" data-toggle="modal" data-target="#reportspam-@item.DownloadID">Report as Inappropriate</a>
-                                                        }
-                                                        else
-                                                        {
-                                                            <a class="dropdown-item">Add Review/Feedback</a>
-                                                            <a class="dropdown-item">Report as Inappropriate</a>
-                                                        }
+                                                                    </div>
+                                                                }
+
+                                                            </div>
+
+                                                        </div>
                                                     </div>
                                                 </div>
 
-                                                @if (item.NoteDownloaded == true)
-                                                {
-                                                    <!--Add Review Moadl -->
-                                                    <div class="modal fade modal-download" id="addreview-@item.DownloadID" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
+                                            </div>
+                                        </div>
+                                        <!--Add Review Model Ends -->
 
-                                                            <div class="row">
-                                                                <div class="col-xl-12">
-                                                                    <div class="modal-content add-review">
-                                                                        <div class="modal-header">
+                                        <!-- Section Spam -->
+                                        <div class="modal fade modal-download" id="reportspam-@item.DownloadID" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="row">
+                                                    <div class="col-xl-12">
+                                                        <div class="modal-content add-review">
+                                                            <div class="modal-header">
 
-                                                                            <a type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                <i class="fa fa-close 2x"></i>
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="model-data">
-
-                                                                            <div class="modal-head text-left">
-                                                                                <h2 class="set-text">Add Review</h2>
-                                                                            </div>
-
-                                                                            @using (Html.BeginForm("AddReview", "MyDownload", FormMethod.Post))
-                                                                            {
-
-                                                                                @Html.AntiForgeryToken()
-
-                                                                                <input name="AgainstDownloadsID" value="@item.DownloadID" hidden>
-                                                                                <input name="noteid" value="@item.NoteID" hidden>
-
-                                                                                <div class="middel-content text-left content-justify-left">
-                                                                                    <!-- Ratings -->
-                                                                                    <div class="row set-rate">
-                                                                                        <div class="col-12">
-                                                                                            <div class="rate">
-
-                                                                                              
-
-
-                                                                                                @Html.RadioButtonFor(model => item.Rating, 5, new { id = "star5-" + @item.DownloadID, Name = "Ratings" })
-                                                                                                <label for="star5-@item.DownloadID" title="text">5 stars</label>
-                                                                                                @Html.RadioButtonFor(model => item.Rating, 4, new { id = "star4-" + @item.DownloadID, Name = "Ratings" })
-                                                                                                <label for="star4-@item.DownloadID" title="text">4 stars</label>
-                                                                                                @Html.RadioButtonFor(model => item.Rating, 3, new { id = "star3-" + @item.DownloadID, Name = "Ratings" })
-                                                                                                <label for="star3-@item.DownloadID" title="text">3 stars</label>
-                                                                                                @Html.RadioButtonFor(model => item.Rating, 2, new { id = "star2-" + @item.DownloadID, Name = "Ratings" })
-                                                                                                <label for="star2-@item.DownloadID" title="text">2 stars</label>
-                                                                                                @Html.RadioButtonFor(model => item.Rating, 1, new { id = "star1-" + @item.DownloadID, Name = "Ratings" })
-                                                                                                <label for="star1-@item.DownloadID" title="text">1 star</label>
-                                                                                                @Html.ValidationMessageFor(model => item.Rating, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
-                                                                                            </div>
-
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <div class="col-12">
-                                                                                            <div class="form-group">
-                                                                                                <div class="textarea-input">
-                                                                                                    <label class="control-label set-label" for="review-@item.DownloadID">Comments<span class="required"> *</span></label>
-                                                                                                    <!--  <textarea placeholder="Comments..." class="form-control InputEmail1" id="text-ar-1"></textarea> -->
-                                                                                                    @Html.TextAreaFor(model => item.Comment, new { @class = "form-control  InputEmail1 text-area", id = "review-" + @item.DownloadID, Name = "Comments", placeholder = "comments...", required = "required" })
-                                                                                                    @Html.ValidationMessageFor(model => item.Comment, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
-
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="row">
-                                                                                        <div class="col-12">
-                                                                                            <button type="submit" class="btn btn-primary text-uppercase text-center" id="mybt"><b>submit</b></button>
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                </div>
-                                                                            }
-
-                                                                        </div>
-
-                                                                    </div>
-                                                                </div>
+                                                                <a type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <i class="fa fa-close 2x"></i>
+                                                                </a>
                                                             </div>
+                                                            <div class="model-data">
 
-                                                        </div>
-                                                    </div>
-                                                    <!--Add Review Model Ends -->
+                                                                <div class="modal-head text-left">
+                                                                    <h2 class="set-text">@item.Title</h2>
+                                                                </div>
+                                                                @using (@Html.BeginForm("SpamReport", "MyDownload", FormMethod.Post, new { id = "spamreport-" + @item.DownloadID }))
+                                                                {
+                                                                    @Html.AntiForgeryToken()
 
-                                                    <!-- Section Spam -->
-                                                    <div class="modal fade modal-download" id="reportspam-@item.DownloadID" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="row">
-                                                                <div class="col-xl-12">
-                                                                    <div class="modal-content add-review">
-                                                                        <div class="modal-header">
+                                                                    <input name="downloadid" value="@item.DownloadID" hidden>
+                                                                    <input name="noteid" value="@item.NoteID" hidden>
 
-                                                                            <a type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                                <i class="fa fa-close 2x"></i>
-                                                                            </a>
-                                                                        </div>
-                                                                        <div class="model-data">
-
-                                                                            <div class="modal-head text-left">
-                                                                                <h2 class="set-text">@item.Title</h2>
-                                                                            </div>
-                                                                            @using (@Html.BeginForm("SpamReport", "MyDownload", FormMethod.Post, new { id = "spamreport-" + @item.DownloadID }))
-                                                                            {
-                                                                                @Html.AntiForgeryToken()
-
-                                                                                <input name="downloadid" value="@item.DownloadID" hidden>
-                                                                                <input name="noteid" value="@item.NoteID" hidden>
-
-                                                                                <div class="row">
-                                                                                    <div class="col-12">
-                                                                                        <div class="form-group">
-                                                                                            <div class="textarea-input">
-                                                                                                <label  class="control-label set-label" for="review-@item.DownloadID">Remarks<span class="required"> *</span></label>
-                                                                                                <textarea class="form-control  InputEmail1  text-area" name="spamreport" id="spamreport-@item.DownloadID" placeholder="comments..." required></textarea>
-                                                                                            </div>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-
-
-
-                                                                                <div class="modal-footer  btn-setting ">
-                                                                                    <button class="btn button-arng  text-uppercase " data-toggle="modal" data-target="#confirmation-@item.DownloadID" data-dismiss="modal" aria-label="Close">Report an issue</button>
-                                                                                    <button class="btn button-arng  text-uppercase " data-dismiss="modal" aria-label="Close">Cancel</button>
-
-                                                                                </div>
-                                                                                            }
-
-                                                                                        </div>
-                                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-12">
+                                                                            <div class="form-group">
+                                                                                <div class="textarea-input">
+                                                                                    <label class="control-label set-label" for="review-@item.DownloadID">Remarks<span class="required"> *</span></label>
+                                                                                    <textarea class="form-control  InputEmail1  text-area" name="spamreport" id="spamreport-@item.DownloadID" placeholder="comments..." required></textarea>
                                                                                 </div>
                                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- Section Spam END -->
-                                                    <!-- Section Confirmation Box -->
-                                                    <div class="modal fade " id="confirmation-@item.DownloadID" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                                        <div class="modal-dialog">
-                                                            <div class="modal-content">
-                                                                <div class="modal-confirm-body">
-                                                                    <div>
-                                                                       
-                                                                                    <p class="confirm-text">
-                                                                                        Are you sure you want to mark this report as spam, you cannot update it later?
-                                                                                    </p>
-                                                                                
-                                                                     
-
-                                                                        <div class="btn-confirm">
-                                                                            <a class="btn btn-yes" onclick="$('#spamreport-'+@item.DownloadID).submit(); $(this).dialog('close');" role="button">YES</a>
-                                                                            <a class="btn btn-no" data-dismiss="modal" aria-label="Close" role="button">NO</a>
                                                                         </div>
                                                                     </div>
-                                                                </div>
+
+
+
+                                                                    <div class="modal-footer  btn-setting ">
+                                                                        <button class="btn button-arng  text-uppercase " data-toggle="modal" data-target="#confirmation-@item.DownloadID" data-dismiss="modal" aria-label="Close">Report an issue</button>
+                                                                        <button class="btn button-arng  text-uppercase " data-dismiss="modal" aria-label="Close">Cancel</button>
+
+                                                                    </div>
+                                                                }
+
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!-- Section Confirmation-Box END -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Section Spam END -->
+                                        <!-- Section Confirmation Box -->
+                                        <div class="modal fade " id="confirmation-@item.DownloadID" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-confirm-body">
+                                                        <div>
+
+                                                            <p class="confirm-text">
+                                                                Are you sure you want to mark this report as spam, you cannot update it later?
+                                                            </p>
 
 
-                                                }
 
-                                            </td>
-                                            <td></td>
-                                        </tr>
+                                                            <div class="btn-confirm">
+                                                                <a class="btn btn-yes" onclick="$('#spamreport-'+@item.DownloadID).submit(); $(this).dialog('close');" role="button">YES</a>
+                                                                <a class="btn btn-no" data-dismiss="modal" aria-label="Close" role="button">NO</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Section Confirmation-Box END -->
+
+
+                                    }
+
+                                </td>
+                                <td></td>
+                            </tr>
                                     }
                                 }
                             </tbody>

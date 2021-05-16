@@ -9,13 +9,14 @@ using System.Web.Mvc;
 
 namespace MyNoteMarketPlace.Controllers
 {
+    [OutputCache(Duration = 0)]
     public class UserProfileController : Controller
     {
         readonly private Datebase1Entities _dbcontext = new Datebase1Entities();
         // GET: UserProfile
         [HttpGet]
-        [Authorize]
-       [Route("Profile")]
+        [Authorize(Roles = "Member")]
+        [Route("Profile")]
         public ActionResult UserProfile()
         {
             // get logged in user 
@@ -66,8 +67,8 @@ namespace MyNoteMarketPlace.Controllers
         }
 
         [HttpPost]
-        [Authorize]
-       [Route("Profile")]
+        [Authorize(Roles = "Member")]
+        [Route("Profile")]
         public ActionResult UserProfile(UserProfileModel userprofileviewmodel)
         {
             // get logged in user
@@ -98,6 +99,7 @@ namespace MyNoteMarketPlace.Controllers
 
                 // if profile is not null then edit userprofile
                 if (profile != null)
+                
                 {
                     profile.DOB = userprofileviewmodel.DOB;
                     profile.Gender = userprofileviewmodel.Gender;
@@ -221,7 +223,7 @@ namespace MyNoteMarketPlace.Controllers
         }
 
         // get profile image for navigation bar
-        [Authorize]
+        [Authorize(Roles = "Member")]
         public ActionResult GetPhoto()
         {
             // get user

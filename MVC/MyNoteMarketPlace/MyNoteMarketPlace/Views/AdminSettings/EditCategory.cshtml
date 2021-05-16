@@ -1,0 +1,66 @@
+﻿
+@model MyNoteMarketPlace.Models.AddCategoryModel
+@{
+    ViewBag.Title = "Edit Category";
+    Layout = "~/Views/Shared/_AdminNav.cshtml";
+}
+
+<!-- Edit Catagory -->
+
+@using (Html.BeginForm("EditCategory", "AdminSettings", new { @class = "user-details-form" }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ID)
+    <section id="personal-details" class="user-profile content-box-md">
+        <div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="heading">
+                            <h3>Add Category</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+
+                            <div class="col-md-6 col-sm-6">
+                                <!-- Catagory Name -->
+                                <div class="form-group">
+                                    <label class="mylabel">Category Name*</label>
+
+                                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control InputEmail1", id = "category-name", placeholder = "Enter category name", required = "required" })
+                                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <!-- Description -->
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <div class="textarea-input">
+                                        <label class="mylabel" for="InputEmail1">Description *</label>
+
+                                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control InputEmail1", id = "description", placeholder = "Enter your description", required = "required" })
+                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-2 col-sm-3">
+                                <button type="submit" class="btn text-uppercase text-center" id="mybtn"><b>submit</b></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+}
+<!-- Edit Catagory End -->

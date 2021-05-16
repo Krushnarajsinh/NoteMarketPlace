@@ -8,7 +8,6 @@
         <EntityTypeShape EntityType="Datebase1Model.UserRoles" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Datebase1Model.Users" Width="1.5" PointX="0.75" PointY="2.25" IsExpanded="true" />
         <AssociationConnector Association="Datebase1Model.C_Users_Users" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Datebase1Model.Admin" Width="1.5" PointX="13.375" PointY="7.75" />
         <EntityTypeShape EntityType="Datebase1Model.Countries" Width="1.5" PointX="3.75" PointY="19.75" />
         <EntityTypeShape EntityType="Datebase1Model.Downloads" Width="1.5" PointX="11.25" PointY="2.375" />
         <EntityTypeShape EntityType="Datebase1Model.NoteCategories" Width="1.5" PointX="3.75" PointY="12.75" />
@@ -41,6 +40,8 @@
         <EntityTypeShape EntityType="Datebase1Model.UserProfile" Width="1.5" PointX="3" PointY="2.5" />
         <AssociationConnector Association="Datebase1Model.FK_UserProfile_ReferenceData" />
         <AssociationConnector Association="Datebase1Model.FK_UserProfile_Users" />
+        <EntityTypeShape EntityType="Datebase1Model.Admin" Width="1.5" PointX="3" PointY="24.125" />
+        <AssociationConnector Association="Datebase1Model.FK_Admin_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,4 +1,5 @@
 ﻿using MyNoteMarketPlace.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -11,18 +12,20 @@ using System.Web.Mvc;
 namespace MyNoteMarketPlace.Controllers
 {
     [RoutePrefix("User")]
+    [OutputCache(Duration = 0)]
     public class MyDownloadController : Controller
     {
         readonly private Datebase1Entities context = new Datebase1Entities();
         // GET: MyDownload
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [Route("MyDownload")]
-        public ActionResult MyDownload(string search, string sort, int page = 1)
+        public ActionResult MyDownload(string search, string sort, int? page)
         {
             // viewbag for searching, sorting and pagination
             ViewBag.Search = search;
             ViewBag.Sort = sort;
+
             ViewBag.PageNumber = page;
 
             // get logged in user
@@ -65,14 +68,14 @@ namespace MyNoteMarketPlace.Controllers
             // sorting result
             mydownloads = MyDownloadTableSorting(sort, mydownloads);
 
-            // viewbag for count total pages
-            ViewBag.TotalPages = Math.Ceiling(mydownloads.Count() / 10.0);
+          
 
-            // show result based on pagination
-            mydownloads = mydownloads.Skip((page - 1) * 10).Take(10);
+            var result = new List<MyDownloadModel>();
+            result = mydownloads.ToList();
 
             // return results
-            return View(mydownloads);
+          
+            return View(result.ToList().AsQueryable().ToPagedList(page ?? 1,10));
         }
 
         // sorting for my downloads results
@@ -151,7 +154,7 @@ namespace MyNoteMarketPlace.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [Route("Note/AddReview")]
         public ActionResult AddReview(SellerNotesReviews notereview)
         {
@@ -215,12 +218,13 @@ namespace MyNoteMarketPlace.Controllers
                     return RedirectToAction("MyDownload");
                 }
             }
+
             return RedirectToAction("MyDownload");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [Route("Note/ReportSpam")]
         public ActionResult SpamReport(FormCollection form)
         {
@@ -230,7 +234,7 @@ namespace MyNoteMarketPlace.Controllers
             // get ReportedIssues object 
             var alreadyreportedspam = context.SellerNotesReportedIssues.Where(x => x.AgainstDownloadID == downloadid).FirstOrDefault();
 
-            // if user not slready reported spam 
+            // if user not already reported spam 
             if (alreadyreportedspam == null)
             {
                 //get logged in user
@@ -274,6 +278,7 @@ namespace MyNoteMarketPlace.Controllers
             // get support email
             var fromemail = context.SystemConfigurations.Where(x => x.Key == "supportemail").FirstOrDefault();
             var fromEmailPassword = "*******"; // Replace with original password
+            //This mail goes to admin from system
             var tomail = context.SystemConfigurations.Where(x => x.Key == "adminemail").FirstOrDefault();
 
             // set from, to, subject, body

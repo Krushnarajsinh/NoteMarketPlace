@@ -1994,6 +1994,12 @@
     <Compile Include="ContactUs.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AdminMembersController.cs" />
+    <Compile Include="Controllers\AdminNotesController.cs" />
+    <Compile Include="Controllers\AdminProfileController.cs" />
+    <Compile Include="Controllers\AdminReportsController.cs" />
+    <Compile Include="Controllers\AdminSettingsController.cs" />
     <Compile Include="Controllers\BuyerRequestController.cs" />
     <Compile Include="Controllers\ContactUsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -2031,20 +2037,40 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\AddAdministratorModel.cs" />
+    <Compile Include="Models\AddCategoryModel.cs" />
+    <Compile Include="Models\AddCountryModel.cs" />
     <Compile Include="Models\AddNotesModel.cs" />
     <Compile Include="Models\AddNotesViewModel.cs" />
+    <Compile Include="Models\AddTypeModel.cs" />
+    <Compile Include="Models\AdminDashboardModel.cs" />
+    <Compile Include="Models\AdminNoteDetailModel.cs" />
+    <Compile Include="Models\AdminProfileModel.cs" />
     <Compile Include="Models\BuyerRequestViewModel.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\ContactUsModel.cs" />
     <Compile Include="Models\DashboardViewModel.cs" />
+    <Compile Include="Models\DownloadedNotesModel.cs" />
     <Compile Include="Models\EditNotesViewModel.cs" />
     <Compile Include="Models\ForgotPasswordModel.cs" />
+    <Compile Include="Models\ManageAdministratorModel.cs" />
+    <Compile Include="Models\ManageCategoryModel.cs" />
+    <Compile Include="Models\ManageCountryModel.cs" />
+    <Compile Include="Models\ManageTypeModel.cs" />
+    <Compile Include="Models\MemberDetailModel.cs" />
+    <Compile Include="Models\MemberModel.cs" />
     <Compile Include="Models\MyDownloadModel.cs" />
     <Compile Include="Models\MySoldNotesModel.cs" />
     <Compile Include="Models\NotesDetailsModel.cs" />
+    <Compile Include="Models\NotesUnderReviewModel.cs" />
+    <Compile Include="Models\PublishedNoteModel.cs" />
+    <Compile Include="Models\RejectedNotesModel.cs" />
     <Compile Include="Models\SearchNotesViewModel.cs" />
+    <Compile Include="Models\SpamReportModel.cs" />
+    <Compile Include="Models\SystemConfigurationModel.cs" />
     <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Models\UserProfileModel.cs" />
+    <Compile Include="Models\UserRoleProvider.cs" />
     <Compile Include="Models\UsersModel.cs" />
     <Compile Include="NoteCategories.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -2187,6 +2213,30 @@
     <Content Include="Views\MyDownload\MyDownload.cshtml" />
     <Content Include="Views\MySoldNotes\MySoldNotes.cshtml" />
     <Content Include="Views\MyRejectedNotes\MyRejectedNotes.cshtml" />
+    <Content Include="Views\AdminProfile\MyProfile.cshtml" />
+    <Content Include="Views\Admin\Dashboard.cshtml" />
+    <Content Include="Views\Admin\NoteDetail.cshtml" />
+    <Content Include="Views\Shared\_AdminNav.cshtml" />
+    <Content Include="Views\AdminMembers\Members.cshtml" />
+    <Content Include="Views\AdminMembers\MemberDetail.cshtml" />
+    <Content Include="Views\AdminReports\SpamReport.cshtml" />
+    <Content Include="Views\AdminNotes\NotesUnderReview.cshtml" />
+    <Content Include="Views\AdminNotes\DownloadedNotes.cshtml" />
+    <Content Include="Views\AdminNotes\RejectedNotes.cshtml" />
+    <Content Include="Views\AdminNotes\PublishedNotes.cshtml" />
+    <Content Include="Views\AdminSettings\AddAdministrator.cshtml" />
+    <Content Include="Views\AdminSettings\EditAdministrator.cshtml" />
+    <Content Include="Views\AdminSettings\ManageAdministrator.cshtml" />
+    <Content Include="Views\AdminSettings\AddCountry.cshtml" />
+    <Content Include="Views\AdminSettings\EditCountry.cshtml" />
+    <Content Include="Views\AdminSettings\ManageCountry.cshtml" />
+    <Content Include="Views\AdminSettings\AddType.cshtml" />
+    <Content Include="Views\AdminSettings\EditType.cshtml" />
+    <Content Include="Views\AdminSettings\ManageType.cshtml" />
+    <Content Include="Views\AdminSettings\ManageCategory.cshtml" />
+    <Content Include="Views\AdminSettings\EditCategory.cshtml" />
+    <Content Include="Views\AdminSettings\AddCategory.cshtml" />
+    <Content Include="Views\AdminSettings\ManageSystemConfiguration.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

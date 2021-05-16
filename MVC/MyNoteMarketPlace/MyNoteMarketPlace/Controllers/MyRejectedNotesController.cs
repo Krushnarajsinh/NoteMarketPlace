@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,14 +8,15 @@ using System.Web.Mvc;
 
 namespace MyNoteMarketPlace.Controllers
 {
+    [OutputCache(Duration = 0)]
     public class MyRejectedNotesController : Controller
     {
         readonly private Datebase1Entities context = new Datebase1Entities();
         // GET: MyRejectedNotes
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [Route("User/MyRejectedNotes")]
-        public ActionResult MyRejectedNotes(string search, string sort, int page = 1)
+        public ActionResult MyRejectedNotes(string search, string sort, int? page)
         {
             // viewbag for searching, sorting and pagination
             ViewBag.Search = search;
@@ -24,11 +26,11 @@ namespace MyNoteMarketPlace.Controllers
             // get logged in user
             var user = context.Users.Where(x => x.EmailID == User.Identity.Name).FirstOrDefault();
 
-            // get rejected id
-            var rejectedid = context.ReferenceData.Where(x => x.Value.ToLower() == "rejected").Select(x => x.ID).FirstOrDefault();
+            // get rejected id from referencedata table
+            var rejected_id = context.ReferenceData.Where(x => x.Value.ToLower() == "rejected").Select(x => x.ID).FirstOrDefault();
 
             // get user's rejected notes 
-            IEnumerable<SellerNotes> rejectednotes = context.SellerNotes.Where(x => x.SellerID == user.ID && x.Status == rejectedid && x.IsActive == true).ToList();
+            IEnumerable<SellerNotes> rejectednotes = context.SellerNotes.Where(x => x.SellerID == user.ID && x.Status == rejected_id && x.IsActive == true).ToList();
 
             // get searched result if search is not empty
             if (!string.IsNullOrEmpty(search))
@@ -42,14 +44,19 @@ namespace MyNoteMarketPlace.Controllers
             // sort result
             rejectednotes = MyRejectedNotesTableSorting(sort, rejectednotes);
 
-            // viewbag for count total pages
+            /* viewbag for count total pages
             ViewBag.TotalPages = Math.Ceiling(rejectednotes.Count() / 10.0);
 
             // show result based on pagination
-            rejectednotes = rejectednotes.Skip((page - 1) * 10).Take(10).ToList();
+            rejectednotes = rejectednotes.Skip((page - 1) * 10).Take(10).ToList(); */
+
+              var result = new List<SellerNotes>();
+            result = rejectednotes.ToList();
 
             // return rejectedd notes result
-            return View(rejectednotes);
+           // return View(rejectednotes);
+
+            return View(result.ToList().AsQueryable().ToPagedList(page ?? 1, 10));
         }
         //sorting for my rejected notes
         private IEnumerable<SellerNotes> MyRejectedNotesTableSorting(string sort, IEnumerable<SellerNotes> table)
@@ -96,7 +103,7 @@ namespace MyNoteMarketPlace.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [Route("User/MyRejectedNotes/{noteid}/Clone")]
         public ActionResult CloneNote(int noteid)
         {
@@ -106,7 +113,7 @@ namespace MyNoteMarketPlace.Controllers
             // get rejected note by id
             var rejectednote = context.SellerNotes.Find(noteid);
 
-            // create object of sellernote for create clone of note
+            // create object of sellernotes table for create clone of note
             SellerNotes clonenote = new SellerNotes();
 
             clonenote.SellerID = rejectednote.SellerID;
@@ -141,10 +148,11 @@ namespace MyNoteMarketPlace.Controllers
                 var clonenotefilepath = "~/Members/" + user.ID + "/" + clonenote.ID + "/";
 
                 var filepath = Path.Combine(Server.MapPath(clonenotefilepath));
+                Directory.CreateDirectory(filepath);
 
                 FileInfo file = new FileInfo(rejectednotefilepath);
 
-                Directory.CreateDirectory(filepath);
+              
                 if (file.Exists)
                 {
                     System.IO.File.Copy(rejectednotefilepath, Path.Combine(filepath, Path.GetFileName(rejectednotefilepath)));
@@ -161,10 +169,11 @@ namespace MyNoteMarketPlace.Controllers
                 var clonenotefilepath = "~/Members/" + user.ID + "/" + clonenote.ID + "/";
 
                 var filepath = Path.Combine(Server.MapPath(clonenotefilepath));
+                Directory.CreateDirectory(filepath);
 
                 FileInfo file = new FileInfo(rejectednotefilepath);
 
-                Directory.CreateDirectory(filepath);
+              
 
                 if (file.Exists)
                 {
@@ -175,7 +184,7 @@ namespace MyNoteMarketPlace.Controllers
                 context.SaveChanges();
             }
 
-            // attachment path of rejected note and clone note
+            // copy attachment path of rejected note to clone note
             var rejectednoteattachement = Server.MapPath("~/Members/" + user.ID + "/" + rejectednote.ID + "/Attachements/");
             var clonenoteattachement = "~/Members/" + user.ID + "/" + clonenote.ID + "/Attachements/";
 

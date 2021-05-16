@@ -5,10 +5,12 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AdminID" Type="int" Nullable="false" />
     <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="EmailID" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="SecondaryEmailID" Type="varchar" MaxLength="24" />
+    <Property Name="PhoneNumberCountryCode" Type="varchar" MaxLength="5" Nullable="false" />
     <Property Name="Phone number" Type="varchar" MaxLength="20" />
     <Property Name="Profile Picture" Type="varchar" MaxLength="500" />
     <Property Name="CreatedDate" Type="datetime" />
@@ -276,6 +278,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Admin_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Admin" Type="Self.Admin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Admin">
+        <PropertyRef Name="AdminID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Downloads_SellerNotes">
     <End Role="SellerNotes" Type="Self.SellerNotes" Multiplicity="1" />
     <End Role="Downloads" Type="Self.Downloads" Multiplicity="*" />
@@ -524,6 +538,10 @@
     <AssociationSet Name="_Users_Users" Association="Self._Users_Users">
       <End Role="Users" EntitySet="Users" />
       <End Role="Users1" EntitySet="Users" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Admin_Users" Association="Self.FK_Admin_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Admin" EntitySet="Admin" />
     </AssociationSet>
     <AssociationSet Name="FK_Downloads_SellerNotes" Association="Self.FK_Downloads_SellerNotes">
       <End Role="SellerNotes" EntitySet="SellerNotes" />

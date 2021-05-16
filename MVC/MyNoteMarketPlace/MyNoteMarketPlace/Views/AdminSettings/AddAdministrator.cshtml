@@ -1,0 +1,111 @@
+﻿@model MyNoteMarketPlace.Models.AddAdministratorModel
+@{
+    ViewBag.Title = "Add Administrator";
+    Layout = "~/Views/Shared/_AdminNav.cshtml";
+}
+
+<!-- Add Administrator-->
+<!--<form class="user-details-form">-->
+@using (Html.BeginForm("AddAdministrator", "AdminSettings",FormMethod.Post, new {@class="user-details-form" }))
+{
+    @Html.AntiForgeryToken()
+
+
+    <section id="personal-details" class="user-profile content-box-md">
+        <div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="heading">
+                            <h3>Add Administrator</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+
+                            <div class="col-md-6 col-sm-6">
+                                <!-- First Name -->
+                                <div class="form-group">
+                                    <label class="mylabel">First Name*</label>
+                                    <!--  <input type="text" class="form-control InputEmail1" placeholder="Enter your First Name"> -->
+                                    @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control InputEmail1", id = "first-name", placeholder = "Enter your First Name", required = "required" })
+                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;"  })
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <!-- Last Name -->
+                                <div class="form-group">
+                                    <label class="mylabel" for="InputEmail1">Last Name*</label>
+                                    <!--  <input type="text" class="form-control InputEmail1" aria-describedby="emailHelp" placeholder="Enter your Last Name">-->
+                                    @Html.TextBoxFor(model => model.LastName, new { @class = "form-control InputEmail1", id = "last-name", placeholder = "Enter your Last Name", required = "required" })
+                                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;"  })
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-md-6 col-sm-6">
+                                <!-- Email -->
+                                <div class="form-group">
+                                    <label class="mylabel" for="InputEmail1">Email*</label>
+                                    <!--<input type="email" class="form-control InputEmail1" aria-describedby="emailHelp" placeholder="Enter your Email Address">-->
+                                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control InputEmail1", id = "email", type = "email", placeholder = "Enter your Email Address", required = "required" })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;"  })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-md-6 col-sm-6">
+
+                                <!-- Phone Number -->
+                                <div class="form-group">
+                                    <label class="mylabel">Phone Number *</label>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-5 col-sm-5 col-3 col-xl-3 col-lg-4  nopadding">
+                                                <div class="marginright">
+
+                                                 
+                                                    @Html.DropDownListFor(model => model.PhoneNumberCountryCode, new SelectList(@Model.CountryCodeList), new { @class = "form-control  inputselect", id = "country-code", required = "required" })
+                                                    @Html.ValidationMessageFor(model => model.PhoneNumberCountryCode, "",  new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;"  })
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-7 col-sm-7 col-9 col-xl-9 col-lg-8 nopadding">
+
+                                                <!--  <input type="email" class="form-control InputEmail1" placeholder="Enter your phone number"> -->
+                                                @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control InputEmail1", id = "phone-number", placeholder = "Enter your phone number", required = "required" })
+                                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;"  })
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-2 col-sm-6">
+                                <button type="submit" class="btn text-uppercase text-center" id="mybtn"><b>submit</b></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+}
+    <!--</form> -->
+    <!-- Add Administrator Ends-->

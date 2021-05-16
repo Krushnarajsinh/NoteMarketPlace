@@ -14,6 +14,7 @@ namespace MyNoteMarketPlace.Controllers
     {
         Datebase1Entities context = new Datebase1Entities();
         // GET: ContactUs
+        [AllowAnonymous]
         [Route("ContactUs")]
         public ActionResult ContactUs()
         {
@@ -21,6 +22,7 @@ namespace MyNoteMarketPlace.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("ContactUs")]
         public ActionResult ContactUs(ContactUsModel model)
         {

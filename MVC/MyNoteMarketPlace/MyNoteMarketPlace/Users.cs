@@ -25,6 +25,7 @@ namespace MyNoteMarketPlace
             this.SellerNotes = new HashSet<SellerNotes>();
             this.SellerNotes1 = new HashSet<SellerNotes>();
             this.UserProfile = new HashSet<UserProfile>();
+            this.Admin = new HashSet<Admin>();
         }
     
         public int ID { get; set; }
@@ -59,5 +60,7 @@ namespace MyNoteMarketPlace
         public virtual ICollection<SellerNotes> SellerNotes1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserProfile> UserProfile { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Admin> Admin { get; set; }
     }
 }

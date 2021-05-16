@@ -1,4 +1,6 @@
-﻿
+﻿@using PagedList;
+@using PagedList.Mvc;
+
 @model MyNoteMarketPlace.Models.DashboardViewModel
 @{
     ViewBag.Title = "Ddashboard";
@@ -6,30 +8,28 @@
 
 }
 
-@{ 
-<style>
-    .pagination {
-     
-    margin-left: 40% !important;
-    margin-bottom:5%;
- 
-}
-    #dashboard-progress Input[type=search], #dashboard-publish Input[type=search] {
-        width: 322px;
-        border: 1px solid #d1d1d1;
-        margin-bottom: 20px;
-        margin-left: -100px;
-    }
-    table {
-  
-    margin-bottom: 50px !important;
-
-}
-     .btn-confirm a.btn.btn-no {
-            margin-left: 0px!important;
+@{
+    <style>
+        .pagination {
+           margin-left: 40% !important;
+           margin-top: 0%;
+           
         }
 
-    
+        #dashboard-progress Input[type=search], #dashboard-publish Input[type=search] {
+            width: 322px;
+            border: 1px solid #d1d1d1;
+            margin-bottom: 20px;
+            margin-left: -100px;
+        }
+
+        table {
+            margin-bottom: 50px !important;
+        }
+
+        .btn-confirm a.btn.btn-no {
+            margin-left: 0px !important;
+        }
     </style>
 }
 
@@ -187,10 +187,10 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col" class="align-middle">@Html.ActionLink("Added date", "Dashboard", new { sort1 = ViewBag.Sort1 == null ? "CreatedDate_Asc" : (ViewBag.Sort1 == "CreatedDate_Asc" ? "CreatedDate_Desc" : "CreatedDate_Asc"), sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2, search1 = @ViewBag.Search1, search2 = @ViewBag.Search2 })</th>
-                                <th scope="col" class="align-middle">@Html.ActionLink("Title", "Dashboard", new { sort1 = ViewBag.Sort1 == null ? "Title_Asc" : (ViewBag.Sort1 == "Title_Asc" ? "Title_Desc" : "Title_Asc"), sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2, search1 = @ViewBag.Search1, search2 = @ViewBag.Search2 })</th>
-                                <th scope="col" class="align-middle">@Html.ActionLink("Category", "Dashboard", new { sort1 = ViewBag.Sort1 == null ? "Category_Asc" : (ViewBag.Sort1 == "Category_Asc" ? "Category_Desc" : "Category_Asc"), sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2, search1 = @ViewBag.Search1, search2 = @ViewBag.Search2 })</th>
-                                <th scope="col" class="align-middle">@Html.ActionLink("Status", "Dashboard", new { sort1 = ViewBag.Sort1 == null ? "Status_Asc" : (ViewBag.Sort1 == "Status_Asc" ? "Status_Desc" : "Status_Asc"), sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2, search1 = @ViewBag.Search1, search2 = @ViewBag.Search2 })</th>
+                                <th scope="col" class="align-middle">@Html.ActionLink("Added date", "Dashboard", new { sort1 = ViewBag.Sort1 == null ? "CreatedDate_Asc" : (ViewBag.Sort1 == "CreatedDate_Asc" ? "CreatedDate_Desc" : "CreatedDate_Asc"), sort2 = @ViewBag.Sort2, search1 = @ViewBag.Search1, search2 = @ViewBag.Search2 })</th>
+                                <th scope="col" class="align-middle">@Html.ActionLink("Title", "Dashboard", new { sort1 = ViewBag.Sort1 == null ? "Title_Asc" : (ViewBag.Sort1 == "Title_Asc" ? "Title_Desc" : "Title_Asc"), sort2 = @ViewBag.Sort2, search1 = @ViewBag.Search1, search2 = @ViewBag.Search2 })</th>
+                                <th scope="col" class="align-middle">@Html.ActionLink("Category", "Dashboard", new { sort1 = ViewBag.Sort1 == null ? "Category_Asc" : (ViewBag.Sort1 == "Category_Asc" ? "Category_Desc" : "Category_Asc"), sort2 = @ViewBag.Sort2, search1 = @ViewBag.Search1, search2 = @ViewBag.Search2 })</th>
+                                <th scope="col" class="align-middle">@Html.ActionLink("Status", "Dashboard", new { sort1 = ViewBag.Sort1 == null ? "Status_Asc" : (ViewBag.Sort1 == "Status_Asc" ? "Status_Desc" : "Status_Asc"), sort2 = @ViewBag.Sort2, search1 = @ViewBag.Search1, search2 = @ViewBag.Search2 })</th>
                                 <th scope="col" class="align-middle">ACTIONS</th>
 
                             </tr>
@@ -274,115 +274,41 @@
     </div>
 </section>
 <!-- Dashboard Progress Ends -->
-<!-- Pagination
+<!-- Pagination-->
 
-    <nav aria-label="Page navigation example">
-        <div class="container">
-            <div class="row justify-content-center">
+<nav aria-label="Page navigation example">
+    <div class="container">
+        <div class="row justify-content-center">
 
-                <ul class="pagination mypagination top-page">
-                    <li class="page-item">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa fa-angle-left "></i></a>
-                    </li>
-                    <li class="page-item selected"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa fa-angle-right"></i></a>
-                    </li>
-                </ul>
-            </div>
+            <!--  <ul class="pagination mypagination top-page">
+                  <li class="page-item">
+                      <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa fa-angle-left "></i></a>
+                  </li>
+                  <li class="page-item selected"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">4</a></li>
+                  <li class="page-item"><a class="page-link" href="#">5</a></li>
+                  <li class="page-item">
+                      <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa fa-angle-right"></i></a>
+                  </li>
+              </ul> -->
+
+            @Html.PagedListPager(Model.ProgressNotes, page => Url.Action("Dashboard", new { page, search = @ViewBag.Search, sort = @ViewBag.Sort }), new PagedList.Mvc.PagedListRenderOptions
+       {
+           LiElementClasses = new[] { "page-item" },
+           UlElementClasses = new[] { "pagination mypagination top-page" },
+           LinkToNextPageFormat = ">",
+           LinkToPreviousPageFormat = "<",
+           DisplayEllipsesWhenNotShowingAllPageNumbers = false,
+           DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+           DisplayLinkToLastPage = PagedListDisplayMode.Never
+       })
         </div>
-    </nav>
-
-    <!-- Pagination Ends -->
- 
-@if (Model.ProgressNotes.Count() != 0)
-{
-    <div class="row justify-content-center">
-
-        <nav aria-label="...">
-            <ul class="pagination flex-wrap">
-
-                <li class="page-item">
-                    @if (ViewBag.Page1 == 1)
-                    {
-                        <a class="page-link" href="@Url.Action("Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2  })"><i class="fa fa-angle-left"></i></a>
-                    }
-                    else
-                    {
-                        <a class="page-link" href="@Url.Action("Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1 - 1, page2 = @ViewBag.Page2 })"><i class="fa fa-angle-left"></i></a>
-                    }
-                </li>
-
-                @{
-                    double? TotalPagesInProgress = ViewBag.TotalPagesInProgress;
-
-                    if (ViewBag.Page1 != 1 && ViewBag.Page1 - 2 > 1)
-                    {
-                        int page = Convert.ToInt32(@ViewBag.Page1) - 3;
-                        <li class="page-item">@Html.ActionLink("1", "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = 1, page2 = @ViewBag.Page2 }, new { @class = "page-link" })</li>
-                        if (page != 1)
-                        {
-                            <li class="page-item more-pages-dots">@Html.ActionLink("...", "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = page, page2 = @ViewBag.Page2 }, new { @class = "page-link more-pages-dots" })</li>
-                        }
-                    }
-
-                    for (int i = 2; i > 0; i--)
-                    {
-                        if (ViewBag.Page1 - i > 0)
-                        {
-                            int page = Convert.ToInt32(@ViewBag.Page1) - i;
-                            <li class="page-item">@Html.ActionLink(page.ToString(), "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = page, page2 = @ViewBag.Page2 }, new { @class = "page-link" })</li>
-                        }
-                    }
-
-                    <li class="page-item active">
-                        <a class="page-link">@ViewBag.Page1<span class="sr-only">(current)</span></a>
-                    </li>
-
-                    for (int i = 1; i < 3; i++)
-                    {
-                        if (ViewBag.Page1 + i <= TotalPagesInProgress)
-                        {
-                            int page = Convert.ToInt32(@ViewBag.Page1) + i;
-                            <li class="page-item">@Html.ActionLink(page.ToString(), "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = page, page2 = @ViewBag.Page2 }, new { @class = "page-link" })</li>
-                        }
-                    }
-
-                    if (ViewBag.Page1 != TotalPagesInProgress && ViewBag.Page1 + 2 < TotalPagesInProgress)
-                    {
-                        int page = Convert.ToInt32(@ViewBag.Page1) + 3;
-                        if (page != TotalPagesInProgress)
-                        {
-                            <li class="page-item">@Html.ActionLink("...", "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = page, page2 = @ViewBag.Page2 }, new { @class = "page-link more-pages-dots" })</li>
-                        }
-                        <li class="page-item">@Html.ActionLink(TotalPagesInProgress.ToString(), "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = TotalPagesInProgress, page2 = @ViewBag.Page2 }, new { @class = "page-link" })</li>
-                    }
-
-                }
-
-                <li class="page-item">
-                    @if (ViewBag.Page1 == TotalPagesInProgress)
-                    {
-                        <a class="page-link" href="@Url.Action("Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2  })"><i class="fa fa-angle-right"></i></a>
-                    }
-                    else
-                    {
-                        <a class="page-link" href="@Url.Action("Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1 + 1, page2 = @ViewBag.Page2  })"><i class="fa fa-angle-right"></i></a>
-                    }
-                </li>
-
-            </ul>
-        </nav>
-
     </div>
+</nav>
 
-}
-
-
+<!-- Pagination Ends -->
 <!-- Dashboard Publish -->
 <section id="dashboard-publish">
     <div class="container">
@@ -471,107 +397,38 @@
     </div>
 </section>
 <!-- Dashboard Publish Ends -->
-<!-- Pagination
+
+<!-- Pagination -->
 <nav aria-label="Page navigation example">
-    <div class="container">
-        <div class="row justify-content-center">
+        <div class="container">
+            <div class="row justify-content-center">
 
-            <ul class="pagination mypagination top-page">
-                <li class="page-item">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa fa-angle-left "></i></a>
-                </li>
-                <li class="page-item selected"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa fa-angle-right"></i></a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<!-- Pagination Ends -->
- 
-@if (Model.PublishedNotes.Count() != 0)
-{
-    <div class="row justify-content-center">
-
-        <nav aria-label="...">
-            <ul class="pagination flex-wrap">
-
-                <li class="page-item">
-                    @if (ViewBag.Page2 == 1)
-                    {
-                        <a class="page-link" href="@Url.Action("Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2  })"><i class="fa fa-angle-left"></i></a>
-                    }
-                    else
-                    {
-                        <a class="page-link" href="@Url.Action("Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2 - 1 })"><i class="fa fa-angle-left"></i></a>
-                    }
-                </li>
-
-                @{
-                    double? TotalPagesInPublished = ViewBag.TotalPagesInPublished;
-
-                    if (ViewBag.Page2 != 1 && ViewBag.Page2 - 2 > 1)
-                    {
-                        int page = Convert.ToInt32(@ViewBag.Page2) - 3;
-                        <li class="page-item">@Html.ActionLink("1", "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = 1 }, new { @class = "page-link" })</li>
-                        if (page != 1)
-                        {
-                            <li class="page-item more-pages-dots">@Html.ActionLink("...", "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = page }, new { @class = "page-link more-pages-dots" })</li>
-                        }
-                    }
-
-                    for (int i = 2; i > 0; i--)
-                    {
-                        if (ViewBag.Page2 - i > 0)
-                        {
-                            int page = Convert.ToInt32(@ViewBag.Page2) - i;
-                            <li class="page-item">@Html.ActionLink(page.ToString(), "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page2, page2 = page }, new { @class = "page-link" })</li>
-                        }
-                    }
-
-                    <li class="page-item active">
-                        <a class="page-link">@ViewBag.Page2<span class="sr-only">(current)</span></a>
+              <!--  <ul class="pagination mypagination top-page">
+                    <li class="page-item">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa fa-angle-left "></i></a>
                     </li>
+                    <li class="page-item selected"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa fa-angle-right"></i></a>
+                    </li>
+                </ul> -->
+  
+        @Html.PagedListPager(Model.PublishedNotes, page => Url.Action("Dashboard", new { page, search = @ViewBag.Search, sort = @ViewBag.Sort }), new PagedList.Mvc.PagedListRenderOptions
+         {
+             LiElementClasses = new[] { "page-item" },
+             UlElementClasses = new[] { "pagination mypagination top-page" },
+              LinkToNextPageFormat = ">",
+               LinkToPreviousPageFormat = "<",
+               DisplayEllipsesWhenNotShowingAllPageNumbers = false,
+                  DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+                   DisplayLinkToLastPage = PagedListDisplayMode.Never
+                })
+            </div>
+        </div>
+    </nav>
+<!-- Pagination Ends -->
 
-                    for (int i = 1; i < 3; i++)
-                    {
-                        if (ViewBag.Page2 + i <= TotalPagesInPublished)
-                        {
-                            int page = Convert.ToInt32(@ViewBag.Page2) + i;
-                            <li class="page-item">@Html.ActionLink(page.ToString(), "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = page }, new { @class = "page-link" })</li>
-                        }
-                    }
-
-                    if (ViewBag.Page2 != TotalPagesInPublished && ViewBag.Page2 + 2 < TotalPagesInPublished)
-                    {
-                        int page = Convert.ToInt32(@ViewBag.Page2) + 3;
-                        if (page != TotalPagesInPublished)
-                        {
-                            <li class="page-item">@Html.ActionLink("...", "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = page }, new { @class = "page-link more-pages-dots" })</li>
-                        }
-                        <li class="page-item">@Html.ActionLink(TotalPagesInPublished.ToString(), "Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort1, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = TotalPagesInPublished }, new { @class = "page-link" })</li>
-                    }
-
-                }
-
-                <li class="page-item">
-                    @if (ViewBag.Page2 == TotalPagesInPublished)
-                    {
-                        <a class="page-link" href="@Url.Action("Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort2, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2 })"><i class="fa fa-angle-right"></i></a>
-                    }
-                    else
-                    {
-                        <a class="page-link" href="@Url.Action("Dashboard", new { search1 = @ViewBag.Search1, search2 = @ViewBag.Search2, sort1 = @ViewBag.Sort2, sort2 = @ViewBag.Sort2, page1 = @ViewBag.Page1, page2 = @ViewBag.Page2 + 1 })"><i class="fa fa-angle-right"></i></a>
-                    }
-                </li>
-
-            </ul>
-        </nav>
-
-    </div>
-}

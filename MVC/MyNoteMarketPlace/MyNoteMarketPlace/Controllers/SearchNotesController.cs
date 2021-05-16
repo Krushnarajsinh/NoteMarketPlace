@@ -1,4 +1,5 @@
 ﻿using MyNoteMarketPlace.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,14 +8,16 @@ using System.Web.Mvc;
 
 namespace MyNoteMarketPlace.Controllers
 {
+    [OutputCache(Duration = 0)]
     public class SearchNotesController : Controller
     {
         readonly private Datebase1Entities context = new Datebase1Entities();
 
         // GET: SearchNotes
         [HttpGet]
+        [AllowAnonymous]
         [Route("Search")]
-        public ActionResult Search(string search, string type, string category, string university, string course, string country, string ratings, int page = 1)
+        public ActionResult Search(string search, string type, string category, string university, string course, string country, string ratings, int? page )
         {
 
             ViewBag.SearchNotes = "active";
@@ -136,15 +139,21 @@ namespace MyNoteMarketPlace.Controllers
 
             // page number
             ViewBag.PageNumber = page;
-            // count total pages
+
+            /* count total pages
             ViewBag.TotalPages = Math.Ceiling(searchnoteslist.Count() / 9.0);
             // show record according to pagination
-            IEnumerable<SearchNotesViewModel> result = searchnoteslist.AsEnumerable().Skip((page - 1) * 9).Take(9);
+            IEnumerable<SearchNotesViewModel> result = searchnoteslist.AsEnumerable().Skip((page - 1) * 9).Take(9); */
+
+            var result = new List<SearchNotesViewModel>();
+            result = searchnoteslist.ToList();
 
             // total Number Of Notes In Search Page
             ViewBag.ResultCount = searchnoteslist.Count();
 
-            return View(result);
+            // return View(result);
+            return View(result.ToList().AsQueryable().ToPagedList(page ?? 1, 10));
+
         }
     }
 }

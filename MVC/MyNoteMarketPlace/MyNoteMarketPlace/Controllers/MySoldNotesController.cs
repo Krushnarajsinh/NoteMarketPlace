@@ -4,21 +4,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace MyNoteMarketPlace.Controllers
 {
+    [OutputCache(Duration = 0)]
     public class MySoldNotesController : Controller
     {
         readonly private Datebase1Entities context = new Datebase1Entities();
         // GET: MySoldNotes
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [Route("User/MySoldNotes")]
-        public ActionResult  MySoldNotes(string search, string sort, int page = 1)
+        public ActionResult  MySoldNotes(string search, string sort, int? page )
         {
             //for searching, sorting and pagination
             ViewBag.Search = search;
             ViewBag.Sort = sort;
+
             ViewBag.PageNumber = page;
 
             //get logged in user
@@ -56,13 +59,19 @@ namespace MyNoteMarketPlace.Controllers
             //sort result
             mysoldnotes = MySoldNotesTableSorting(sort, mysoldnotes);
 
-            //count total pages
+            /*count total pages
             ViewBag.TotalPages = Math.Ceiling(mysoldnotes.Count() / 10.0);
 
             //show result based on pagination
-            mysoldnotes = mysoldnotes.Skip((page - 1) * 10).Take(10);
+            mysoldnotes = mysoldnotes.Skip((page - 1) * 10).Take(10); */
+            var result = new List<MySoldNotesModel>();
+            result = mysoldnotes.ToList();
 
-            return View(mysoldnotes);
+            // return results
+            //return View(mysoldnotes);
+            return View(result.ToList().AsQueryable().ToPagedList(page ?? 1, 10));
+
+            
         }
 
         //sorting for my my sold notes

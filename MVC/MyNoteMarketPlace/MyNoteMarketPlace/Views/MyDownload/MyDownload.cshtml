@@ -1,4 +1,7 @@
-﻿@model IEnumerable<MyNoteMarketPlace.Models.MyDownloadModel>
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<MyNoteMarketPlace.Models.MyDownloadModel>
     @{
         ViewBag.Title = "MyDownload";
         Layout = "~/Views/Shared/_UserNav.cshtml";
@@ -100,7 +103,7 @@
                         <div class="row justify-content-end left-end">
                             <div class="wrapper">
                                 <img src="~/Img/Front/Dashboard/search.jpg" class="searchimage doup">
-                                <input type="search" class="form-control search-bar InputEmail1" placeholder="Search" value="@ViewBag.Search" id="search">
+                                <input type="search" class="form-control search-bar InputEmail1" placeholder="Search" value="@ViewBag.Search" id="search" name="search">
                             </div>
                             <div class="btn-merge">
                                 <button type="submit" class="btn text-uppercase text-center" id="mybt"><b>Search</b></button>
@@ -117,12 +120,12 @@
                             <thead>
                                 <tr>
                                     <th scope="col" class="align-middle text-center">SR NO.</th>
-                                    <th scope="col" class="align-middle">@Html.ActionLink("Notes Title", "MyDownload", new { sort = ViewBag.Sort == null ? "Title_Desc" : (ViewBag.Sort == "Title_Asc" ? "Title_Desc" : "Title_Asc"), search = ViewBag.Search, page = ViewBag.Page })</th>
-                                    <th scope="col" class="align-middle">@Html.ActionLink("Category", "MyDownload", new { sort = ViewBag.Sort == null ? "Category_Desc" : (ViewBag.Sort == "Category_Asc" ? "Category_Desc" : "Category_Asc"), search = ViewBag.Search, page = ViewBag.Page })</th>
-                                    <th scope="col" class="align-middle">@Html.ActionLink("Seller", "MyDownload", new { sort = ViewBag.Sort == null ? "Seller_Desc" : (ViewBag.Sort == "Seller_Asc" ? "Seller_Desc" : "Seller_Asc"), search = ViewBag.Search, page = ViewBag.Page })</th>
-                                    <th scope="col" class="align-middle">@Html.ActionLink("Sell Type", "MyDownload", new { sort = ViewBag.Sort == null ? "Type_Desc" : (ViewBag.Sort == "Type_Asc" ? "Type_Desc" : "Type_Asc"), search = ViewBag.Search, page = ViewBag.Page })</th>
-                                    <th scope="col" class="align-middle">@Html.ActionLink("Price", "MyDownload", new { sort = ViewBag.Sort == null ? "Price_Desc" : (ViewBag.Sort == "Price_Asc" ? "Price_Desc" : "Price_Asc"), search = ViewBag.Search, page = ViewBag.Page })</th>
-                                    <th scope="col" class="align-middle">@Html.ActionLink("Downloaded Date/Time", "MyDownload", new { sort = ViewBag.Sort == null ? "DownloadedDate_Asc" : (ViewBag.Sort == "DownloadedDate_Desc" ? "DownloadedDate_Asc" : "DownloadedDate_Desc"), search = ViewBag.Search, page = ViewBag.Page })</th>
+                                    <th scope="col" class="align-middle">@Html.ActionLink("Notes Title", "MyDownload", new { sort = ViewBag.Sort == null ? "Title_Desc" : (ViewBag.Sort == "Title_Asc" ? "Title_Desc" : "Title_Asc"), search = ViewBag.Search })</th>
+                                    <th scope="col" class="align-middle">@Html.ActionLink("Category", "MyDownload", new { sort = ViewBag.Sort == null ? "Category_Desc" : (ViewBag.Sort == "Category_Asc" ? "Category_Desc" : "Category_Asc"), search = ViewBag.Search })</th>
+                                    <th scope="col" class="align-middle">@Html.ActionLink("Seller", "MyDownload", new { sort = ViewBag.Sort == null ? "Seller_Desc" : (ViewBag.Sort == "Seller_Asc" ? "Seller_Desc" : "Seller_Asc"), search = ViewBag.Search })</th>
+                                    <th scope="col" class="align-middle">@Html.ActionLink("Sell Type", "MyDownload", new { sort = ViewBag.Sort == null ? "Type_Desc" : (ViewBag.Sort == "Type_Asc" ? "Type_Desc" : "Type_Asc"), search = ViewBag.Search })</th>
+                                    <th scope="col" class="align-middle">@Html.ActionLink("Price", "MyDownload", new { sort = ViewBag.Sort == null ? "Price_Desc" : (ViewBag.Sort == "Price_Asc" ? "Price_Desc" : "Price_Asc"), search = ViewBag.Search })</th>
+                                    <th scope="col" class="align-middle">@Html.ActionLink("Downloaded Date/Time", "MyDownload", new { sort = ViewBag.Sort == null ? "DownloadedDate_Asc" : (ViewBag.Sort == "DownloadedDate_Desc" ? "DownloadedDate_Asc" : "DownloadedDate_Desc"), search = ViewBag.Search })</th>
                                     <th scope="col" class="align-middle"></th>
                                     <th scope="col" class="align-middle"></th>
                                     <th scope="col" class="align-middle"></th>
@@ -183,7 +186,7 @@
                                             <a class="dropdown-item" href="@Url.Action("DownloadNotes", "NotesDetails", new { noteid = @item.NoteID } )">Download Notes</a>
 
 
-
+                                            <!--If Your Note is Downloaded Then only User can Add Review And Note Reported Issue -->
                                             @if (item.NoteDownloaded == true)
                                             {
                                                 <a class="dropdown-item" data-toggle="modal" data-target="#addreview-@item.DownloadID">Add Reviews/Feedback</a>
@@ -256,8 +259,9 @@
                                                                                     <div class="textarea-input">
                                                                                         <label class="control-label set-label" for="review-@item.DownloadID">Comments<span class="required"> *</span></label>
                                                                                         <!--  <textarea placeholder="Comments..." class="form-control InputEmail1" id="text-ar-1"></textarea> -->
-                                                                                        @Html.TextAreaFor(model => item.Comment, new { @class = "form-control  InputEmail1 text-area", id = "review-" + @item.DownloadID, Name = "Comments", placeholder = "comments...", required = "required" })
                                                                                         @Html.ValidationMessageFor(model => item.Comment, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
+                                                                                        @Html.TextAreaFor(model => item.Comment, new { @class = "form-control  InputEmail1 text-area", id = "review-" + @item.DownloadID, Name = "Comments", placeholder = "comments...", required = "required" })
+
 
                                                                                     </div>
                                                                                 </div>
@@ -299,6 +303,7 @@
                                                                 <div class="modal-head text-left">
                                                                     <h2 class="set-text">@item.Title</h2>
                                                                 </div>
+
                                                                 @using (@Html.BeginForm("SpamReport", "MyDownload", FormMethod.Post, new { id = "spamreport-" + @item.DownloadID }))
                                                                 {
                                                                     @Html.AntiForgeryToken()
@@ -374,12 +379,12 @@
     </section>
 
 
-    <!-- Pagination
+    <!-- Pagination -->
     <nav aria-label="Page navigation example">
         <div class="container">
             <div class="row justify-content-center">
 
-                <ul class="pagination mypagination top-page">
+              <!--  <ul class="pagination mypagination top-page">
                     <li class="page-item">
                         <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa fa-angle-left "></i></a>
                     </li>
@@ -391,94 +396,24 @@
                     <li class="page-item">
                         <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa fa-angle-right"></i></a>
                     </li>
-                </ul>
+                </ul> -->
+
+                @Html.PagedListPager(Model, page => Url.Action("MyDownload", new { page, search = @ViewBag.Search, sort=@ViewBag.Sort}), new PagedList.Mvc.PagedListRenderOptions
+           {
+               LiElementClasses =new[] {"page-item"},
+               UlElementClasses=new[] { "pagination mypagination top-page"},
+               LinkToNextPageFormat= ">",
+               LinkToPreviousPageFormat="<",
+               DisplayEllipsesWhenNotShowingAllPageNumbers=false,
+               DisplayLinkToFirstPage= PagedListDisplayMode.Never,
+               DisplayLinkToLastPage= PagedListDisplayMode.Never
+           })
+               
             </div>
         </div>
-    </nav>-->
+    </nav>
 
-    @if (Model.Count() != 0)
-    {
-        <div class="row justify-content-center">
-
-            <nav aria-label="...">
-                <ul class="pagination flex-wrap">
-
-                    <li class="page-item">
-                        @if (ViewBag.PageNumber == 1)
-                        {
-                            <a class="page-link" href="@Url.Action("MyDownloads", new { sort = ViewBag.Sort, search = @ViewBag.Search, page = @ViewBag.PageNumber })"><i class="fa fa-angle-left"></i></a>
-                        }
-                        else
-                        {
-                            <a class="page-link" href="@Url.Action("MyDownloads", new { sort = ViewBag.Sort, search = @ViewBag.Search, page = @ViewBag.PageNumber - 1 })"><i class="fa fa-angle-left"></i></a>
-                        }
-                    </li>
-
-                    @{
-                        double? TotalPages = ViewBag.TotalPages;
-
-                        if (ViewBag.PageNumber != 1 && ViewBag.PageNumber - 2 > 1)
-                        {
-                            int page = Convert.ToInt32(@ViewBag.PageNumber) - 3;
-                            <li class="page-item">@Html.ActionLink("1", "MyDownloads", new { sort = @ViewBag.Sort, search = @ViewBag.Search, page = 1 }, new { @class = "page-link" })</li>
-                            if (page != 1)
-                            {
-                                <li class="page-item more-pages-dots">@Html.ActionLink("...", "MyDownloads", new { sort = @ViewBag.Sort, search = @ViewBag.Search, page = page }, new { @class = "page-link more-pages-dots" })</li>
-                            }
-                        }
-
-                        for (int i = 2; i > 0; i--)
-                        {
-                            if (ViewBag.PageNumber - i > 0)
-                            {
-                                int page = Convert.ToInt32(@ViewBag.PageNumber) - i;
-                                <li class="page-item">@Html.ActionLink(page.ToString(), "MyDownloads", new { sort = @ViewBag.Sort, search = @ViewBag.Search, page = page }, new { @class = "page-link" })</li>
-                            }
-                        }
-
-                        <li class="page-item active">
-                            <a class="page-link">@ViewBag.PageNumber<span class="sr-only">(current)</span></a>
-                        </li>
-
-                        for (int i = 1; i < 3; i++)
-                        {
-                            if (ViewBag.PageNumber + i <= TotalPages)
-                            {
-                                int page = Convert.ToInt32(@ViewBag.PageNumber) + i;
-                                <li class="page-item">@Html.ActionLink(page.ToString(), "MyDownloads", new { sort = @ViewBag.Sort, search = @ViewBag.Search, page = page }, new { @class = "page-link" })</li>
-                            }
-                        }
-
-                        if (ViewBag.PageNumber != TotalPages && ViewBag.PageNumber + 2 < TotalPages)
-                        {
-                            int page = Convert.ToInt32(@ViewBag.PageNumber) + 3;
-                            if (page != TotalPages)
-                            {
-                                <li class="page-item">@Html.ActionLink("...", "MyDownloads", new { sort = @ViewBag.Sort, search = @ViewBag.Search, page = page }, new { @class = "page-link more-pages-dots" })</li>
-                            }
-                            <li class="page-item">@Html.ActionLink(TotalPages.ToString(), "MyDownloads", new { sort = @ViewBag.Sort, search = @ViewBag.Search, page = TotalPages }, new { @class = "page-link" })</li>
-                        }
-
-                    }
-
-                    <li class="page-item">
-                        @if (ViewBag.PageNumber == ViewBag.TotalPages)
-                        {
-                            <a class="page-link" href="@Url.Action("MyDownloads", new { sort = ViewBag.Sort, search = @ViewBag.Search, page = @ViewBag.PageNumber })"><i class="fa fa-angle-right"></i></a>
-                        }
-                        else
-                        {
-                            <a class="page-link" href="@Url.Action("MyDownloads", new { sort = ViewBag.Sort, search = @ViewBag.Search, page = @ViewBag.PageNumber + 1 })"><i class="fa fa-angle-right"></i></a>
-                        }
-                    </li>
-
-                </ul>
-            </nav>
-
-        </div>
-    }
-
-
+ 
 
     <!-- Pagination Ends -->
 </div>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,8 +8,8 @@ namespace MyNoteMarketPlace.Models
 {
     public class DashboardViewModel
     {
-        public IEnumerable<SellerNotes> ProgressNotes { get; set; }
-        public IEnumerable<SellerNotes> PublishedNotes { get; set; }
+        public IPagedList<SellerNotes> ProgressNotes { get; set; }
+        public IPagedList<SellerNotes> PublishedNotes { get; set; }
         public int? MyDownloads { get; set; }
         public int? NumberOfSoldNotes { get; set; }
         public decimal? MoneyEarned { get; set; }

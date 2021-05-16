@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -18,6 +19,8 @@ namespace MyNoteMarketPlace.Models
         public bool NoteDownloaded { get; set; }
         public int? ReviewID { get; set; }
         public decimal? Rating { get; set; }
+
+        [Required(ErrorMessage = "This field is required")]
         public string Comment { get; set; }
     }
 }

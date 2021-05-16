@@ -15,10 +15,12 @@ namespace MyNoteMarketPlace
     public partial class Admin
     {
         public int ID { get; set; }
+        public int AdminID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string EmailID { get; set; }
         public string SecondaryEmailID { get; set; }
+        public string PhoneNumberCountryCode { get; set; }
         public string Phone_number { get; set; }
         public string Profile_Picture { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
@@ -26,5 +28,7 @@ namespace MyNoteMarketPlace
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public bool IsActive { get; set; }
+    
+        public virtual Users Users { get; set; }
     }
 }

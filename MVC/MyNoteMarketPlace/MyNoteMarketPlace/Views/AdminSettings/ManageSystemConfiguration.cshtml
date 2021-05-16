@@ -1,0 +1,163 @@
+﻿@model MyNoteMarketPlace.Models.SystemConfigurationModel
+@{
+  ViewBag.Title = "Manage System Configuration";
+    Layout = "~/Views/Shared/_AdminNav.cshtml";
+}
+
+
+<!-- Manage System Config -->
+    
+        @using (@Html.BeginForm("ManageSystemConfiguration", "AdminSettings", new { @class="user-details-form"},FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <section id="personal-details" class="user-profile content-box-md">
+                <div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="heading">
+                                    <h3>Manage System Configuration</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+
+                                    <div class="col-md-7">
+                                        <!-- Email -->
+                                        <div class="form-group">
+                                            <label class="mylabel mylabel1" for="InputEmail1">Support Email Address *</label>
+                                          
+                                            @Html.TextBoxFor(model => model.SupportEmail, new { @class = "form-control InputEmail1", id = "support-email-address", type = "email", placeholder = "Enter Email Address", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.SupportEmail, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-7">
+                                        <!-- First Name -->
+                                        <div class="form-group">
+                                            <label class="mylabel mylabel1">Support Phone Number *</label>
+                                           
+                                            @Html.TextBoxFor(model => model.SupportContact, new { @class = "form-control InputEmail1", id = "support-phone-number", placeholder = "Enter Phone Number", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.SupportContact, "",new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-7">
+                                        <!-- Email -->
+                                        <div class="form-group">
+                                            <label class="mylabel mylabel1" for="InputEmail1">Email Address(es)(for various events system will send notification to these users) *</label>
+                                           
+                                            @Html.TextBoxFor(model => model.NotifyEmail, new { @class = "form-control InputEmail1", id = "events-email-address", type = "email", placeholder = "Enter Email Address", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.NotifyEmail, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-7">
+                                        <!-- First Name -->
+                                        <div class="form-group">
+                                            <label class="mylabel mylabel1">Facebook URL</label>
+                                            <input type="url" class="form-control InputEmail1" placeholder="Enter your First Name">
+                                            @Html.TextBoxFor(model => model.FacebookURL, new { @class = "form-control InputEmail1", id = "facebook", type = "url", placeholder = "Enter facebook url" })
+                                            @Html.ValidationMessageFor(model => model.FacebookURL, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-7">
+                                        <!-- First Name -->
+                                        <div class="form-group">
+                                            <label class="mylabel mylabel1">Twitter URL</label>
+                                            <input type="url" class="form-control InputEmail1" placeholder="Enter your First Name">
+                                            @Html.TextBoxFor(model => model.TwitterURL, new { @class = "form-control InputEmail1", id = "twitter", type = "url", placeholder = "Enter twitter url" })
+                                            @Html.ValidationMessageFor(model => model.TwitterURL, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+
+                                    <div class="col-md-7">
+                                        <!-- First Name -->
+                                        <div class="form-group">
+                                            <label class="mylabel mylabel1">Linkedin URL</label>
+                                            <input type="url" class="form-control InputEmail1" placeholder="Enter your First Name">
+                                            @Html.TextBoxFor(model => model.LinkedInURL, new { @class = "form-control InputEmail1", id = "linkedin", type = "url", placeholder = "Enter linkedin url" })
+                                            @Html.ValidationMessageFor(model => model.LinkedInURL, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div class="form-group">
+                                            <div class="upload-profile-pic">
+                                                <label class="mylabel mylabel1" for="InputEmail1">Default image for notes (if seller do not upload)</label>
+
+
+                                                <!--   <input type="file" class="form-control InputEmail1" aria-describedby="emailHelp">-->
+                                                @Html.TextBoxFor(model => model.DefaultNote, new { @class = "form-control InputEmail1", id = "default-notes-picture", type = "file" })
+                                                @Html.ValidationMessageFor(model => model.DefaultNote, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
+                                                <!-- Extra Feature-->
+                                                @if (!string.IsNullOrEmpty(Model.DefaultNoteURL))
+                                                {
+                                                    <p class="uploaded-data">To see your previously uploaded default note picture <a href="@Url.Content(Model.DefaultNoteURL)" target="_blank">Click Here</a></p>
+                                                    @Html.HiddenFor(model => model.DefaultNoteURL)
+                                                }
+                                                <div class="uploadmypic text-center">
+                                                    <img class="img-fluid" src="~/Img/Admin/user-profile/upload.png">
+                                                    <h6>Upload a picture</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div class="form-group">
+                                            <div class="upload-profile-pic">
+                                                <label class="mylabel mylabel1" for="InputEmail1">Default Profile Picture (if seller do not upload)</label>
+                                                
+                                                @Html.TextBoxFor(model => model.DefaultProfile, new { @class = "form-control InputEmail1", id = "default-profile-picture", type = "file" })
+                                                @Html.ValidationMessageFor(model => model.DefaultProfile, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;" })
+                                                @if (!string.IsNullOrEmpty(Model.DefaultProfileURL))
+                                                {
+                                                    <p class="uploaded-data">To see your previously uploaded default profile picture <a href="@Url.Content(Model.DefaultProfileURL)" target="_blank">Click Here</a></p>
+                                                    @Html.HiddenFor(model => model.DefaultProfileURL)
+                                                }
+                                                <div class="uploadmypic text-center">
+                                                    <img class="img-fluid" src="~/Img/Admin/user-profile/upload.png">
+                                                    <h6>Upload a picture</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-3">
+                                        <button type="submit" class="btn text-uppercase text-center" id="mybtn"><b>submit</b></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        }
+     
+<!-- Manage System Config  Ends -->

@@ -17,11 +17,13 @@ namespace MyNoteMarketPlace.Controllers
         Datebase1Entities context = new Datebase1Entities();
 
         // GET: SignUp
+        [AllowAnonymous]
         public ActionResult SignUp()
         {
             return View();
         }
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult SignUp(UsersModel model)
         {
             if (ModelState.IsValid)
@@ -33,14 +35,17 @@ namespace MyNoteMarketPlace.Controllers
                     ModelState.AddModelError("EmailID", "This EmailID is already exist");
                     return View(model);
                 }
+                //Take Id Of Member From UserRoles Table
+                var memberid = context.UserRoles.Where(x => x.Name.ToLower() == "member").Select(x => x.ID).FirstOrDefault();
                 Users me = new Users()
                 {
-                    RoleID = 3,
+                    RoleID = memberid,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     EmailID = model.EmailID,
                     Password = model.Password,
                     IsEmailVerified = model.IsEmailVerified,
+                    CreatedDate = DateTime.Now,
                     IsActive = true,
                     SecretCode = Guid.NewGuid(),
 
@@ -73,6 +78,7 @@ namespace MyNoteMarketPlace.Controllers
             }
         }
         [Route("EmailVerification/{code}")]
+        [AllowAnonymous]
         public ActionResult EmailVerification(string code)
         {
             Users obj = context.Users.Where(x => x.SecretCode.ToString() == code).FirstOrDefault();
@@ -81,6 +87,7 @@ namespace MyNoteMarketPlace.Controllers
 
         }
         [Route("Verify/{code}")]
+        [AllowAnonymous]
         public ActionResult Verify(string code)
         {
             Users obj = context.Users.Where(x => x.SecretCode.ToString() == code).FirstOrDefault();
@@ -97,7 +104,7 @@ namespace MyNoteMarketPlace.Controllers
 
             var from = new MailAddress("rathodkrushnaraj8055@gmail.com");
             var to = new MailAddress(emailID);
-            var Password = "**********"; // Replace with actual password
+            var Password = "********"; // Replace with actual password
             string subject = "Note Marketplace - Email Verification";
 
 
@@ -129,13 +136,23 @@ namespace MyNoteMarketPlace.Controllers
                 smtp.Send(message);
         }
         [HttpGet]
+        [AllowAnonymous]
         [Route("Login")]
         public ActionResult Login()
         {
-            return View();
+            // if user is already login then make user logout
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Logout");
+            }
+            else
+            {
+                return View();
+            }
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         [Route("Login")]
         public ActionResult Login(UserLogin obj)
         {
@@ -149,30 +166,56 @@ namespace MyNoteMarketPlace.Controllers
                     {
                         if (string.Compare(obj.Password, take.Password) == 0)
                         {
-                            int take_time = obj.RememberMe ? 525600 : 20;  // Here,525600 min = 1 year If CheckBox Is Marked Else 20 min
-                            var locking = new FormsAuthenticationTicket(obj.EmailID, obj.RememberMe, take_time);
-                            string styling = FormsAuthentication.Encrypt(locking);
-                            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, styling);
-                            cookie.Expires = DateTime.Now.AddMinutes(take_time);
-                            cookie.HttpOnly = true;
-                            Response.Cookies.Add(cookie);
+                            int memberid = entity.UserRoles.Where(x => x.Name.ToLower() == "member").Select(x => x.ID).FirstOrDefault();
+                            //check if user member
+                            if (take.RoleID == memberid)
+                            {
+                                int take_time = obj.RememberMe ? 525600 : 20;  // Here,525600 min = 1 year If CheckBox Is Marked Else 20 min
+                                var locking = new FormsAuthenticationTicket(obj.EmailID, obj.RememberMe, take_time);
+                                string styling = FormsAuthentication.Encrypt(locking);
+                                var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, styling);
+                                cookie.Expires = DateTime.Now.AddMinutes(take_time);
+                                cookie.HttpOnly = true;
+                                Response.Cookies.Add(cookie);
 
 
-                            // check if user profile exists or not
-                            var is_userprofile_exist = context.UserProfile.Where(x => x.User_ID == take.ID).FirstOrDefault();
+                                // check if user profile exists or not
+                                var is_userprofile_exist = context.UserProfile.Where(x => x.User_ID == take.ID).FirstOrDefault();
 
-                            // if user profile is not exists then redirect to userprofile page else search page
-                             if (is_userprofile_exist == null)
-                             {
-                                 return RedirectToAction("UserProfile", "UserProfile");
-                             }
-                             else
-                             {
-                                 return RedirectToAction("Search", "SearchNotes");
-                             }
+                                // if user profile is not exists then redirect to userprofile page else search page
+                                if (is_userprofile_exist == null)
+                                {
+                                    return RedirectToAction("UserProfile", "UserProfile");
+                                }
+                                else
+                                {
+                                    return RedirectToAction("Search", "SearchNotes");
+                                }
+                            }
+                            //for user admin or superadmin
+                            else
+                            {
+                                //set authentication cookie
+                                FormsAuthentication.SetAuthCookie(take.EmailID, obj.RememberMe);
 
-                         //   return RedirectToAction("Search", "SearchNotes");
+                                // check if Admin profile exists or not
+                                var is_userprofile_exist = context.Admin.Where(x => x.AdminID == take.ID).FirstOrDefault();
+
+                                // if Admin profile is not exists then redirect to myprofile page else dashboard page
+                                if (is_userprofile_exist == null)
+                                {
+                                    return RedirectToAction("MyProfile", "AdminProfile");
+                                }
+                                else
+                                {
+                                    return RedirectToAction("Dashboard", "Admin");
+                                }
+                              
+                            }
+                                
                         }
+
+
                         else
                         {
                             //message = "Invalid Password";
@@ -197,7 +240,8 @@ namespace MyNoteMarketPlace.Controllers
             //return View();
         }
 
-        [Authorize]
+     
+        [Authorize(Roles = "SuperAdmin,Admin,Member")]
         [Route("Logout")]
         public ActionResult Logout()
         {
@@ -243,7 +287,7 @@ namespace MyNoteMarketPlace.Controllers
         {
             var from = new MailAddress("rathodkrushnaraj8055@gmail.com");
             var to = new MailAddress(emailID);
-            var Password = "********"; // Replace with Original password
+            var Password = "*********"; // Replace with Original password
             string subject = "Note Marketplace - Email Verification";
 
             string body = "Hello," +
@@ -271,13 +315,15 @@ namespace MyNoteMarketPlace.Controllers
         }
 
 
-        [Authorize]
+        
+        [Authorize(Roles = "SuperAdmin,Admin,Member")]
         [Route("ChangePassword")]
         public ActionResult ChangePassword()
         {
             return View();
         }
 
+        [Authorize(Roles = "SuperAdmin,Admin,Member")]
         [HttpPost]
         [Route("ChangePassword")]
         public ActionResult ChangePassword(ChangePasswordModel model)

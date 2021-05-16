@@ -1,0 +1,68 @@
+﻿@model MyNoteMarketPlace.Models.AddTypeModel
+    @{
+        ViewBag.Title = "Add Type";
+        Layout = "~/Views/Shared/_AdminNav.cshtml";
+    }
+
+
+    <!-- Add Type -->
+    
+        @using (Html.BeginForm("AddType", "AdminSettings", new { @class="user-details-form"} ,FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+
+            <section id="personal-details" class="user-profile content-box-md">
+                <div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="heading">
+                                    <h3>Add Type</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+
+                                    <div class="col-md-6 col-sm-6">
+                                        <!-- First Name -->
+                                        <div class="form-group">
+                                            <label class="mylabel">Type *</label>
+                                            
+                                            @Html.TextBoxFor(model => model.Name, new { @class = "form-control InputEmail1", id = "type-name", placeholder = "Enter your type", required = "required" })
+                                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;"})
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- Description -->
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-6">
+                                        <div class="form-group">
+                                            <div class="textarea-input">
+                                                <label class="mylabel" for="InputEmail1">Description *</label>
+                                              
+                                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control InputEmail1", id = "description", placeholder = "Enter your description", required = "required" })
+                                                @Html.ValidationMessageFor(model => model.Description, "",new { @class = "form-error", style = "color:red;  padding: 0px 0px 0px 35px;"})
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-3">
+                                        <button type="submit" class="btn text-uppercase text-center" id="mybtn"><b>submit</b></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        }
+      
+    <!-- Add Type Ends -->

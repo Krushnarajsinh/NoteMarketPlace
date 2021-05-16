@@ -27,7 +27,6 @@ namespace MyNoteMarketPlace
     
         public virtual DbSet<UserRoles> UserRoles { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-        public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<Countries> Countries { get; set; }
         public virtual DbSet<Downloads> Downloads { get; set; }
         public virtual DbSet<NoteCategories> NoteCategories { get; set; }
@@ -41,5 +40,6 @@ namespace MyNoteMarketPlace
         public virtual DbSet<ContactUs> ContactUs { get; set; }
         public virtual DbSet<SellerNotes> SellerNotes { get; set; }
         public virtual DbSet<UserProfile> UserProfile { get; set; }
+        public virtual DbSet<Admin> Admin { get; set; }
     }
 }

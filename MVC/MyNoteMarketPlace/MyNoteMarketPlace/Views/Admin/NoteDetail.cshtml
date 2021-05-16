@@ -1,0 +1,233 @@
+﻿@model MyNoteMarketPlace.Models.AdminNoteDetailModel
+    @{
+        ViewBag.Title = "NoteDetail";
+        Layout = "~/Views/Shared/_AdminNav.cshtml";
+    }
+
+
+    <!-- Detail Section -->
+    <section id="notesdetail-detail">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-12 col-sm-12">
+                    <div class="head">
+                        <h3>Notes Details</h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-7">
+                            <div class="row docenter">
+                                <div class=" col-12 col-sm-5 col-md-5 col-lg-5">
+                                    <!--  <img class="img-fluid" src="img/Notes Details/1.jpg"> -->
+                                    @if (Model.SellerNote.DisplayPicture != null)
+                                    {
+                                        <img src="@Url.Content(Model.SellerNote.DisplayPicture)" class="img-fluid">
+                                    }
+                                    else
+                                    {
+                                        using (var context = new Datebase1Entities())
+                                        {
+                                            var defaultNote = context.SystemConfigurations.Where(x => x.Key.ToLower() == "defaultnote").FirstOrDefault();
+                                            <img src="@Url.Content(defaultNote.Value)" alt="note" class="img-fluid">
+                                        }
+                                    }
+                                </div>
+                                <div class="col-12 col-sm-7 col-md-7 col-lg-7">
+
+                                    <h2>@Model.SellerNote.Title</h2>
+                                    <h5>@Model.SellerNote.NoteCategories.Name</h5>
+                                    <p class="text-left">@Model.SellerNote.Description </p>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-7 col-lg-9">
+                                            <button type="submit" class="btn text-uppercase text-center" id="mybtn" onclick="location.href='@Url.Action("AdminDownloadNote", "Admin", new { noteid = @Model.SellerNote.ID })'" ><b>download/ $@Model.SellerNote.SellingPrice</b></button>
+
+                                          
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-5 margin-top">
+                            <div class="row">
+                                <div class="col-5 col-sm-5 col-md-5 left-side-note">
+                                    <h5>Institution:</h5>
+                                    <h5>Country:</h5>
+                                    <h5>Course Name:</h5>
+                                    <h5>Course Code:</h5>
+                                    <h5>Professor:</h5>
+                                    <h5>Number of Pages:</h5>
+                                    <h5>Approved Date:</h5>
+                                    <h5>Rating:</h5>
+                                </div>
+                                <div class="col-7 col-sm-7 col-md-7 right-side-note text-right">
+                                    <h5>@Model.SellerNote.UniversityName</h5>
+
+
+                                    @if (@Model.SellerNote.Country != null)
+                                    {
+                                        <h5>@Model.SellerNote.Countries.Name</h5>
+                                    }
+                                    else
+                                    {
+                                        <h5></h5>
+                                    }
+                                    <h5>@Model.SellerNote.Course</h5>
+                                    <h5>@Model.SellerNote.CourseCode</h5>
+                                    <h5>@Model.SellerNote.Professor</h5>
+
+                                    @if (Model.SellerNote.NumberofPages != null)
+                                    {
+                                        <h5>@Model.SellerNote.NumberofPages</h5>
+                                    }
+                                    else
+                                    {
+                                        <h5></h5>
+                                    }
+                                   
+                                    @if (Model.SellerNote.PublishedDate != null)
+                                    {
+                                       <h5>@Model.SellerNote.PublishedDate.Value.ToString("MMM dd yyyy")</h5>
+                                    }
+                                    else
+                                    {
+                                       <h5></h5>
+                                    }
+                                <div class="rate-fa">
+
+                                 
+                                    @for (var i = 0; i < 5; i++)
+                                    {
+                                        if (i < Model.AverageRating)
+                                        {
+                                            <i class="fa fa-star giverate"></i>
+                                        }
+                                        else
+                                        {
+                                            <i class="fa fa-star-o"></i>
+                                        }
+                                    }
+
+                                   <i class="numofreview">@Model.TotalReview Reviews</i>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="inappropriate">
+                                <p>@Model.TotalSpamReport User marked this note as inappropriate</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Detail Section Ends-->
+
+    <div class="content-box-md">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Preview Section -->
+    <section id="notesdetail-preview">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-5">
+                    <div class="head">
+                        <h3>Notes Preview</h3>
+                    </div>
+                    <div id="Iframe-Cicis-Menu-To-Go" class="set-margin-cicis-menu-to-go set-padding-cicis-menu-to-go set-border-cicis-menu-to-go set-box-shadow-cicis-menu-to-go center-block-horiz">
+                        <div class="responsive-wrapper
+     responsive-wrapper-padding-bottom-90pct" style="-webkit-overflow-scrolling: touch; overflow: auto;">
+
+                          <!--  <iframe src="http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf">
+                                <p style="font-size: 110%;">
+                                    <em>
+                                        <strong>ERROR: </strong>
+                                        An &#105;frame should be displayed here but your browser version does not support &#105;frames.
+                                    </em> Please update your browser to its most recent version and try again, or access the file <a href="http://unec.edu.az/application/uploads/2014/12/pdf-sample.pdf">with this link.</a>
+                                </p>
+                            </iframe> -->
+
+                            @if (Model.SellerNote.NotesPreview != null)
+                            {
+                                <iframe src="@Url.Content(Model.SellerNote.NotesPreview)"></iframe>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-12 col-lg-7 margin-top">
+                    <div class="head">
+                        <h3>Customer Reviews</h3>
+                    </div>
+
+                    <div class="customer-reviews">
+                        @foreach (var item in Model.NotesReview)
+                        {
+                            <div class="row">
+                                <div class="col-3 col-sm-3 col-md-2">
+                                    <!-- <img src="img/home/customer-1.png" alt="user" class="img-fluid rounded-circle"> -->
+
+                                    @if (item.TblUserProfile.Profile_Picture != null)
+                                    {
+                                        <img src="@Url.Content(item.TblUserProfile.Profile_Picture)" class="img-fluid rounded-circle" alt="user">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/DefaultImage/profile.png" class="img-fluid rounded-circle" alt="user">
+                                    }
+                                </div>
+                                <div class="col-9 col-sm-9 col-md-10">
+                                    <h5>@item.TblUser.FirstName @item.TblUser.LastName</h5>
+                                    <a href="@Url.Action("DeleteReview", "Admin", new { id = @item.TblSellerNotesReview.ID } )"><img src="~/Img/Admin/Dashboard/delete.png"></a>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="rate-fa">
+
+                                                @for (var i = 0; i < 5; i++)
+                                                {
+                                                    if (i < item.TblSellerNotesReview.Ratings)
+                                                    {
+                                                        <i class="fa fa-star giverate"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="fa fa-star-o"></i>
+                                                    }
+                                                }
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <p>@item.TblSellerNotesReview.Comments </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <hr>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                </div>
+            </div>
+        </div>
+        </div> 
+    </section>
+    <!-- Preview Section Ends -->

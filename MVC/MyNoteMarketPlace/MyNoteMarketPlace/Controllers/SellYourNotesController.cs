@@ -1,4 +1,5 @@
 ﻿using MyNoteMarketPlace.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,15 +14,16 @@ using System.Web.UI.WebControls;
 
 namespace MyNoteMarketPlace.Controllers
 {
+    [OutputCache(Duration = 0)]
     public class SellYourNotesController : Controller
 
     {
         readonly private Datebase1Entities context = new Datebase1Entities();
         // GET: Dashboard
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [Route("SellYourNotes")]
-        public ActionResult Dashboard(string search1, string search2, string sort1, string sort2, int page1 = 1, int page2 = 1)
+        public ActionResult Dashboard(string search1, string search2, string sort1, string sort2, int? page1 , int? page2)
         {
            
             ViewBag.SellYourNotes = "active";
@@ -47,16 +49,20 @@ namespace MyNoteMarketPlace.Controllers
             //seller doesn't allow for download and attachmentpath is null
             dashboard.BuyerRequest = context.Downloads.Where(x => x.Seller == user.ID && x.IsSellerHasAllowedDownload == false && x.AttachmentPath == null).Count();
 
+            //Take Two IENumerable List 
+            IEnumerable<SellerNotes> inprogress;
+            IEnumerable<SellerNotes> published;
+
           //If User Doesn't Search Yet
             if (string.IsNullOrEmpty(search1))
             {
-                dashboard.ProgressNotes = context.SellerNotes.Where(x => x.SellerID == user.ID && (x.Status == 6 || x.Status == 7 || x.Status == 8));
+                inprogress = context.SellerNotes.Where(x => x.SellerID == user.ID && (x.Status == 6 || x.Status == 7 || x.Status == 8));
             }
             //If User Search Something
             else
             {
                 search1 = search1.ToLower();
-                dashboard.ProgressNotes = context.SellerNotes.Where
+                inprogress = context.SellerNotes.Where
                                                                      (
                                                                         x => x.SellerID == user.ID &&
                                                                         (x.Status == 6 || x.Status == 7 || x.Status == 8) &&
@@ -66,13 +72,13 @@ namespace MyNoteMarketPlace.Controllers
             
             if (string.IsNullOrEmpty(search2))
             {
-                dashboard.PublishedNotes = context.SellerNotes.Where(x => x.SellerID == user.ID && x.Status == 9);
+                published = context.SellerNotes.Where(x => x.SellerID == user.ID && x.Status == 9);
             }
            
             else
             {
                 search2 = search2.ToLower();
-                dashboard.PublishedNotes = context.SellerNotes.Where
+                published = context.SellerNotes.Where
                                                     (
                                                         x => x.SellerID == user.ID &&
                                                         x.Status == 9 &&
@@ -81,16 +87,16 @@ namespace MyNoteMarketPlace.Controllers
             }
 
 
-            dashboard.ProgressNotes = SortInProgressNoteTable(sort1, dashboard.ProgressNotes);
-            dashboard.PublishedNotes = SortPublishNoteTable(sort2, dashboard.PublishedNotes);
-
-            
-            ViewBag.TotalPagesInProgress = Math.Ceiling(dashboard.ProgressNotes.Count() / 5.0);
-            ViewBag.TotalPagesInPublished = Math.Ceiling(dashboard.PublishedNotes.Count() / 5.0);
+            inprogress = SortInProgressNoteTable(sort1, inprogress);
+            published = SortPublishNoteTable(sort2, published);
 
 
-            dashboard.ProgressNotes = dashboard.ProgressNotes.Skip((page1 - 1) * 5).Take(5);
-            dashboard.PublishedNotes = dashboard.PublishedNotes.Skip((page2 - 1) * 5).Take(5);
+            //  ViewBag.TotalPagesInProgress = Math.Ceiling(dashboard.ProgressNotes.Count() / 5.0);
+            //   ViewBag.TotalPagesInPublished = Math.Ceiling(dashboard.PublishedNotes.Count() / 5.0);
+
+
+            dashboard.ProgressNotes = inprogress.ToList().AsQueryable().ToPagedList(page1 ?? 1, 5);
+            dashboard.PublishedNotes = published.ToList().AsQueryable().ToPagedList(page2 ?? 1, 5);
 
             return View(dashboard);
         }
@@ -213,8 +219,8 @@ namespace MyNoteMarketPlace.Controllers
             return publishnotes;
         }
 
-        [Authorize]
-       // [Route("SellYourNotes/DeleteDraft/{id}")]
+        [Authorize(Roles = "Member")]
+        // [Route("SellYourNotes/DeleteDraft/{id}")]
         public ActionResult DeleteDraft(int id)
         {
             
@@ -287,7 +293,7 @@ namespace MyNoteMarketPlace.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [Route("SellYourNotes/AddNotes")]
         public ActionResult AddNotes() {
             AddNotesViewModel Model = new AddNotesViewModel
@@ -302,7 +308,7 @@ namespace MyNoteMarketPlace.Controllers
 
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [ValidateAntiForgeryToken]
         [Route("SellYourNotes/AddNotes")]
         public ActionResult AddNotes(AddNotesViewModel addnotesmodel)
@@ -450,7 +456,7 @@ namespace MyNoteMarketPlace.Controllers
 
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [Route("SellYourNotes/EditNotes/{id}")]
         public ActionResult EditNotes(int id)
         {
@@ -501,7 +507,7 @@ namespace MyNoteMarketPlace.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [ValidateAntiForgeryToken]
         [Route("SellYourNotes/EditNotes/{id}")]
         public ActionResult EditNotes(int id, EditNotesViewModel notes)
@@ -660,7 +666,7 @@ namespace MyNoteMarketPlace.Controllers
 
 
 
-        [Authorize]
+        [Authorize(Roles = "Member")]
         public ActionResult PublishNote(int id)
         {
             // get note for perticular id
@@ -701,7 +707,7 @@ namespace MyNoteMarketPlace.Controllers
             var email = context.SystemConfigurations.Where(x => x.Key == "supportemail").FirstOrDefault();
            
             var receiver = context.SystemConfigurations.Where(x => x.Key == "adminemail").FirstOrDefault();
-            var fromEmailPassword = "***********"; // Replace with your original password
+            var fromEmailPassword = "*********"; // Replace with your original password
             
 
             string from, to, subject;

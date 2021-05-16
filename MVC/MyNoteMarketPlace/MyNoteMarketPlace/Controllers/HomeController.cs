@@ -11,6 +11,7 @@ namespace MyNoteMarketPlace.Controllers
     {
         // GET: Home
         [Route("")]
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();

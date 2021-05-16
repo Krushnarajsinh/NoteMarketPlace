@@ -10,6 +10,7 @@ namespace MyNoteMarketPlace.Controllers
     {
         // GET: FAQ
         [Route("FAQ")]
+        [AllowAnonymous]
         public ActionResult FAQ()
         {
           

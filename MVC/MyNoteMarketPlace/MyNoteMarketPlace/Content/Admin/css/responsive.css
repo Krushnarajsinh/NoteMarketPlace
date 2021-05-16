@@ -1,4 +1,13 @@
-
+/*===============================
+ for table scroll in small size screen
+================================*/
+/*@media(max-width:1550px) {
+    .table-responsive-xl {
+        display: block !important;
+        width: 100% !important;
+        overflow-x: auto !important;
+    }
+}*/
 /*===============================
             Header
 ================================*/
@@ -174,6 +183,7 @@
             Upto 991
 ================================*/
 @media (max-width: 991px) {
+    
      .top-table {
          text-align: center;
      }

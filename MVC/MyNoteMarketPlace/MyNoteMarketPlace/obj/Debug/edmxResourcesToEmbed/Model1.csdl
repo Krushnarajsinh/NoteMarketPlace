@@ -40,6 +40,7 @@
     <NavigationProperty Name="SellerNotes" Relationship="Datebase1Model.SellerNotes_ActionedBy_FK" FromRole="Users" ToRole="SellerNotes" />
     <NavigationProperty Name="SellerNotes1" Relationship="Datebase1Model.SellerNotes_SellerID_FK" FromRole="Users" ToRole="SellerNotes" />
     <NavigationProperty Name="UserProfile" Relationship="Datebase1Model.FK_UserProfile_Users" FromRole="Users" ToRole="UserProfile" />
+    <NavigationProperty Name="Admin" Relationship="Datebase1Model.FK_Admin_Users" FromRole="Users" ToRole="Admin" />
   </EntityType>
   <Association Name="C_Users_Users">
     <End Role="Users" Type="Self.Users" Multiplicity="1" />
@@ -60,7 +61,6 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="Users1" EntitySet="Users" />
     </AssociationSet>
-    <EntitySet Name="Admin" EntityType="Datebase1Model.Admin" />
     <EntitySet Name="Countries" EntityType="Datebase1Model.Countries" />
     <EntitySet Name="Downloads" EntityType="Datebase1Model.Downloads" />
     <EntitySet Name="NoteCategories" EntityType="Datebase1Model.NoteCategories" />
@@ -150,24 +150,12 @@
       <End Role="Users" EntitySet="Users" />
       <End Role="UserProfile" EntitySet="UserProfile" />
     </AssociationSet>
+    <EntitySet Name="Admin" EntityType="Datebase1Model.Admin" />
+    <AssociationSet Name="FK_Admin_Users" Association="Datebase1Model.FK_Admin_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Admin" EntitySet="Admin" />
+    </AssociationSet>
   </EntityContainer>
-  <EntityType Name="Admin">
-    <Key>
-      <PropertyRef Name="ID" />
-    </Key>
-    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="EmailID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="SecondaryEmailID" Type="String" MaxLength="24" FixedLength="false" Unicode="false" />
-    <Property Name="Phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="Profile_Picture" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-    <Property Name="CreatedBy" Type="Int32" />
-    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-    <Property Name="ModifiedBy" Type="Int32" />
-    <Property Name="IsActive" Type="Boolean" Nullable="false" />
-  </EntityType>
   <EntityType Name="Countries">
     <Key>
       <PropertyRef Name="ID" />
@@ -639,6 +627,38 @@
       </Principal>
       <Dependent Role="UserProfile">
         <PropertyRef Name="User_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AdminID" Type="Int32" Nullable="false" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="EmailID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="SecondaryEmailID" Type="String" MaxLength="24" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumberCountryCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="Phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Profile_Picture" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+    <Property Name="ModifiedBy" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="Datebase1Model.FK_Admin_Users" FromRole="Admin" ToRole="Users" />
+  </EntityType>
+  <Association Name="FK_Admin_Users">
+    <End Type="Datebase1Model.Users" Role="Users" Multiplicity="1" />
+    <End Type="Datebase1Model.Admin" Role="Admin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Admin">
+        <PropertyRef Name="AdminID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

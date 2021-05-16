@@ -1,4 +1,5 @@
 ﻿using MyNoteMarketPlace.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +10,16 @@ using System.Web.Mvc;
 
 namespace MyNoteMarketPlace.Controllers
 {
+    [OutputCache(Duration = 0)]
     public class BuyerRequestController : Controller
     {
         readonly private Datebase1Entities context = new Datebase1Entities();
-        private string to;
+       
 
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [Route("BuyerRequest")]
         // GET: BuyerRequest
-        public ActionResult BuyerRequest(string search, string sort, int page = 1)
+        public ActionResult BuyerRequest(string search, string sort, int? page )
         {
            
             ViewBag.BuyerRequest = "active";
@@ -52,12 +54,17 @@ namespace MyNoteMarketPlace.Controllers
 
           
             buyerrequest = SortBuyerRequestTable(sort, buyerrequest);
-            // get total pages of buyerrequest
+
+            /* get total pages of buyerrequest
             ViewBag.TotalPages = Math.Ceiling(buyerrequest.Count() / 10.0);
             // get result according to pagination
-            buyerrequest = buyerrequest.Skip((page - 1) * 10).Take(10);
+            buyerrequest = buyerrequest.Skip((page - 1) * 10).Take(10); */
 
-            return View(buyerrequest);
+            var result = new List<BuyerRequestViewModel>();
+            result = buyerrequest.ToList();
+
+            //  return View(buyerrequest);
+            return View(result.ToList().AsQueryable().ToPagedList(page ?? 1, 10));
         }
 
         private IEnumerable<BuyerRequestViewModel> SortBuyerRequestTable(string sort, IEnumerable<BuyerRequestViewModel> buyerrequest)
@@ -144,7 +151,7 @@ namespace MyNoteMarketPlace.Controllers
         }
 
 
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [Route("BuyerRequest/AllowDownload/{id}")]
         public ActionResult AllowDownload(int id)
         {

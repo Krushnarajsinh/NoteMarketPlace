@@ -16,11 +16,13 @@ using System.Web.Mvc;
 
 namespace MyNoteMarketPlace.Controllers
 {
+    [OutputCache(Duration = 0)]
     public class NotesDetailsController : Controller
     {
         readonly private Datebase1Entities context = new Datebase1Entities();
         // GET: NotesDetails
         [Route("NotesDetails/Notes/{id}")]
+        [AllowAnonymous]
         public ActionResult Notes(int id)
         {
             // get logged in user if user is logged in 
@@ -93,7 +95,7 @@ namespace MyNoteMarketPlace.Controllers
             return View(notesdetail);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [Route("NotesDetails/Notes/{noteid}/Download")]
         public ActionResult DownloadNotes(int noteid)
         {
@@ -241,7 +243,7 @@ namespace MyNoteMarketPlace.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Member")]
         [Route("NotesDetails/Notes/{noteid}/Request")]
         public ActionResult RequestPaidNotes(int noteid)
         {

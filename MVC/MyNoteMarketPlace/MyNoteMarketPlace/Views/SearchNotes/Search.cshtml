@@ -1,4 +1,6 @@
-﻿@model IEnumerable<MyNoteMarketPlace.Models.SearchNotesViewModel>
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<MyNoteMarketPlace.Models.SearchNotesViewModel>
 @{
 
     ViewBag.Title = "Search Notes";
@@ -50,7 +52,7 @@
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="~/Content/Front/css/responsive.css">
     <style>
-          .upload-pic .mypic {
+        .upload-pic .mypic {
             position: absolute;
             top: 50% !important;
             left: 50%;
@@ -128,8 +130,6 @@
         </nav>
     </header>
     <!-- Header Ends -->
-
-
     <!-- Search Page -->
     <!-- Top Image --->
     <section id="add-notes-top">
@@ -338,108 +338,40 @@
     </section>
     <!-- Total 18 Notes Ends  -->
     <!-- Pagination -->
-    <!--<nav aria-label="Page navigation example">
+    <nav aria-label="Page navigation example">
         <div class="container">
             <div class="row justify-content-center">
 
-                <ul class="pagination mypagination">
-                    <li class="page-item">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa fa-angle-left "></i></a>
-                    </li>
-                    <li class="page-item selected"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa fa-angle-right"></i></a>
-                    </li>
-                </ul>
+                <!--  <ul class="pagination mypagination top-page">
+                      <li class="page-item">
+                          <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa fa-angle-left "></i></a>
+                      </li>
+                      <li class="page-item selected"><a class="page-link" href="#">1</a></li>
+                      <li class="page-item"><a class="page-link" href="#">2</a></li>
+                      <li class="page-item"><a class="page-link" href="#">3</a></li>
+                      <li class="page-item"><a class="page-link" href="#">4</a></li>
+                      <li class="page-item"><a class="page-link" href="#">5</a></li>
+                      <li class="page-item">
+                          <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fa fa-angle-right"></i></a>
+                      </li>
+                  </ul> -->
+
+                @Html.PagedListPager(Model, page => Url.Action("Search", new { page, search = @ViewBag.Search, sort = @ViewBag.Sort }), new PagedList.Mvc.PagedListRenderOptions
+           {
+               LiElementClasses = new[] { "page-item" },
+               UlElementClasses = new[] { "pagination mypagination top-page" },
+               LinkToNextPageFormat = ">",
+               LinkToPreviousPageFormat = "<",
+               DisplayEllipsesWhenNotShowingAllPageNumbers = false,
+               DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+               DisplayLinkToLastPage = PagedListDisplayMode.Never
+           })
+
             </div>
         </div>
-    </nav>-->
+    </nav>
+
     <!-- Pagination Ends -->
-    @if (Model.Count() != 0)
-    {
-        <div class="row justify-content-center">
-
-            <nav aria-label="...">
-                <ul class="pagination flex-wrap">
-
-                    <li class="page-item">
-                        @if (ViewBag.PageNumber == 1)
-                        {
-                            <a class="page-link" href="@Url.Action("Search",  new { search = ViewBag.Search , type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = @ViewBag.PageNumber })"><i class="fa fa-angle-left"></i></a>
-                        }
-                        else
-                        {
-                            <a class="page-link" href="@Url.Action("Search", new { search = ViewBag.Search , type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = @ViewBag.PageNumber - 1 })"><i class="fa fa-angle-left"></i></a>
-                        }
-                    </li>
-
-                    @{
-                        double? TotalPages = ViewBag.TotalPages;
-
-                        if (ViewBag.PageNumber != 1 && ViewBag.PageNumber - 2 > 1)
-                        {
-                            int page = Convert.ToInt32(@ViewBag.PageNumber) - 3;
-                            <li class="page-item">@Html.ActionLink("1", "Search", new { search = ViewBag.Search, type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = 1 }, new { @class = "page-link" })</li>
-                            if (page != 1)
-                            {
-                                <li class="page-item more-pages-dots">@Html.ActionLink("...", "Search", new { search = ViewBag.Search, type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = page }, new { @class = "page-link more-pages-dots" })</li>
-                            }
-                        }
-
-                        for (int i = 2; i > 0; i--)
-                        {
-                            if (ViewBag.PageNumber - i > 0)
-                            {
-                                int page = Convert.ToInt32(@ViewBag.PageNumber) - i;
-                                <li class="page-item">@Html.ActionLink(page.ToString(), "Search", new { search = ViewBag.Search, type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = page }, new { @class = "page-link" })</li>
-                            }
-                        }
-
-                        <li class="page-item active">
-                            <a class="page-link">@ViewBag.PageNumber<span class="sr-only">(current)</span></a>
-                        </li>
-
-                        for (int i = 1; i < 3; i++)
-                        {
-                            if (ViewBag.PageNumber + i <= TotalPages)
-                            {
-                                int page = Convert.ToInt32(@ViewBag.PageNumber) + i;
-                                <li class="page-item">@Html.ActionLink(page.ToString(), "Search", new { search = ViewBag.Search, type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = page }, new { @class = "page-link" })</li>
-                            }
-                        }
-
-                        if (ViewBag.PageNumber != TotalPages && ViewBag.PageNumber + 2 < TotalPages)
-                        {
-                            int page = Convert.ToInt32(@ViewBag.PageNumber) + 3;
-                            if (page != TotalPages)
-                            {
-                                <li class="page-item">@Html.ActionLink("...", "Search", new { search = ViewBag.Search, type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = page }, new { @class = "page-link more-pages-dots" })</li>
-                            }
-                            <li class="page-item">@Html.ActionLink(TotalPages.ToString(), "Search", new { search = ViewBag.Search, type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = TotalPages }, new { @class = "page-link" })</li>
-                        }
-                    }
-
-                    <li class="page-item">
-                        @if (ViewBag.PageNumber == TotalPages)
-                        {
-                            <a class="page-link" href="@Url.Action("Search", new { search = ViewBag.Search , type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = @ViewBag.PageNumber })"><i class="fa fa-angle-right"></i></a>
-                        }
-                        else
-                        {
-                            <a class="page-link" href="@Url.Action("Search", new { search = ViewBag.Search , type = ViewBag.Type, category = ViewBag.Category, university = ViewBag.University, course = ViewBag.Course, country = ViewBag.Country, ratings = ViewBag.Rating, page = @ViewBag.PageNumber + 1 })"><i class="fa fa-angle-right"></i></a>
-                        }
-                    </li>
-
-                </ul>
-            </nav>
-
-        </div>
-    }
-
     <!-- Search Page Ends -->
     <!-- footer -->
 

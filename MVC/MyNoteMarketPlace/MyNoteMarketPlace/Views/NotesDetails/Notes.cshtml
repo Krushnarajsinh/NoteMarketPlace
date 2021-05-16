@@ -10,6 +10,14 @@
         .btn-confirm a.btn.btn-no {
             margin-left: 0px !important;
         }
+
+        .cus-img img {
+                  width:100px;
+                  height:100px;
+         }
+    
+
+
     </style>
 }
 
@@ -213,7 +221,7 @@
                         {
                             <h5></h5>
                         }
-                        <div class="rate-fa " style="margin-right: 20px !important;">
+                        <div class="rate-fa " style=" margin-right: 20px !important;">
 
                             @for (var i = 0; i < 5; i++)
                             {
@@ -286,48 +294,48 @@
                     @foreach (var item in Model.NotesReview)
                     {
 
-                        <div class="row ">
-                            <div class="col-3 col-sm-3 col-md-2 col-sm-2 col-xs-3 cus-img">
-                                <!-- <img src="~/Img/Front/home/customer-1.png" alt="user" class="img-fluid img-circle"> -->
+                    <div class="row ">
+                        <div class="col-3 col-sm-3 col-md-2 col-sm-2 col-xs-3 cus-img">
+                            <!-- <img src="~/Img/Front/home/customer-1.png" alt="user" class="img-fluid img-circle"> -->
 
-                                @if (item.TblUserProfile.Profile_Picture != null)
-                                {
-                                    <img src="@Url.Content(item.TblUserProfile.Profile_Picture)" alt="user" class="img-circle img-fluid">
-                                }
-                                else
-                                {
-                                    <img src="~/DefaultImage/profile.png" class="img-fluid img-circle" alt="user">
-                                }
+                            @if (item.TblUserProfile.Profile_Picture != null)
+                            {
+                                <img src="@Url.Content(item.TblUserProfile.Profile_Picture)" alt="user" class="img-fluid img-circle">
+                            }
+                            else
+                            {
+                                <img src="~/DefaultImage/profile.png" class="img-fluid img-circle" alt="user">
+                            }
 
-                            </div>
-                            <div class="col-9 col-sm-9 col-md-10 col-sm-10 col-xs-9 cus-details">
-                                <h5>@item.TblUser.FirstName @item.TblUser.LastName</h5>
-                                <div class="row stras-padding">
-                                    <div class="col-md-12 col-sm-12 col-12 col-xs-12">
-                                        <div class="rate-fa">
+                        </div>
+                        <div class="col-9 col-sm-9 col-md-10 col-sm-10 col-xs-9 cus-details">
+                            <h5>@item.TblUser.FirstName @item.TblUser.LastName</h5>
+                            <div class="row stras-padding">
+                                <div class="col-md-12 col-sm-12 col-12 col-xs-12">
+                                    <div class="rate-fa">
 
-                                            @for (var i = 0; i < 5; i++)
+                                        @for (var i = 0; i < 5; i++)
+                                        {
+                                            if (i < item.TblSellerNotesReview.Ratings)
                                             {
-                                                if (i < item.TblSellerNotesReview.Ratings)
-                                                {
-                                                    <i class="fa fa-star giverate"></i>
-                                                }
-                                                else
-                                                {
-                                                    <i class="fa fa-star-o"></i>
-                                                }
+                                                <i class="fa fa-star giverate"></i>
                                             }
+                                            else
+                                            {
+                                                <i class="fa fa-star-o"></i>
+                                            }
+                                        }
 
-                                        </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12 col-sm-12 col-12 col-xs-12">
-                                        <p>@item.TblSellerNotesReview.Comments </p>
-                                    </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-12 col-xs-12">
+                                    <p>@item.TblSellerNotesReview.Comments </p>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
                         <div class="container">
                             <div class="row">

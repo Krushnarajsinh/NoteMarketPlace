@@ -1,0 +1,171 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<MyNoteMarketPlace.Models.ManageCountryModel>
+@{
+    ViewBag.Title = "Edit Country";
+    Layout = "~/Views/Shared/_AdminNav.cshtml";
+}
+@{
+<style>
+
+    .pagination {
+        margin-left: 40% !important;
+        margin-top: 10px;
+    }
+
+    #dashboard-publish Input[type=search] {
+        width: 322px;
+        border: 1px solid #d1d1d1;
+        margin-bottom: 20px;
+        margin-left: -100px;
+    }
+
+    .btn-confirm .btn-no {
+        margin-left: 0px !important;
+    }
+
+    .wrapper img.searchimage.doup {
+        position: absolute;
+        left: -40%;
+        top: 23%;
+    }
+
+    .search-bar {
+        height: 50px;
+    }
+</style>
+}
+<!-- Manage Country -->
+<section id="dashboard-publish" class="mydownload-margin">
+    <div class="container">
+        @using (Html.BeginForm("ManageCountry", "AdminSettings", FormMethod.Get))
+        {
+            <div class="row top-table">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                    <h3>Manage Country</h3>
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+
+                    <button type="submit" class="btn text-uppercase text-center addbutton" id="" onclick="location.href='@Url.Action("AddCountry", "AdminSettings")'"><b>Add Country</b></button>
+
+                </div>
+                <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+                    <div class="row justify-content-end">
+                        <div class="wrapper">
+                            <img src="~/Img/Admin/Dashboard/search.jpg" class="searchimage doup">
+                            <input type="search" value="@ViewBag.Search" name="search" id="search" class="form-control search-bar InputEmail1" placeholder="Search">
+                        </div>
+                        <div class="btn-merge">
+                            <button type="submit" class="btn text-uppercase text-center" id="mybtn"><b>Search</b></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="row">
+            <div class="col-md-12">
+                <div class="grid-table table-responsive-xl">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="align-middle text-center">SR NO.</th>
+                                <th scope="col" class="align-middle">@Html.ActionLink("COUNTRY NAME", "ManageCountry", new { sort = ViewBag.Sort == null ? "CountryName_Desc" : (ViewBag.Sort == "CountryName_Asc" ? "CountryName_Desc" : "CountryName_Asc"), search = ViewBag.Search })</th>
+                                <th scope="col" class="align-middle"> @Html.ActionLink("COUNTRY CODE", "ManageCountry", new { sort = ViewBag.Sort == null ? "CountryCode_Desc" : (ViewBag.Sort == "CountryCode_Asc" ? "CountryCode_Desc" : "CountryCode_Asc"), search = ViewBag.Search })</th>
+                                <th scope="col" class="align-middle">@Html.ActionLink("DATE ADDED", "ManageCountry", new { sort = ViewBag.Sort == null ? "DateAdded_Asc" : (ViewBag.Sort == "DateAdded_Desc" ? "DateAdded_Asc" : "DateAdded_Desc"), search = ViewBag.Search })</th>
+                                <th scope="col" class="align-middle">@Html.ActionLink("ADDED BY", "ManageCountry", new { sort = ViewBag.Sort == null ? "AddedBy_Desc" : (ViewBag.Sort == "AddedBy_Asc" ? "AddedBy_Desc" : "AddedBy_Asc"), search = ViewBag.Search })</th>
+                                <th scope="col" class="align-middle">@Html.ActionLink("ACTIVE", "ManageCountry", new { sort = ViewBag.Sort == null ? "Active_Desc" : (ViewBag.Sort == "Active_Asc" ? "Active_Desc" : "Active_Asc"), search = ViewBag.Search })</th>
+                                <th scope="col" class="align-middle">ACTION</th>
+                                <th scope="col" class="align-middle"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Count() == 0)
+                            {
+                                <tr>
+                                    <td colspan="8" class="align-middle text-center">No Record Found</td>
+                                </tr>
+                            }
+                            else
+                            {
+                                int srno = 0;
+                                if (ViewBag.PageNumber == null)
+                                {
+                                    srno = 0;
+                                }
+                                else
+                                {
+                                    srno = (ViewBag.PageNumber - 1) * 5;
+                                }
+                                foreach (var item in Model)
+                                {
+
+                                    <tr>
+                                        @{ srno = srno + 1; }
+                                        <td class="align-middle text-center">@srno</td>
+                                        <td class="align-middle">@item.CountryName</td>
+                                        <td class="align-middle">@item.CountryCode</td>
+                                        <td class="align-middle">@item.DateAdded.ToString("dd-MM-yyyy, hh:mm")</td>
+                                        <td class="align-middle">@item.AddedBy</td>
+                                        <td class="align-middle">@item.Active</td>
+                                        <td class="align-middle">
+                                            <a href="@Url.Action("EditCountry", "AdminSettings", new { id = @item.ID })"><img src="~/Img/Admin/images/edit.png"></a>
+                                            <a data-toggle="modal" data-target="#deletecountry-@item.ID" role="button">
+                                                <img src="~/Img/Admin/images/delete.png" class="leftmar">
+                                            </a>
+
+                                            <!-- Section Confirmation Box -->
+                                            <div class="modal fade " id="deletecountry-@item.ID" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-confirm-body">
+                                                            <div>
+                                                                <p class="confirm-text">
+                                                                    Are you sure you want to make this country inactive?
+                                                                </p>
+
+                                                                <div class="btn-confirm">
+                                                                    <a class="btn btn-yes" href="@Url.Action("DeleteCountry", "AdminSettings", new { id = @item.ID })" id="confirmationbutton" role="button">YES</a>
+                                                                    <a class="btn btn-no" data-dismiss="modal" aria-label="Close" role="button">NO</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Section Confirmation-Box END -->
+                                        </td>
+                                        <td></td>
+
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</section>
+<!-- Manage Country ends -->
+<!-- Pagination -->
+<nav>
+    <div class="container">
+        <div class="row justify-content-center">
+
+            @Html.PagedListPager(Model, page => Url.Action("ManageCountry", new { page, search = @ViewBag.Search, sort = @ViewBag.Sort }), new PagedList.Mvc.PagedListRenderOptions
+             {
+                 LiElementClasses = new[] { "page-item" },
+                 UlElementClasses = new[] { "pagination mypagination top-page" },
+                 LinkToNextPageFormat = ">",
+                 LinkToPreviousPageFormat = "<",
+                 DisplayEllipsesWhenNotShowingAllPageNumbers = false,
+                 DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+                 DisplayLinkToLastPage = PagedListDisplayMode.Never
+             })
+        </div>
+    </div>
+</nav>
+<!-- Pagination ends-->

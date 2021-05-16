@@ -35,6 +35,9 @@
 <body data-spy="scroll" data-target=".navbar" data-offset="65">
     <!-- Header -->
     <header>
+        @{
+            var context = new Datebase1Entities();
+        }
         <nav class="navbar navbar-fixed-top">
             <div class="container-fluid">
                 <div class="site-nav-wrapper">
@@ -178,11 +181,17 @@
                             Copyright &copy;Tatvasoft All Rights Reserved.
                         </p>
                     </div>
+                    @{
+                        var facebook = context.SystemConfigurations.Where(x => x.Key.ToLower() == "facebookurl").Select(x => x.Value).FirstOrDefault();
+                        var twitter = context.SystemConfigurations.Where(x => x.Key.ToLower() == "twitterurl").Select(x => x.Value).FirstOrDefault();
+                        var linkedin = context.SystemConfigurations.Where(x => x.Key.ToLower() == "linkedinurl").Select(x => x.Value).FirstOrDefault();
+                    }
+
                     <div class="col-md-6 col-12 col-sm-6 col-xs-4 text-right">
                         <ul class="social-list notes-footer">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li><a href="@facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
+                            <li><a href="@twitter" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                            <li><a href="@linkedin" target="_blank"><i class="fa fa-linkedin"></i></a></li>
                         </ul>
                     </div>
                 </div>
